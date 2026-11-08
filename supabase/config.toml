@@ -1,0 +1,13 @@
+project_id = "karvbusca"
+
+[db]
+major_version = 17
+
+[auth]
+site_url = "https://busca.karv.tec.br"
+additional_redirect_urls = ["http://localhost:3000"]
+# só você entra: ninguém pode criar conta pelo site
+enable_signup = false
+
+[auth.email]
+enable_signup = false
