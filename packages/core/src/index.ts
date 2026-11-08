@@ -4,3 +4,4 @@ export * from "./match";
 export * from "./classify";
 export * from "./custo";
 export * from "./keywords";
+export * from "./parse";

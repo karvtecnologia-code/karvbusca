@@ -1,0 +1,1569 @@
+{
+ "total": 233,
+ "offers": [
+  {
+   "id": 5083667,
+   "indexationDate": "2026-11-08 19:06:24",
+   "lotNumber": 18,
+   "quantityInLot": 1,
+   "quantitySold": 0,
+   "quantityReserved": 0,
+   "totalReceivedProposals": 0,
+   "hasReceivedProposals": false,
+   "visits": 138,
+   "totalBidders": 0,
+   "totalBids": 0,
+   "totalReceivedBidsOrProposals": 0,
+   "hasBids": false,
+   "hasReceivedBidsOrProposals": false,
+   "endDate": "2026-11-13 16:22:00",
+   "endDateTime": 1794597720000,
+   "offerTypeId": 1,
+   "createAt": "2026-11-06 12:13:27",
+   "updateAt": "2026-11-06 13:48:45",
+   "publishedAt": "2026-11-06 13:48:45",
+   "statusId": 1,
+   "price": 3000,
+   "priceFormatted": "R$ 3.000,00",
+   "offerStatus": {
+    "statusCode": 1,
+    "removed": false,
+    "stabbed": false,
+    "subjudice": false,
+    "giveYourBid": true,
+    "wantToKnowThePrice": false,
+    "makeYourProposal": false,
+    "closedToBids": false,
+    "sold": false,
+    "reserved": false,
+    "available": false,
+    "closed": false
+   },
+   "store": {
+    "id": 32,
+    "name": "CPFL",
+    "highlight": true,
+    "storeVisibleOnPortal": true,
+    "position": 7,
+    "logoUri": "https://static.s4bdigital.net/logos_empresas/new_logo_cpfl.png"
+   },
+   "stores": [
+    {
+     "id": 32,
+     "name": "CPFL",
+     "highlight": true,
+     "storeVisibleOnPortal": true,
+     "position": 7,
+     "logoUri": "https://static.s4bdigital.net/logos_empresas/new_logo_cpfl.png"
+    },
+    {
+     "id": 1161,
+     "name": "SOLD",
+     "highlight": true,
+     "storeVisibleOnPortal": true,
+     "logoUri": "https://s.superbid.net/image/6a/67/6a670d93-0619-4cf2-9418-777f52aa84f5.png"
+    }
+   ],
+   "offerDetail": {
+    "id": 5083667,
+    "initialBidValue": 3000,
+    "initialBidValueFormatted": "R$ 3.000,00",
+    "currentMinBid": 3000,
+    "currentMinBidFormatted": "R$ 3.000,00",
+    "currentMaxBid": 3000,
+    "currentMaxBidFormatted": "R$ 3.000,00",
+    "releaseValue": 0,
+    "releaseValueFormatted": "R$ 0,00",
+    "reservedPrice": 19902.5,
+    "reservedPriceFormatted": "R$ 19.902,50"
+   },
+   "manager": {
+    "id": 9,
+    "name": "Sold Maisativo"
+   },
+   "currentTimestamp": "2026-11-08 19:44:40",
+   "auction": {
+    "id": 798620,
+    "desc": "CPFL",
+    "slugDesc": null,
+    "localeId": "pt_BR",
+    "currencyIso": "BRL",
+    "statusId": 1,
+    "permissionTypeId": 1,
+    "portalId": 2,
+    "modalityId": 1,
+    "modalityDesc": "Leilão",
+    "businessAreaId": 1,
+    "allOffersOfThisAuctionIsClosed": false,
+    "beginDate": "2026-11-06 11:57:00",
+    "endDate": "2026-11-13 16:15:00",
+    "maxEnddateOffer": "2026-11-13 16:31:00",
+    "subMarketplaces": [
+     {
+      "subMarketplaceId": 4,
+      "subMarketplaceDesc": "PME"
+     },
+     {
+      "subMarketplaceId": 1,
+      "subMarketplaceDesc": "Corporativo"
+     }
+    ],
+    "judicialPraca": null,
+    "judicialPracaDescription": "Praça Única",
+    "judicialControlNumber": null,
+    "auctioneer": "Renato Schlobach Moyses",
+    "registry": "654",
+    "address": {
+     "id": 27029,
+     "streetType": "Alameda",
+     "street": "Alameda Lorena",
+     "number": "800",
+     "complement": "2º andar",
+     "district": "Jardins",
+     "city": "São Paulo",
+     "stateCode": "SP",
+     "countryName": "Brasil",
+     "regionName": "Sudeste",
+     "type": 5
+    },
+    "crier": false,
+    "eventPipeline": null,
+    "lotAuctionTypeId": 1,
+    "isAfterMarket": null,
+    "internalParameters": {
+     "highlightUrlLink": null,
+     "hasAdvisorIntermediation": false
+    }
+   },
+   "winnerBid": {},
+   "currentBidIncrement": {
+    "currentBidIncrement": 500,
+    "currentBidIncrementFormatted": "R$ 500,00"
+   },
+   "offerDescription": {
+    "offerDescription": "FORD KA SE 1.5 HA B (DANO MEDIA MONTA) B 2017/2018, Placa FINAL 0, CH.:  (ID.: 51652) <span><span><p>Referência Local: Frota</p><p>Marca: FORD</p><p>Modelo: KA SE 1.5 HA B</p><p>Ano: 2018</p><p>Placa FINAL 0</p><p>Quilometragem acima de: 000</p><p>Cor: Branca</p><p>Combustivel: Flex (Álcool/Gasolina)</p><p>Chassi.: </p><p><br></p><p>Acessórios</p><p><br></p><p>N° de Portas: 4</p><p>Câmbio: Manual</p><p>Direção: Hidráulica</p><p>Ar Condicionado: Sim</p><p>Vidros: Dianteiros elétricos / Traseiros manuais</p><p>Rodas: Ferro</p><p>Bancos: Tecido</p><p>Aparelho de Som: Sim</p><p><br></p><p>Condições Gerais</p><p>Motor: Não testado</p><p>Pintura: Ruim</p><p>Lataria: Ruim</p><p>Tapeçaria: Regular</p><p>Pneus: Ruins</p><p><br></p><p>Observações</p><p><br></p><p>Chave Principal: Não</p><p>Chave Reserva: Não</p><p>Manual: Não</p><p><br></p><p>Comando no Volante: Não</p><p>Câmera de Ré: Não</p><p>Banco Elétrico do motorista: Não</p><p>Retrovisores elétricos: Não</p><p>Air Bag: Não</p><p>ABS: Não</p><p>Tração 4X4: Não</p><p>7 Lugares: Não</p><p>Protetor de Caçamba: Não</p><p>Lona Marítima: Não</p><p>Parabrisa: Quebrado</p><p>Parachoque Dianteiro: Avariado</p><p>Teto: Amassado</p><p>Paralama Diateiro Esquerdo: Amassado</p><p>Caixa de Ar Direita: Amassada</p><p>Porta Traseira Direita: Amassada</p><p>Porta Traseira Esquerda: Amassada</p><p>Parachoque Traseiro: Avariado</p><p>Porta Dianteira Esquerda: Amassada</p><p>Lateral Traseira Direita: Amassada</p><p>Lanterna Traseira Esquerda: Quebrada</p><p>Pneu traseiro direito: Murcho</p><p>Capô Traseiro: Amassado</p><p>Lateral Traseira Esquerda: Amassada</p><p>Retrovisor Esquerdo: Falta Retrovisor esquerdo</p><p>Pneu dianteiro esquerdo: Murcho</p><p>Pneu traseiro esquerdo: Murcho</p><p>Roda dianteira esquerda: Amassada</p><p>Roda traseira esquerda: Amassada</p><p>Painel de instrumentos: Avariado</p><p><br></p><p><br></p><p>Podendo faltar partes, peças e componentes</p><p>Apresenta riscos, mossas e amassados<br><br><br>Será de responsabilidade da empresa vendedora o pagamento dos débitos de eventuais multas de trânsito e IPVA relativos<br>ao(s) veículo(s) vendido(s) e anteriores à data do evento (exceto parcelas vincendas do IPVA, quando houver, as quais serão<br>suportadas pelo(s) comprador(es)).</span></span> 202602670 CPFL"
+   },
+   "groupOffer": {
+    "acceptProposal": true,
+    "commissionPercent": 5,
+    "id": 366227
+   },
+   "product": {
+    "productId": 3829882,
+    "shortDesc": "FORD KA SE 1.5 HA B (DANO MEDIA MONTA) B 2017/2018, Placa FINAL 0,  (ID.: 51652)",
+    "galleryJson": [
+     {
+      "originalFileName": "ENC_7ZXjkO0pN-8u9pVpO5XOAQ.jpeg",
+      "highlight": false,
+      "fileName": "1e71a28d-667d-45e0-b0f5-67c2d8a11618.jpg",
+      "link": "https://ms.sbwebservices.net/photos/1e71a28d-667d-45e0-b0f5-67c2d8a11618.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/1e71a28d-667d-45e0-b0f5-67c2d8a11618.jpg"
+     },
+     {
+      "originalFileName": "ENC_aG56Z5vQqjEglwuSk5uBaQ.jpeg",
+      "highlight": false,
+      "fileName": "f0484568-36c5-413b-86bd-ba114ecc180a.jpg",
+      "link": "https://ms.sbwebservices.net/photos/f0484568-36c5-413b-86bd-ba114ecc180a.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/f0484568-36c5-413b-86bd-ba114ecc180a.jpg"
+     },
+     {
+      "originalFileName": "ENC_bBU-QHt5_HqdH_WrImvfjw.jpeg",
+      "highlight": false,
+      "fileName": "3ef4a196-6a6d-40e9-98a8-28891817d56a.jpg",
+      "link": "https://ms.sbwebservices.net/photos/3ef4a196-6a6d-40e9-98a8-28891817d56a.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/3ef4a196-6a6d-40e9-98a8-28891817d56a.jpg"
+     }
+    ],
+    "productCustomJson": "{\"vehicleOwner\":\"\",\"vehicleRestrictions\":\"\",\"vehicleSearchDate\":\"\",\"vehicleSearchSource\":\"\",\"vehicleSearchType\":\"\",\"vehicleFipeCode\":\"\",\"vehicleDebts\":\"\"}",
+    "photoCount": 19,
+    "videoUrlCount": 0,
+    "thumbnailUrl": "https://ms.sbwebservices.net/photos/be419141-9040-43db-8f71-5cf2e82fda7a.jpg",
+    "detailedDescription": "<span><span><p>Referência Local: Frota</p><p>Marca: FORD</p><p>Modelo: KA SE 1.5 HA B</p><p>Ano: 2018</p><p>Placa FINAL 0</p><p>Quilometragem acima de: 000</p><p>Cor: Branca</p><p>Combustivel: Flex (Álcool/Gasolina)</p><p>Chassi.: </p><p><br></p><p>Acessórios</p><p><br></p><p>N° de Portas: 4</p><p>Câmbio: Manual</p><p>Direção: Hidráulica</p><p>Ar Condicionado: Sim</p><p>Vidros: Dianteiros elétricos / Traseiros manuais</p><p>Rodas: Ferro</p><p>Bancos: Tecido</p><p>Aparelho de Som: Sim</p><p><br></p><p>Condições Gerais</p><p>Motor: Não testado</p><p>Pintura: Ruim</p><p>Lataria: Ruim</p><p>Tapeçaria: Regular</p><p>Pneus: Ruins</p><p><br></p><p>Observações</p><p><br></p><p>Chave Principal: Não</p><p>Chave Reserva: Não</p><p>Manual: Não</p><p><br></p><p>Comando no Volante: Não</p><p>Câmera de Ré: Não</p><p>Banco Elétrico do motorista: Não</p><p>Retrovisores elétricos: Não</p><p>Air Bag: Não</p><p>ABS: Não</p><p>Tração 4X4: Não</p><p>7 Lugares: Não</p><p>Protetor de Caçamba: Não</p><p>Lona Marítima: Não</p><p>Parabrisa: Quebrado</p><p>Parachoque Dianteiro: Avariado</p><p>Teto: Amassado</p><p>Paralama Diateiro Esquerdo: Amassado</p><p>Caixa de Ar Direita: Amassada</p><p>Porta Traseira Direita: Amassada</p><p>Porta Traseira Esquerda: Amassada</p><p>Parachoque Traseiro: Avariado</p><p>Porta Dianteira Esquerda: Amassada</p><p>Lateral Traseira Direita: Amassada</p><p>Lanterna Traseira Esquerda: Quebrada</p><p>Pneu traseiro direito: Murcho</p><p>Capô Traseiro: Amassado</p><p>Lateral Traseira Esquerda: Amassada</p><p>Retrovisor Esquerdo: Falta Retrovisor esquerdo</p><p>Pneu dianteiro esquerdo: Murcho</p><p>Pneu traseiro esquerdo: Murcho</p><p>Roda dianteira esquerda: Amassada</p><p>Roda traseira esquerda: Amassada</p><p>Painel de instrumentos: Avariado</p><p><br></p><p><br></p><p>Podendo faltar partes, peças e componentes</p><p>Apresenta riscos, mossas e amassados<br><br><br>Será de responsabilidade da empresa vendedora o pagamento dos débitos de eventuais multas de trânsito e IPVA relativos<br>ao(s) veículo(s) vendido(s) e anteriores à data do evento (exceto parcelas vincendas do IPVA, quando houver, as quais serão<br>suportadas pelo(s) comprador(es)).</span></span>",
+    "template": {
+     "groups": []
+    },
+    "subCategory": {
+     "id": 10006,
+     "description": "Sedans",
+     "translation": {
+      "map": {
+       "es_PE": "Sedanes",
+       "es_AR": "Sedanes",
+       "en_US": "Sedans",
+       "es_MX": "Sedanes",
+       "es_CO": "Sedanes",
+       "pt_BR": "Sedans",
+       "en_UK": "Sedans",
+       "es_CL": "Sedanes"
+      }
+     },
+     "evidence": "F",
+     "subGrupo": 0,
+     "grupo": 0,
+     "position": 6,
+     "category": {
+      "id": 10000,
+      "description": "Carros",
+      "translation": {
+       "map": {
+        "es_PE": "Autos",
+        "en_US": "Cars",
+        "es_AR": "Autos",
+        "es_MX": "Autos",
+        "es_CO": "Autos",
+        "pt_BR": "Carros",
+        "en_UK": "Cars",
+        "es_CL": "Autos"
+       }
+      },
+      "evidence": "F",
+      "subGrupo": 0,
+      "grupo": 0,
+      "position": 1
+     }
+    },
+    "model": {},
+    "brand": {},
+    "productYourRef": "202602670",
+    "location": {
+     "displayOnMap": false,
+     "city": "São Pedro - SP",
+     "state": "São Paulo",
+     "country": "Brasil",
+     "locationGeo": {
+      "lat": -22.551674,
+      "lon": -47.910383
+     }
+    },
+    "productType": {
+     "id": 10,
+     "description": "Carros & Motos",
+     "translation": {
+      "map": {
+       "es_PE": "Autos y Motos",
+       "en_US": "Cars & Motorcycles",
+       "es_AR": "Autos y Motos",
+       "es_MX": "Autos y Motos",
+       "es_CO": "Autos y Motos",
+       "pt_BR": "Carros & Motos",
+       "es_CL": "Autos y Motos",
+       "en_UK": "Cars & Motorcycles"
+      }
+     },
+     "showBrand": true,
+     "showModel": true
+    },
+    "judicial": {}
+   },
+   "seller": {
+    "id": 73711,
+    "name": "CPFL SERVICOS, EQUIPAMENTOS, INDUSTRIA E COMERCIO S/A",
+    "city": "São José do Rio Pardo",
+    "phone": [
+     {
+      "ddi": "55",
+      "ddd": "19",
+      "number": "981171999"
+     },
+     {
+      "ddi": "55",
+      "ddd": "19",
+      "number": "37568945"
+     },
+     {
+      "ddi": "55",
+      "ddd": "19",
+      "number": "6828707"
+     }
+    ],
+    "company": [
+     {
+      "fantasyName": "CPFL"
+     }
+    ]
+   },
+   "systemMetric": "un",
+   "paymentItems": [
+    {
+     "paymentTypeId": 1,
+     "value": 942,
+     "mapDescriptionTranslator": {
+      "es_PE": "Estadia",
+      "es_AR": "Estadia",
+      "es_MX": "Estadia",
+      "es_CO": "Estadia",
+      "es_ES": "Estadia",
+      "pt_BR": "Estadia",
+      "es_CL": "Estadia"
+     }
+    },
+    {
+     "paymentTypeId": 2,
+     "value": 1445,
+     "mapDescriptionTranslator": {
+      "es_PE": "Remoção",
+      "es_AR": "Remoção",
+      "es_MX": "Remoção",
+      "es_CO": "Remoção",
+      "es_ES": "Remoção",
+      "pt_BR": "Remoção",
+      "es_CL": "Remoção"
+     }
+    }
+   ],
+   "commercialCondition": {
+    "auctioneerCommissionPercent": null,
+    "minAdvanceRate": null,
+    "maxInstallments": null,
+    "allowsCreditCard": true,
+    "scheduleType": "AFTER_WITHDRAWAL",
+    "allowCreditCardCommission": false,
+    "allowCreditCardTotalValue": true,
+    "transactionLimit": 120000
+   },
+   "installmentPaymentTerms": {},
+   "isFavorite": false,
+   "isShopping": false,
+   "shoppingOfferType": false
+  },
+  {
+   "id": 5082765,
+   "indexationDate": "2026-11-08 17:06:23",
+   "lotNumber": 3,
+   "quantityInLot": 1,
+   "quantitySold": 0,
+   "quantityReserved": 0,
+   "totalReceivedProposals": 0,
+   "hasReceivedProposals": false,
+   "visits": 63,
+   "totalBidders": 0,
+   "totalBids": 0,
+   "totalReceivedBidsOrProposals": 0,
+   "hasBids": false,
+   "hasReceivedBidsOrProposals": false,
+   "endDate": "2026-11-13 17:31:00",
+   "endDateTime": 1794601860000,
+   "offerTypeId": 1,
+   "createAt": "2026-11-05 13:50:01",
+   "updateAt": "2026-11-05 13:50:30",
+   "publishedAt": "2026-11-05 13:50:30",
+   "statusId": 1,
+   "price": 1090,
+   "priceFormatted": "R$ 1.090,00",
+   "offerStatus": {
+    "statusCode": 1,
+    "removed": false,
+    "stabbed": false,
+    "subjudice": false,
+    "giveYourBid": true,
+    "wantToKnowThePrice": false,
+    "makeYourProposal": false,
+    "closedToBids": false,
+    "sold": false,
+    "reserved": false,
+    "available": false,
+    "closed": false
+   },
+   "store": {
+    "id": 1161,
+    "name": "SOLD",
+    "highlight": true,
+    "storeVisibleOnPortal": true,
+    "logoUri": "https://s.superbid.net/image/6a/67/6a670d93-0619-4cf2-9418-777f52aa84f5.png"
+   },
+   "stores": [
+    {
+     "id": 1161,
+     "name": "SOLD",
+     "highlight": true,
+     "storeVisibleOnPortal": true,
+     "logoUri": "https://s.superbid.net/image/6a/67/6a670d93-0619-4cf2-9418-777f52aa84f5.png"
+    },
+    {
+     "id": 16435,
+     "name": "REVERSA",
+     "highlight": true,
+     "storeVisibleOnPortal": true,
+     "logoUri": "https://static.s4bdigital.net/logos_empresas/reversaLogo.png"
+    }
+   ],
+   "offerDetail": {
+    "id": 5082765,
+    "initialBidValue": 1090,
+    "initialBidValueFormatted": "R$ 1.090,00",
+    "currentMinBid": 1090,
+    "currentMinBidFormatted": "R$ 1.090,00",
+    "currentMaxBid": 1090,
+    "currentMaxBidFormatted": "R$ 1.090,00",
+    "reservedPrice": 999999999999,
+    "reservedPriceFormatted": "R$ 999.999.999.999,00"
+   },
+   "manager": {
+    "id": 9,
+    "name": "Sold Maisativo"
+   },
+   "currentTimestamp": "2026-11-08 19:44:40",
+   "auction": {
+    "id": 803441,
+    "desc": "Said",
+    "slugDesc": null,
+    "localeId": "pt_BR",
+    "currencyIso": "BRL",
+    "statusId": 1,
+    "permissionTypeId": 1,
+    "portalId": 2,
+    "modalityId": 1,
+    "modalityDesc": "Leilão",
+    "businessAreaId": 1,
+    "allOffersOfThisAuctionIsClosed": false,
+    "beginDate": "2026-11-05 13:46:00",
+    "endDate": "2026-11-13 17:30:00",
+    "maxEnddateOffer": "2026-11-13 17:34:00",
+    "subMarketplaces": [
+     {
+      "subMarketplaceId": 4,
+      "subMarketplaceDesc": "PME"
+     }
+    ],
+    "judicialPraca": null,
+    "judicialPracaDescription": "Praça Única",
+    "judicialControlNumber": null,
+    "auctioneer": "MARIA BEATRIZ DE BARROS SANTORO VILELA MORAES",
+    "registry": "1126",
+    "address": {
+     "id": 27029,
+     "streetType": "Alameda",
+     "street": "Alameda Lorena",
+     "number": "800",
+     "complement": "2º andar",
+     "district": "Jardins",
+     "city": "São Paulo",
+     "stateCode": "SP",
+     "countryName": "Brasil",
+     "regionName": "Sudeste",
+     "type": 5
+    },
+    "crier": false,
+    "eventPipeline": null,
+    "lotAuctionTypeId": 1,
+    "isAfterMarket": null,
+    "internalParameters": {
+     "highlightUrlLink": null,
+     "hasAdvisorIntermediation": false
+    }
+   },
+   "winnerBid": {},
+   "currentBidIncrement": {
+    "currentBidIncrement": 100,
+    "currentBidIncrementFormatted": "R$ 100,00"
+   },
+   "offerDescription": {
+    "offerDescription": "SUPORTE ROLETE GUIA CELTA/CORSA COM AR CONDICIONADO, VEDADOR ADAPTADOR BOMBA COMBUSTIVEL PRISMA COBALT SPINT, VEDADOR CAIXA COLUNA DIREÇÃO CELTA/CORSA/PRISMA E OUTROS   (APROX. 350. UN) (Ref.: SB0034222) Referência Local:<BR>SUPORTE ROLETE GUIA CELTA/CORSA COM AR CONDICIONADO, VEDADOR ADAPTADOR BOMBA COMBUSTIVEL PRISMA COBALT SPINT, VEDADOR CAIXA COLUNA DIREÇÃO CELTA/CORSA/PRISMA E OUTROS   (APROX. 350. UN) (Ref.: SB0034222)<BR><BR><BR><BR>1. Itens provenientes de logística reversa. Bens não testados e vendidos no estado em que se encontram.\r\n                                              <BR>2. Não há garantia de funcionamento, podendo apresentar avarias e/ou falta de peças, partes mecânicas e acessórios, podendo estar bloqueados.]\r\n                                              <BR>3. O Vendedor, Leiloeiro e a Loja SOLD LEILÕES não se responsabilizam por eventuais senhas, segredos, códigos ou cadastros necessários e IMEIs, conforme condição descrita no ítem 5 do edital deste leilão.\r\n                                              <BR>4.Fotos meramente ilustrativas - não efetuar lances sem realizar a visitação - itens podem estar desmontados.\r\n                                              <BR>5. Avaliação por conta do interessado! Não serão aceitas reclamações posteriores à arrematação dos bens. Na dúvida ou na impossibilidade de testar/obter informações ou visitar os bens, sugerimos que não efetue lances.<br><br><BR><BR>Para mais informações clique em ANEXOS 85DD3B3A Said"
+   },
+   "groupOffer": {
+    "acceptProposal": true,
+    "commissionPercent": 5,
+    "id": 366060
+   },
+   "product": {
+    "productId": 3856722,
+    "shortDesc": "SUPORTE ROLETE GUIA CELTA/CORSA COM AR CONDICIONADO, VEDADOR ADAPTADOR BOMBA COMBUSTIVEL PRISMA COBALT SPINT, VEDADOR CAIXA COLUNA DIREÇÃO CELTA/CORSA/PRISMA E OUTROS   (APROX. 350. UN) (Ref.: SB0034222)",
+    "attachments": [
+     {
+      "originalFileName": "produtoSuperBid.pdf",
+      "createdAt": "29/10/2026 22:43:57",
+      "fileName": "b2bd5b72-8f9a-4b8f-9a41-b6bb2ceb3726.pdf",
+      "link": "https://s.superbid.net/attachment/b2/bd/b2bd5b72-8f9a-4b8f-9a41-b6bb2ceb3726.pdf",
+      "type": "attachment",
+      "contentType": "application/pdf"
+     }
+    ],
+    "galleryJson": [
+     {
+      "originalFileName": "ENC_rVkVNg3vEzCDJS1bPZUZFvAGDSGyV6Nbj1av7WViXlY-eD3JLwhWAYAxvmYS7Osb.jpg",
+      "highlight": false,
+      "fileName": "4661a2c3-1051-4dfc-a4e4-30957cf80dda.jpg",
+      "link": "https://ms.sbwebservices.net/photos/4661a2c3-1051-4dfc-a4e4-30957cf80dda.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/4661a2c3-1051-4dfc-a4e4-30957cf80dda.jpg"
+     },
+     {
+      "originalFileName": "ENC_9Q19DEUXcCNOlQC_z6Hm2Wi0yWyqWgI0pluM_eyMcBPONjCGpvSh1H_ECXgJmsWD.jpg",
+      "highlight": true,
+      "fileName": "17a67e6e-32e6-4ac9-855a-6c2d6c8fbf94.jpg",
+      "link": "https://ms.sbwebservices.net/photos/17a67e6e-32e6-4ac9-855a-6c2d6c8fbf94.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/17a67e6e-32e6-4ac9-855a-6c2d6c8fbf94.jpg"
+     },
+     {
+      "originalFileName": "ENC_qg_EO2aAK9nw2b-u3U9uxqhqORqt_tLQqoi7Gmu-lpw8KGnndjfLBLjWVsnz9-70.jpg",
+      "highlight": false,
+      "fileName": "ca1487d0-612f-46c7-b6c5-66dc516f92d5.jpg",
+      "link": "https://ms.sbwebservices.net/photos/ca1487d0-612f-46c7-b6c5-66dc516f92d5.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/ca1487d0-612f-46c7-b6c5-66dc516f92d5.jpg"
+     }
+    ],
+    "productCustomJson": "{\"vehicleOwner\":\"\",\"vehicleRestrictions\":\"\",\"vehicleSearchDate\":\"\",\"vehicleSearchSource\":\"\",\"vehicleSearchType\":\"\",\"vehicleFipeCode\":\"\",\"vehicleDebts\":\"\"}",
+    "photoCount": 5,
+    "videoUrlCount": 0,
+    "thumbnailUrl": "https://ms.sbwebservices.net/photos/17a67e6e-32e6-4ac9-855a-6c2d6c8fbf94.jpg",
+    "detailedDescription": "Referência Local:<BR>SUPORTE ROLETE GUIA CELTA/CORSA COM AR CONDICIONADO, VEDADOR ADAPTADOR BOMBA COMBUSTIVEL PRISMA COBALT SPINT, VEDADOR CAIXA COLUNA DIREÇÃO CELTA/CORSA/PRISMA E OUTROS   (APROX. 350. UN) (Ref.: SB0034222)<BR><BR><BR><BR>1. Itens provenientes de logística reversa. Bens não testados e vendidos no estado em que se encontram.\r\n                                              <BR>2. Não há garantia de funcionamento, podendo apresentar avarias e/ou falta de peças, partes mecânicas e acessórios, podendo estar bloqueados.]\r\n                                              <BR>3. O Vendedor, Leiloeiro e a Loja SOLD LEILÕES não se responsabilizam por eventuais senhas, segredos, códigos ou cadastros necessários e IMEIs, conforme condição descrita no ítem 5 do edital deste leilão.\r\n                                              <BR>4.Fotos meramente ilustrativas - não efetuar lances sem realizar a visitação - itens podem estar desmontados.\r\n                                              <BR>5. Avaliação por conta do interessado! Não serão aceitas reclamações posteriores à arrematação dos bens. Na dúvida ou na impossibilidade de testar/obter informações ou visitar os bens, sugerimos que não efetue lances.<br><br><BR><BR>Para mais informações clique em ANEXOS",
+    "template": {
+     "groups": []
+    },
+    "subCategory": {
+     "id": 10018,
+     "description": "Partes & Peças Carros",
+     "translation": {
+      "map": {
+       "es_PE": "Autos Piezas y Partes ",
+       "es_AR": "Autos Piezas y Partes ",
+       "en_US": "Cars Spare Parts ",
+       "es_MX": "Autos Piezas y Partes ",
+       "es_CO": "Autos Piezas y Partes ",
+       "pt_BR": "Partes & Peças Carros",
+       "en_UK": "Cars Spare Parts ",
+       "es_CL": "Autos Piezas y Partes "
+      }
+     },
+     "evidence": "F",
+     "subGrupo": 0,
+     "grupo": 0,
+     "position": 14,
+     "category": {
+      "id": 10017,
+      "description": "Partes e peças - Carros e motos",
+      "translation": {
+       "map": {
+        "es_PE": "Partes y Piezas",
+        "es_AR": "Partes y Piezas",
+        "en_US": "Spare Parts",
+        "es_MX": "Partes y Piezas",
+        "es_CO": "Partes y Piezas",
+        "pt_BR": "Partes e peças - Carros e motos",
+        "en_UK": "Spare Parts",
+        "es_CL": "Partes y Piezas"
+       }
+      },
+      "evidence": "F",
+      "subGrupo": 0,
+      "grupo": 0,
+      "position": 4
+     }
+    },
+    "model": {},
+    "brand": {},
+    "productYourRef": "85DD3B3A",
+    "location": {
+     "displayOnMap": false,
+     "city": "Embu das Artes - SP",
+     "state": "São Paulo",
+     "country": "Brasil",
+     "locationGeo": {
+      "lat": -23.649808,
+      "lon": -46.85328
+     }
+    },
+    "productType": {
+     "id": 10,
+     "description": "Carros & Motos",
+     "translation": {
+      "map": {
+       "es_PE": "Autos y Motos",
+       "en_US": "Cars & Motorcycles",
+       "es_AR": "Autos y Motos",
+       "es_MX": "Autos y Motos",
+       "es_CO": "Autos y Motos",
+       "pt_BR": "Carros & Motos",
+       "es_CL": "Autos y Motos",
+       "en_UK": "Cars & Motorcycles"
+      }
+     },
+     "showBrand": true,
+     "showModel": true
+    },
+    "judicial": {}
+   },
+   "seller": {
+    "id": 897556,
+    "name": "SAID AUTOPARTS E ACESSORIOS LTDA",
+    "city": "São Paulo",
+    "phone": [
+     {
+      "ddi": "55",
+      "ddd": "11",
+      "number": "20621715"
+     },
+     {
+      "ddi": "55",
+      "ddd": "11",
+      "number": "992447227"
+     }
+    ],
+    "company": [
+     {
+      "fantasyName": "SAID PEÇAS"
+     }
+    ]
+   },
+   "systemMetric": "un",
+   "commercialCondition": {
+    "auctioneerCommissionPercent": null,
+    "minAdvanceRate": null,
+    "maxInstallments": null,
+    "allowsCreditCard": true,
+    "scheduleType": "AFTER_PAYMENT",
+    "allowCreditCardCommission": false,
+    "allowCreditCardTotalValue": true,
+    "transactionLimit": 120000
+   },
+   "installmentPaymentTerms": {},
+   "isFavorite": false,
+   "isShopping": false,
+   "shoppingOfferType": false
+  },
+  {
+   "id": 5082771,
+   "indexationDate": "2026-11-08 18:54:48",
+   "lotNumber": 4,
+   "quantityInLot": 1,
+   "quantitySold": 0,
+   "quantityReserved": 0,
+   "totalReceivedProposals": 0,
+   "hasReceivedProposals": false,
+   "visits": 228,
+   "totalBidders": 0,
+   "totalBids": 0,
+   "totalReceivedBidsOrProposals": 0,
+   "hasBids": false,
+   "hasReceivedBidsOrProposals": false,
+   "endDate": "2026-11-26 13:31:30",
+   "endDateTime": 1795710690000,
+   "offerTypeId": 1,
+   "createAt": "2026-11-05 14:09:14",
+   "updateAt": "2026-11-05 14:11:37",
+   "publishedAt": "2026-11-05 14:11:37",
+   "statusId": 1,
+   "price": 32000,
+   "priceFormatted": "R$ 32.000,00",
+   "offerStatus": {
+    "statusCode": 1,
+    "removed": false,
+    "stabbed": false,
+    "subjudice": false,
+    "giveYourBid": true,
+    "wantToKnowThePrice": false,
+    "makeYourProposal": false,
+    "closedToBids": false,
+    "sold": false,
+    "reserved": false,
+    "available": false,
+    "closed": false
+   },
+   "store": {
+    "id": 1161,
+    "name": "SOLD",
+    "highlight": true,
+    "storeVisibleOnPortal": true,
+    "logoUri": "https://s.superbid.net/image/6a/67/6a670d93-0619-4cf2-9418-777f52aa84f5.png"
+   },
+   "stores": [
+    {
+     "id": 1161,
+     "name": "SOLD",
+     "highlight": true,
+     "storeVisibleOnPortal": true,
+     "logoUri": "https://s.superbid.net/image/6a/67/6a670d93-0619-4cf2-9418-777f52aa84f5.png"
+    }
+   ],
+   "offerDetail": {
+    "id": 5082771,
+    "initialBidValue": 32000,
+    "initialBidValueFormatted": "R$ 32.000,00",
+    "currentMinBid": 32000,
+    "currentMinBidFormatted": "R$ 32.000,00",
+    "currentMaxBid": 32000,
+    "currentMaxBidFormatted": "R$ 32.000,00",
+    "reservedPrice": 38849.3,
+    "reservedPriceFormatted": "R$ 38.849,30"
+   },
+   "manager": {
+    "id": 9,
+    "name": "Sold Maisativo"
+   },
+   "currentTimestamp": "2026-11-08 19:44:40",
+   "auction": {
+    "id": 803442,
+    "desc": "Caoa Chery",
+    "slugDesc": null,
+    "localeId": "pt_BR",
+    "currencyIso": "BRL",
+    "statusId": 1,
+    "permissionTypeId": 1,
+    "portalId": 2,
+    "modalityId": 1,
+    "modalityDesc": "Leilão",
+    "businessAreaId": 1,
+    "allOffersOfThisAuctionIsClosed": false,
+    "beginDate": "2026-11-05 14:04:00",
+    "endDate": "2026-11-26 13:30:00",
+    "maxEnddateOffer": "2026-11-26 13:35:00",
+    "subMarketplaces": [
+     {
+      "subMarketplaceId": 1,
+      "subMarketplaceDesc": "Corporativo"
+     }
+    ],
+    "judicialPraca": null,
+    "judicialPracaDescription": "Praça Única",
+    "judicialControlNumber": null,
+    "auctioneer": "Renato Schlobach Moyses",
+    "registry": "654",
+    "address": {
+     "id": 27029,
+     "streetType": "Alameda",
+     "street": "Alameda Lorena",
+     "number": "800",
+     "complement": "2º andar",
+     "district": "Jardins",
+     "city": "São Paulo",
+     "stateCode": "SP",
+     "countryName": "Brasil",
+     "regionName": "Sudeste",
+     "type": 5
+    },
+    "crier": false,
+    "eventPipeline": null,
+    "lotAuctionTypeId": 1,
+    "isAfterMarket": null,
+    "internalParameters": {
+     "highlightUrlLink": null,
+     "hasAdvisorIntermediation": false
+    }
+   },
+   "winnerBid": {},
+   "currentBidIncrement": {
+    "currentBidIncrement": 500,
+    "currentBidIncrementFormatted": "R$ 500,00"
+   },
+   "offerDescription": {
+    "offerDescription": "CHERY TIGGO 2 1.5 LOOK, 2018/2019, Placa FINAL 8 (SP), CH.:  (Ref.: DO) Referência Local: DO<br>Marca: CHERY<br>Modelo: TIGGO 2 1.5 LOOK<br>Ano Fab/Modelo: 2018/2019<br>Placa FINAL 8 (SP)<br>Obs da quilometragem: Não Visualizado<br>Cor: BRANCA<br>Combustível: Flex (Álcool/Gasolina)<br>Chassi: <br><br>Acessórios<br><br>Nº de Portas: 4<br>Câmbio: Manual<br>Direção: Hidráulica<br>Ar condicionado: Sim <br>Vidros: Elétricos<br>Rodas: Liga leve<br>Bancos: Couro/Tecido<br>Aparelho de Som: Sim<br><br>Condições Gerais<br><br>Motor: Não testado<br>Pintura: Regular<br>Lataria: Regular<br>Tapeçaria: Regular<br>Pneus: Ruins<br><br>Observações: <br><br>Chave Principal: Sim<br>Chave reserva: Sim<br>Manual: Sim<br>Porta malas: Não Visualizado (Veículo sem bateria)<br><br>Parachoque dianteiro: Riscado<br>Parachoque traseiro: Riscado e Ralado<br>Bancos: Sujos e manchados<br><br>Apresenta avarias e defeitos<br>Apresenta falta de ferramentas obrigatorias e estepe<br>Apresenta falta de peças, partes e componentes<br>Apresenta riscos, mossas e amassados<br>Apresenta pontos de ferrugem e corrosão<br><br><br><br>Será de responsabilidade do comprador o pagamento dos débitos de eventuais multas de trânsito, licenciamento, DPVAT <br> (seguro obrigatório) e IPVA relativos ao(s) veículo(s) vendido(s) ainda que anteriores à data do evento.<br><br>Débitos em aberto:    <b>Sujeito a alterações de acordo com os cadastros dos órgãos públicos até a data da transferência do veículo<br> 202603278 Caoa Chery"
+   },
+   "groupOffer": {
+    "acceptProposal": true,
+    "commissionPercent": 5,
+    "id": 366061
+   },
+   "product": {
+    "productId": 3859881,
+    "shortDesc": "CHERY TIGGO 2 1.5 LOOK, 2018/2019, Placa FINAL 8 (SP),  (Ref.: DO)",
+    "galleryJson": [
+     {
+      "originalFileName": "ENC_Rzg8vzxXwFmz7wDmqM3SRw.jpg",
+      "highlight": false,
+      "fileName": "02881e66-aed4-44b4-b828-f14848fbdef2.jpg",
+      "link": "https://ms.sbwebservices.net/photos/02881e66-aed4-44b4-b828-f14848fbdef2.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/02881e66-aed4-44b4-b828-f14848fbdef2.jpg"
+     },
+     {
+      "originalFileName": "ENC_OqTcb1uyVCAVUIX0GSb7RJzRNtvLE_pQYh5FkiZzy20.jpg",
+      "highlight": false,
+      "fileName": "688c1125-4ab4-47a6-80bf-a33f54f5c952.jpg",
+      "link": "https://ms.sbwebservices.net/photos/688c1125-4ab4-47a6-80bf-a33f54f5c952.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/688c1125-4ab4-47a6-80bf-a33f54f5c952.jpg"
+     },
+     {
+      "originalFileName": "ENC_OqTcb1uyVCAVUIX0GSb7RCZW7gpkPRcTBnXZ3kgBVGI.jpg",
+      "highlight": false,
+      "fileName": "63a740e9-34fd-41a4-9786-4e1a3e7e4dad.jpg",
+      "link": "https://ms.sbwebservices.net/photos/63a740e9-34fd-41a4-9786-4e1a3e7e4dad.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/63a740e9-34fd-41a4-9786-4e1a3e7e4dad.jpg"
+     }
+    ],
+    "productCustomJson": "{\"vehicleRestrictions\":\"NENHUMA\",\"vehicleOwner\":\"CAOA CHERY AUTOMOVEIS LTDA - 12.637.366/0001-55\",\"vehicleSearchSource\":null,\"vehicleDebts\":\"\",\"vehicleSearchType\":null,\"vehicleSearchDate\":null}",
+    "photoCount": 23,
+    "videoUrlCount": 0,
+    "thumbnailUrl": "https://ms.sbwebservices.net/photos/02881e66-aed4-44b4-b828-f14848fbdef2.jpg",
+    "detailedDescription": "Referência Local: DO<br>Marca: CHERY<br>Modelo: TIGGO 2 1.5 LOOK<br>Ano Fab/Modelo: 2018/2019<br>Placa FINAL 8 (SP)<br>Obs da quilometragem: Não Visualizado<br>Cor: BRANCA<br>Combustível: Flex (Álcool/Gasolina)<br>Chassi: <br><br>Acessórios<br><br>Nº de Portas: 4<br>Câmbio: Manual<br>Direção: Hidráulica<br>Ar condicionado: Sim <br>Vidros: Elétricos<br>Rodas: Liga leve<br>Bancos: Couro/Tecido<br>Aparelho de Som: Sim<br><br>Condições Gerais<br><br>Motor: Não testado<br>Pintura: Regular<br>Lataria: Regular<br>Tapeçaria: Regular<br>Pneus: Ruins<br><br>Observações: <br><br>Chave Principal: Sim<br>Chave reserva: Sim<br>Manual: Sim<br>Porta malas: Não Visualizado (Veículo sem bateria)<br><br>Parachoque dianteiro: Riscado<br>Parachoque traseiro: Riscado e Ralado<br>Bancos: Sujos e manchados<br><br>Apresenta avarias e defeitos<br>Apresenta falta de ferramentas obrigatorias e estepe<br>Apresenta falta de peças, partes e componentes<br>Apresenta riscos, mossas e amassados<br>Apresenta pontos de ferrugem e corrosão<br><br><br><br>Será de responsabilidade do comprador o pagamento dos débitos de eventuais multas de trânsito, licenciamento, DPVAT <br> (seguro obrigatório) e IPVA relativos ao(s) veículo(s) vendido(s) ainda que anteriores à data do evento.<br><br>Débitos em aberto:    <b>Sujeito a alterações de acordo com os cadastros dos órgãos públicos até a data da transferência do veículo<br>",
+    "template": {
+     "groups": [
+      {
+       "title": "Identificação",
+       "properties": [
+        {
+         "titlesByLocale": null,
+         "valuesByLocale": null,
+         "id": "anofabricacao",
+         "title": "Ano Fabricação",
+         "type": "integer",
+         "value": "2018"
+        },
+        {
+         "titlesByLocale": null,
+         "valuesByLocale": null,
+         "id": "anomodelo",
+         "title": "Ano Modelo",
+         "type": "integer",
+         "value": "2019"
+        }
+       ],
+       "id": "identificacao"
+      }
+     ]
+    },
+    "subCategory": {
+     "id": 10004,
+     "description": "Hatches",
+     "translation": {
+      "map": {
+       "es_PE": "Hatchback",
+       "es_AR": "Hatchback",
+       "en_US": "Hatchback",
+       "es_MX": "Hatchback",
+       "es_CO": "Hatchback",
+       "pt_BR": "Hatches",
+       "es_CL": "Hatchback",
+       "en_UK": "Hatchback"
+      }
+     },
+     "evidence": "F",
+     "subGrupo": 0,
+     "grupo": 0,
+     "position": 4,
+     "category": {
+      "id": 10000,
+      "description": "Carros",
+      "translation": {
+       "map": {
+        "es_PE": "Autos",
+        "en_US": "Cars",
+        "es_AR": "Autos",
+        "es_MX": "Autos",
+        "es_CO": "Autos",
+        "pt_BR": "Carros",
+        "en_UK": "Cars",
+        "es_CL": "Autos"
+       }
+      },
+      "evidence": "F",
+      "subGrupo": 0,
+      "grupo": 0,
+      "position": 1
+     }
+    },
+    "model": {},
+    "brand": {},
+    "productYourRef": "202603278",
+    "location": {
+     "displayOnMap": false,
+     "city": "Jacareí - SP",
+     "state": "São Paulo",
+     "country": "Brasil",
+     "locationGeo": {
+      "lat": -23.302918,
+      "lon": -45.967452
+     }
+    },
+    "productType": {
+     "id": 10,
+     "description": "Carros & Motos",
+     "translation": {
+      "map": {
+       "es_PE": "Autos y Motos",
+       "en_US": "Cars & Motorcycles",
+       "es_AR": "Autos y Motos",
+       "es_MX": "Autos y Motos",
+       "es_CO": "Autos y Motos",
+       "pt_BR": "Carros & Motos",
+       "es_CL": "Autos y Motos",
+       "en_UK": "Cars & Motorcycles"
+      }
+     },
+     "showBrand": true,
+     "showModel": true
+    },
+    "judicial": {}
+   },
+   "seller": {
+    "id": 1031963,
+    "name": "CAOA  CHERY AUTOMOVEIS LTDA",
+    "city": "Jacareí",
+    "phone": [
+     {
+      "ddi": "55",
+      "ddd": "12",
+      "number": "39552700"
+     },
+     {
+      "ddi": "55",
+      "ddd": "12",
+      "number": "991376045"
+     }
+    ],
+    "company": [
+     {
+      "fantasyName": "CAOA CHERY AUTOMOVEIS"
+     }
+    ]
+   },
+   "systemMetric": "un",
+   "commercialCondition": {
+    "auctioneerCommissionPercent": null,
+    "minAdvanceRate": null,
+    "maxInstallments": null,
+    "allowsCreditCard": false,
+    "scheduleType": null,
+    "allowCreditCardCommission": false,
+    "allowCreditCardTotalValue": false,
+    "transactionLimit": null
+   },
+   "installmentPaymentTerms": {},
+   "isFavorite": false,
+   "isShopping": false,
+   "shoppingOfferType": false
+  },
+  {
+   "id": 5076686,
+   "indexationDate": "2026-11-08 18:18:38",
+   "lotNumber": 2,
+   "quantityInLot": 1,
+   "quantitySold": 0,
+   "quantityReserved": 0,
+   "totalReceivedProposals": 0,
+   "hasReceivedProposals": false,
+   "visits": 201,
+   "totalBidders": 0,
+   "totalBids": 0,
+   "totalReceivedBidsOrProposals": 0,
+   "hasBids": false,
+   "hasReceivedBidsOrProposals": false,
+   "endDate": "2026-11-27 13:00:30",
+   "endDateTime": 1795795230000,
+   "offerTypeId": 1,
+   "createAt": "2026-11-03 14:26:58",
+   "updateAt": "2026-11-03 14:29:42",
+   "publishedAt": "2026-11-03 14:29:42",
+   "statusId": 1,
+   "price": 27000,
+   "priceFormatted": "R$ 27.000,00",
+   "offerStatus": {
+    "statusCode": 1,
+    "removed": false,
+    "stabbed": false,
+    "subjudice": false,
+    "giveYourBid": true,
+    "wantToKnowThePrice": false,
+    "makeYourProposal": false,
+    "closedToBids": false,
+    "sold": false,
+    "reserved": false,
+    "available": false,
+    "closed": false
+   },
+   "store": {
+    "id": 1161,
+    "name": "SOLD",
+    "highlight": true,
+    "storeVisibleOnPortal": true,
+    "logoUri": "https://s.superbid.net/image/6a/67/6a670d93-0619-4cf2-9418-777f52aa84f5.png"
+   },
+   "stores": [
+    {
+     "id": 1161,
+     "name": "SOLD",
+     "highlight": true,
+     "storeVisibleOnPortal": true,
+     "logoUri": "https://s.superbid.net/image/6a/67/6a670d93-0619-4cf2-9418-777f52aa84f5.png"
+    }
+   ],
+   "offerDetail": {
+    "id": 5076686,
+    "initialBidValue": 27000,
+    "initialBidValueFormatted": "R$ 27.000,00",
+    "currentMinBid": 27000,
+    "currentMinBidFormatted": "R$ 27.000,00",
+    "currentMaxBid": 27000,
+    "currentMaxBidFormatted": "R$ 27.000,00",
+    "releaseValue": 0,
+    "releaseValueFormatted": "R$ 0,00",
+    "reservedPrice": 33000,
+    "reservedPriceFormatted": "R$ 33.000,00"
+   },
+   "manager": {
+    "id": 9,
+    "name": "Sold Maisativo"
+   },
+   "currentTimestamp": "2026-11-08 19:44:40",
+   "auction": {
+    "id": 798444,
+    "desc": "TIJOLARTE",
+    "slugDesc": null,
+    "localeId": "pt_BR",
+    "currencyIso": "BRL",
+    "statusId": 1,
+    "permissionTypeId": 1,
+    "portalId": 2,
+    "modalityId": 1,
+    "modalityDesc": "Leilão",
+    "businessAreaId": 1,
+    "allOffersOfThisAuctionIsClosed": false,
+    "beginDate": "2026-11-03 14:24:00",
+    "endDate": "2026-11-27 13:00:00",
+    "maxEnddateOffer": "2026-11-27 13:46:30",
+    "subMarketplaces": [
+     {
+      "subMarketplaceId": 4,
+      "subMarketplaceDesc": "PME"
+     },
+     {
+      "subMarketplaceId": 1,
+      "subMarketplaceDesc": "Corporativo"
+     }
+    ],
+    "judicialPraca": null,
+    "judicialPracaDescription": "Praça Única",
+    "judicialControlNumber": null,
+    "auctioneer": "Renato Schlobach Moyses",
+    "registry": "654",
+    "address": {
+     "id": 27029,
+     "streetType": "Alameda",
+     "street": "Alameda Lorena",
+     "number": "800",
+     "complement": "2º andar",
+     "district": "Jardins",
+     "city": "São Paulo",
+     "stateCode": "SP",
+     "countryName": "Brasil",
+     "regionName": "Sudeste",
+     "type": 5
+    },
+    "crier": false,
+    "eventPipeline": null,
+    "lotAuctionTypeId": 1,
+    "isAfterMarket": null,
+    "internalParameters": {
+     "highlightUrlLink": null,
+     "hasAdvisorIntermediation": false
+    }
+   },
+   "winnerBid": {},
+   "currentBidIncrement": {
+    "currentBidIncrement": 500,
+    "currentBidIncrementFormatted": "R$ 500,00"
+   },
+   "offerDescription": {
+    "offerDescription": "CHEVROLET MONTANA LS, 2015/2015, Placa FINAL 4 (SP), CH.:  (Ref.: EAB) <span>Referência Local: EAB<br>Marca: CHEVROLET<br>Modelo: MONTANA LS<br>Ano Fab/Modelo: 2015/2015<br>Placa FINAL 4 (SP)<br>Quilometragem acima de: 188881<br>Cor: BRANCA<br>Combustível: ALCOOL/GASOLINA<br>Chassi: <br><br>Acessórios<br><br>Nº de Portas: 2<br>Câmbio: Manual<br>Direção: Hidráulica<br>Ar condicionado: Sim <br>Vidros: Elétricos<br>Rodas: Ferro<br>Bancos: Tecido<br>Aparelho de Som: Não<br><br>Condições Gerais<br><br>Motor: Funcionando<br>Pintura: Regular<br>Lataria: Bom <br>Tapeçaria: Bom <br>Pneus: Ruins<br><br>Observações: <br><br>Chave Ignição: Sim<br>Air Bag: Sim<br>ABS: Sim<br>Protetor De Caçamba: Sim<br>Lona Marítima: Sim<br><br>Banco Motorista: Rasgado<br><br>Veículo  Desativado.<br>Podendo Apresenta Riscos, Mossas, Amassados  E Pontos De Ferrugem.<br>Podendo Apresentar Avarias, Falta De Peças E Componentes.<br><br><br><br></span> 202603588 TIJOLARTE"
+   },
+   "groupOffer": {
+    "acceptProposal": true,
+    "commissionPercent": 5,
+    "id": 365750
+   },
+   "product": {
+    "productId": 3754353,
+    "shortDesc": "CHEVROLET MONTANA LS, 2015/2015, Placa FINAL 4 (SP),  (Ref.: EAB)",
+    "galleryJson": [
+     {
+      "originalFileName": "ENC_Rzg8vzxXwFmz7wDmqM3SRw.jpg",
+      "highlight": false,
+      "fileName": "49c07724-f91d-4469-9d7b-40da0143d7cb.jpg",
+      "link": "https://ms.sbwebservices.net/photos/49c07724-f91d-4469-9d7b-40da0143d7cb.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/49c07724-f91d-4469-9d7b-40da0143d7cb.jpg"
+     },
+     {
+      "originalFileName": "ENC_R-4-iSH4DOevbjH2-ZBzkg.jpg",
+      "highlight": false,
+      "fileName": "cfcede11-a4ea-4a7c-994f-bf50f153f00b.jpg",
+      "link": "https://ms.sbwebservices.net/photos/cfcede11-a4ea-4a7c-994f-bf50f153f00b.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/cfcede11-a4ea-4a7c-994f-bf50f153f00b.jpg"
+     },
+     {
+      "originalFileName": "ENC_A6j_6sEeudIBr0MR3WnvRA.jpg",
+      "highlight": false,
+      "fileName": "af74869e-ff9d-4feb-9337-17dc4b42b178.jpg",
+      "link": "https://ms.sbwebservices.net/photos/af74869e-ff9d-4feb-9337-17dc4b42b178.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/af74869e-ff9d-4feb-9337-17dc4b42b178.jpg"
+     }
+    ],
+    "productCustomJson": "{\"vehicleOwner\":\"\",\"vehicleRestrictions\":\"\",\"vehicleSearchDate\":\"\",\"vehicleSearchSource\":\"\",\"vehicleSearchType\":\"\",\"vehicleFipeCode\":\"\",\"vehicleDebts\":\"\"}",
+    "photoCount": 19,
+    "videoUrlCount": 0,
+    "thumbnailUrl": "https://ms.sbwebservices.net/photos/49c07724-f91d-4469-9d7b-40da0143d7cb.jpg",
+    "detailedDescription": "<span>Referência Local: EAB<br>Marca: CHEVROLET<br>Modelo: MONTANA LS<br>Ano Fab/Modelo: 2015/2015<br>Placa FINAL 4 (SP)<br>Quilometragem acima de: 188881<br>Cor: BRANCA<br>Combustível: ALCOOL/GASOLINA<br>Chassi: <br><br>Acessórios<br><br>Nº de Portas: 2<br>Câmbio: Manual<br>Direção: Hidráulica<br>Ar condicionado: Sim <br>Vidros: Elétricos<br>Rodas: Ferro<br>Bancos: Tecido<br>Aparelho de Som: Não<br><br>Condições Gerais<br><br>Motor: Funcionando<br>Pintura: Regular<br>Lataria: Bom <br>Tapeçaria: Bom <br>Pneus: Ruins<br><br>Observações: <br><br>Chave Ignição: Sim<br>Air Bag: Sim<br>ABS: Sim<br>Protetor De Caçamba: Sim<br>Lona Marítima: Sim<br><br>Banco Motorista: Rasgado<br><br>Veículo  Desativado.<br>Podendo Apresenta Riscos, Mossas, Amassados  E Pontos De Ferrugem.<br>Podendo Apresentar Avarias, Falta De Peças E Componentes.<br><br><br><br></span>",
+    "template": {
+     "groups": [
+      {
+       "title": "Identificação",
+       "properties": [
+        {
+         "titlesByLocale": null,
+         "valuesByLocale": null,
+         "id": "anofabricacao",
+         "title": "Ano Fabricação",
+         "type": "integer",
+         "value": "2015"
+        },
+        {
+         "titlesByLocale": null,
+         "valuesByLocale": null,
+         "id": "anomodelo",
+         "title": "Ano Modelo",
+         "type": "integer",
+         "value": "2015"
+        }
+       ],
+       "id": "identificacao"
+      }
+     ]
+    },
+    "subCategory": {
+     "id": 10005,
+     "description": "Picapes",
+     "translation": {
+      "map": {
+       "es_PE": "Pick Ups",
+       "en_US": "Pick Ups",
+       "es_AR": "Pick Ups",
+       "es_MX": "Pick Ups",
+       "es_CO": "Pick Ups",
+       "pt_BR": "Picapes",
+       "es_CL": "Pick Ups",
+       "en_UK": "Pick Ups"
+      }
+     },
+     "evidence": "F",
+     "subGrupo": 0,
+     "grupo": 0,
+     "position": 5,
+     "category": {
+      "id": 10000,
+      "description": "Carros",
+      "translation": {
+       "map": {
+        "es_PE": "Autos",
+        "en_US": "Cars",
+        "es_AR": "Autos",
+        "es_MX": "Autos",
+        "es_CO": "Autos",
+        "pt_BR": "Carros",
+        "en_UK": "Cars",
+        "es_CL": "Autos"
+       }
+      },
+      "evidence": "F",
+      "subGrupo": 0,
+      "grupo": 0,
+      "position": 1
+     }
+    },
+    "model": {},
+    "brand": {},
+    "productYourRef": "202603588",
+    "location": {
+     "displayOnMap": false,
+     "city": "Guarulhos - SP",
+     "state": "São Paulo",
+     "country": "Brasil",
+     "locationGeo": {
+      "lat": -23.459686,
+      "lon": -46.532856
+     }
+    },
+    "productType": {
+     "id": 10,
+     "description": "Carros & Motos",
+     "translation": {
+      "map": {
+       "es_PE": "Autos y Motos",
+       "en_US": "Cars & Motorcycles",
+       "es_AR": "Autos y Motos",
+       "es_MX": "Autos y Motos",
+       "es_CO": "Autos y Motos",
+       "pt_BR": "Carros & Motos",
+       "es_CL": "Autos y Motos",
+       "en_UK": "Cars & Motorcycles"
+      }
+     },
+     "showBrand": true,
+     "showModel": true
+    },
+    "judicial": {}
+   },
+   "seller": {
+    "id": 901749,
+    "name": "TIJOLARTE COM DE MAT P CONSTRUCAO LTDA ME",
+    "city": "São Paulo",
+    "phone": [
+     {
+      "ddi": "55",
+      "ddd": "11",
+      "number": "29490101"
+     },
+     {
+      "ddi": "55",
+      "ddd": "11",
+      "number": "947588945"
+     },
+     {
+      "ddi": "55",
+      "ddd": "11",
+      "number": "29830944"
+     }
+    ],
+    "company": [
+     {
+      "fantasyName": "Tijolarte"
+     }
+    ]
+   },
+   "systemMetric": "un",
+   "commercialCondition": {
+    "auctioneerCommissionPercent": null,
+    "minAdvanceRate": null,
+    "maxInstallments": null,
+    "allowsCreditCard": true,
+    "scheduleType": "AFTER_PAYMENT",
+    "allowCreditCardCommission": false,
+    "allowCreditCardTotalValue": true,
+    "transactionLimit": 120000
+   },
+   "installmentPaymentTerms": {},
+   "isFavorite": false,
+   "isShopping": false,
+   "shoppingOfferType": false
+  },
+  {
+   "id": 5071943,
+   "indexationDate": "2026-11-08 19:42:40",
+   "lotNumber": 51,
+   "quantityInLot": 1,
+   "quantitySold": 0,
+   "quantityReserved": 0,
+   "totalReceivedProposals": 0,
+   "hasReceivedProposals": false,
+   "visits": 540,
+   "totalBidders": 2,
+   "totalBids": 2,
+   "totalReceivedBidsOrProposals": 2,
+   "hasBids": true,
+   "hasReceivedBidsOrProposals": true,
+   "endDate": "2026-11-13 14:33:00",
+   "endDateTime": 1794591180000,
+   "offerTypeId": 1,
+   "createAt": "2026-10-27 12:20:16",
+   "updateAt": "2026-11-08 17:40:28",
+   "publishedAt": "2026-10-27 12:26:13",
+   "statusId": 1,
+   "price": 5000,
+   "priceFormatted": "R$ 5.000,00",
+   "offerStatus": {
+    "statusCode": 1,
+    "removed": false,
+    "stabbed": false,
+    "subjudice": false,
+    "giveYourBid": true,
+    "wantToKnowThePrice": false,
+    "makeYourProposal": false,
+    "closedToBids": false,
+    "sold": false,
+    "reserved": false,
+    "available": false,
+    "closed": false
+   },
+   "store": {
+    "id": 1161,
+    "name": "SOLD",
+    "highlight": true,
+    "storeVisibleOnPortal": true,
+    "logoUri": "https://s.superbid.net/image/6a/67/6a670d93-0619-4cf2-9418-777f52aa84f5.png"
+   },
+   "stores": [
+    {
+     "id": 1161,
+     "name": "SOLD",
+     "highlight": true,
+     "storeVisibleOnPortal": true,
+     "logoUri": "https://s.superbid.net/image/6a/67/6a670d93-0619-4cf2-9418-777f52aa84f5.png"
+    }
+   ],
+   "offerDetail": {
+    "id": 5071943,
+    "initialBidValue": 4800,
+    "initialBidValueFormatted": "R$ 4.800,00",
+    "currentMinBid": 5000,
+    "currentMinBidFormatted": "R$ 5.000,00",
+    "currentMaxBid": 5000,
+    "currentMaxBidFormatted": "R$ 5.000,00",
+    "reservedPrice": 8500,
+    "reservedPriceFormatted": "R$ 8.500,00"
+   },
+   "manager": {
+    "id": 9,
+    "name": "Sold Maisativo"
+   },
+   "currentTimestamp": "2026-11-08 19:44:40",
+   "auction": {
+    "id": 798224,
+    "desc": "Grupo GPS",
+    "slugDesc": null,
+    "localeId": "pt_BR",
+    "currencyIso": "BRL",
+    "statusId": 1,
+    "permissionTypeId": 1,
+    "portalId": 2,
+    "modalityId": 1,
+    "modalityDesc": "Leilão",
+    "businessAreaId": 1,
+    "allOffersOfThisAuctionIsClosed": false,
+    "beginDate": "2026-10-27 12:15:00",
+    "endDate": "2026-11-13 14:30:00",
+    "maxEnddateOffer": "2026-11-13 14:35:00",
+    "subMarketplaces": [
+     {
+      "subMarketplaceId": 1,
+      "subMarketplaceDesc": "Corporativo"
+     }
+    ],
+    "judicialPraca": null,
+    "judicialPracaDescription": "Praça Única",
+    "judicialControlNumber": null,
+    "auctioneer": "Renato Schlobach Moyses",
+    "registry": "654",
+    "address": {
+     "id": 27029,
+     "streetType": "Alameda",
+     "street": "Alameda Lorena",
+     "number": "800",
+     "complement": "2º andar",
+     "district": "Jardins",
+     "city": "São Paulo",
+     "stateCode": "SP",
+     "countryName": "Brasil",
+     "regionName": "Sul",
+     "type": 5
+    },
+    "crier": false,
+    "eventPipeline": null,
+    "lotAuctionTypeId": 1,
+    "isAfterMarket": null,
+    "internalParameters": {
+     "highlightUrlLink": null,
+     "hasAdvisorIntermediation": false
+    }
+   },
+   "winnerBid": {},
+   "currentBidIncrement": {
+    "currentBidIncrement": 200,
+    "currentBidIncrementFormatted": "R$ 200,00"
+   },
+   "offerDescription": {
+    "offerDescription": "HONDA NXR 160 BROS, 2017/2017, Placa FINAL 7 (PR), CH.:  Honda NXR <br>Marca: HONDA<br>Modelo: NXR 160 BROS<br>Ano Fab/Modelo: 2017/2017<br>Placa FINAL 7 (PR)<br>Cor: BRANCA<br>Combustível: GASOLINA<br>Chassi: <br><br>Observações:<br><br>Tipo registrado: MOTOCICLO. Situação: em circulação. Motor não testado. Código FIPE: 811136-7. Tabela FIPE informada: R$ 14.757,00.<br><br><br><br>Será de responsabilidade do comprador o pagamento dos débitos de eventuais multas de trânsito, licenciamento, DPVAT <br> (seguro obrigatório) e IPVA relativos ao(s) veículo(s) vendido(s) ainda que anteriores à data do evento.<br><br>Débitos em aberto:    <b>Sujeito a alterações de acordo com os cadastros dos órgãos públicos até a data da transferência do veículo<br> 202601319 Grupo GPS"
+   },
+   "groupOffer": {
+    "acceptProposal": true,
+    "commissionPercent": 5,
+    "id": 365041
+   },
+   "product": {
+    "productId": 3850898,
+    "shortDesc": "HONDA NXR 160 BROS, 2017/2017, Placa FINAL 7 (PR),",
+    "galleryJson": [
+     {
+      "originalFileName": "ENC_4NGYvVou_TL9M24qtrOkqOsZR5Thsrr0p0FQ27pfOrk.jpg",
+      "highlight": false,
+      "fileName": "d519b30c-0db0-43e6-abb7-30687e8027a5.jpg",
+      "link": "https://ms.sbwebservices.net/photos/d519b30c-0db0-43e6-abb7-30687e8027a5.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/d519b30c-0db0-43e6-abb7-30687e8027a5.jpg"
+     },
+     {
+      "originalFileName": "ENC_Kr0b7A_Fuc16nRar2yEeWTJXH7ISpDGrr2vmE84b_MM.jpg",
+      "highlight": false,
+      "fileName": "1f7f7faa-c7e6-4914-a695-5e2822ff4e5f.jpg",
+      "link": "https://ms.sbwebservices.net/photos/1f7f7faa-c7e6-4914-a695-5e2822ff4e5f.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/1f7f7faa-c7e6-4914-a695-5e2822ff4e5f.jpg"
+     },
+     {
+      "originalFileName": "ENC_MHs3oXLojWBynMMq2rD9COsZR5Thsrr0p0FQ27pfOrk.jpg",
+      "highlight": false,
+      "fileName": "0922348c-d599-4c5c-8d1a-3c6bf02f378a.jpg",
+      "link": "https://ms.sbwebservices.net/photos/0922348c-d599-4c5c-8d1a-3c6bf02f378a.jpg",
+      "type": "photo",
+      "contentType": "image/jpeg",
+      "thumbnailUrl": "https://ms.sbwebservices.net/photos/0922348c-d599-4c5c-8d1a-3c6bf02f378a.jpg"
+     }
+    ],
+    "productCustomJson": "{\"vehicleOwner\":\"FORCE VIGILANCIA LTDA - 02.601.159/0001-97\",\"vehicleRestrictions\":\"NENHUMA\",\"vehicleSearchDate\":\"\",\"vehicleSearchSource\":\"\",\"vehicleSearchType\":\"\",\"vehicleFipeCode\":\"\",\"vehicleDebts\":\"\"}",
+    "photoCount": 8,
+    "videoUrlCount": 0,
+    "thumbnailUrl": "https://ms.sbwebservices.net/photos/ebf5e9e0-49c7-406f-b178-f9c85871b566.jpg",
+    "detailedDescription": "<br>Marca: HONDA<br>Modelo: NXR 160 BROS<br>Ano Fab/Modelo: 2017/2017<br>Placa FINAL 7 (PR)<br>Cor: BRANCA<br>Combustível: GASOLINA<br>Chassi: <br><br>Observações:<br><br>Tipo registrado: MOTOCICLO. Situação: em circulação. Motor não testado. Código FIPE: 811136-7. Tabela FIPE informada: R$ 14.757,00.<br><br><br><br>Será de responsabilidade do comprador o pagamento dos débitos de eventuais multas de trânsito, licenciamento, DPVAT <br> (seguro obrigatório) e IPVA relativos ao(s) veículo(s) vendido(s) ainda que anteriores à data do evento.<br><br>Débitos em aberto:    <b>Sujeito a alterações de acordo com os cadastros dos órgãos públicos até a data da transferência do veículo<br>",
+    "template": {
+     "groups": [
+      {
+       "title": "Identificação",
+       "properties": [
+        {
+         "titlesByLocale": null,
+         "valuesByLocale": null,
+         "id": "anofabricacao",
+         "title": "Ano Fabricação",
+         "type": "integer",
+         "value": "2017"
+        },
+        {
+         "titlesByLocale": null,
+         "valuesByLocale": null,
+         "id": "anomodelo",
+         "title": "Ano Modelo",
+         "type": "integer",
+         "value": "2017"
+        }
+       ],
+       "id": "identificacao"
+      }
+     ]
+    },
+    "subCategory": {
+     "id": 10013,
+     "description": "Motocicletas",
+     "translation": {
+      "map": {
+       "es_PE": "Motocicletas",
+       "es_AR": "Motocicletas",
+       "en_US": "Motorcycles",
+       "es_MX": "Motocicletas",
+       "es_CO": "Motocicletas",
+       "pt_BR": "Motocicletas",
+       "en_UK": "Motorcycles",
+       "es_CL": "Motocicletas"
+      }
+     },
+     "evidence": "F",
+     "subGrupo": 0,
+     "grupo": 0,
+     "position": 11,
+     "category": {
+      "id": 10012,
+      "description": "Motos",
+      "translation": {
+       "map": {
+        "es_PE": "Motos",
+        "es_AR": "Motos",
+        "en_US": "Motorcycles",
+        "es_MX": "Motos",
+        "es_CO": "Motos",
+        "pt_BR": "Motos",
+        "es_CL": "Motos",
+        "en_UK": "Motorcycles"
+       }
+      },
+      "evidence": "F",
+      "subGrupo": 0,
+      "grupo": 0,
+      "position": 2
+     }
+    },
+    "model": {
+     "id": 10672,
+     "description": "NXR"
+    },
+    "brand": {
+     "id": 7,
+     "description": "Honda"
+    },
+    "productYourRef": "202601319",
+    "location": {
+     "displayOnMap": false,
+     "city": "Pinhais",
+     "locationGeo": {
+      "lat": -25.432366,
+      "lon": -49.193323
+     }
+    },
+    "productType": {
+     "id": 10,
+     "description": "Carros & Motos",
+     "translation": {
+      "map": {
+       "es_PE": "Autos y Motos",
+       "en_US": "Cars & Motorcycles",
+       "es_AR": "Autos y Motos",
+       "es_MX": "Autos y Motos",
+       "es_CO": "Autos y Motos",
+       "pt_BR": "Carros & Motos",
+       "es_CL": "Autos y Motos",
+       "en_UK": "Cars & Motorcycles"
+      }
+     },
+     "showBrand": true,
+     "showModel": true
+    },
+    "judicial": {}
+   },
+   "seller": {
+    "id": 2598089,
+    "name": "POLISERVICE SISTEMAS DE SEGURANCA LTDA",
+    "city": "Pinhais",
+    "phone": [
+     {
+      "ddi": "55",
+      "ddd": "11",
+      "number": "54992197"
+     },
+     {
+      "ddi": "55",
+      "ddd": "11",
+      "number": "992197888"
+     }
+    ],
+    "company": [
+     {
+      "fantasyName": "POLISERVICE"
+     }
+    ]
+   },
+   "systemMetric": "un",
+   "commercialCondition": {
+    "auctioneerCommissionPercent": null,
+    "minAdvanceRate": null,
+    "maxInstallments": null,
+    "allowsCreditCard": true,
+    "scheduleType": "AFTER_PAYMENT",
+    "allowCreditCardCommission": false,
+    "allowCreditCardTotalValue": true,
+    "transactionLimit": 120000
+   },
+   "installmentPaymentTerms": {},
+   "isFavorite": false,
+   "isShopping": false,
+   "shoppingOfferType": false
+  }
+ ]
+}

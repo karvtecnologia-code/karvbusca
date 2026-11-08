@@ -1,0 +1,133 @@
+{
+  "indices": [
+    "veiculos",
+    "judiciais-veiculos"
+  ],
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "term": {
+                        "auction_status": "online"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "term": {
+                        "auction_status": "aberto"
+                      }
+                    }
+                  ],
+                  "must_not": [
+                    {
+                      "terms": {
+                        "lot_status_id": [
+                          5,
+                          7
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "term": {
+                        "auction_status": "encerrado"
+                      }
+                    },
+                    {
+                      "terms": {
+                        "lot_status_id": [
+                          6
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "minimum_should_match": 1
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must_not": {
+                    "term": {
+                      "lot_status_id": 6
+                    }
+                  }
+                }
+              },
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "term": {
+                        "lot_status_id": 6
+                      }
+                    },
+                    {
+                      "term": {
+                        "segment_id": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "minimum_should_match": 1
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must_not": [
+                    {
+                      "term": {
+                        "lot_test": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "minimum_should_match": 1
+          }
+        }
+      ]
+    }
+  },
+  "from": 0,
+  "size": 48,
+  "sort": [
+    {
+      "lot_status_id_order": {
+        "order": "asc"
+      }
+    },
+    {
+      "auction_date_init": {
+        "order": "asc"
+      }
+    }
+  ]
+}

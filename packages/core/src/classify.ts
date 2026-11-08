@@ -1,4 +1,5 @@
 import {
+  PALAVRAS_CIRCULACAO_LIBERADA,
   PALAVRAS_CIRCULACAO_VEDADA,
   PALAVRAS_DANO_ESTRUTURAL,
   PALAVRAS_MONTA,
@@ -31,7 +32,9 @@ export function classificarRoda(...textos: Texto[]): Roda {
 export type Circulacao = "liberada" | "vedada" | "nao_informado";
 export function classificarCirculacao(...textos: Texto[]): Circulacao {
   const t = juntar(textos);
-  return PALAVRAS_CIRCULACAO_VEDADA.some((p) => contemPalavra(t, p)) ? "vedada" : "nao_informado";
+  if (PALAVRAS_CIRCULACAO_VEDADA.some((p) => contemPalavra(t, p))) return "vedada";
+  if (PALAVRAS_CIRCULACAO_LIBERADA.some((p) => contemPalavra(t, p))) return "liberada";
+  return "nao_informado";
 }
 
 /** Devolve os termos de dano estrutural encontrados (vazio = nenhum). */

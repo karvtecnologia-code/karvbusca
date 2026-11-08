@@ -70,6 +70,9 @@ export const PALAVRAS_CIRCULACAO_VEDADA = [
   "nao circula",
 ] as const;
 
+/** O site afirma que o veículo pode circular. */
+export const PALAVRAS_CIRCULACAO_LIBERADA = ["situacao em circulacao", "apto a circular", "documento ok para circular"] as const;
+
 /** Danos que pesam na estrutura do carro. */
 export const PALAVRAS_DANO_ESTRUTURAL = [
   "longarina",

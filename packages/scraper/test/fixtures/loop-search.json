@@ -1,0 +1,344 @@
+{
+ "hits": [
+  {
+   "_index": "prodleilao_20261108180001",
+   "_type": "_doc",
+   "_id": "tIH2vKEBPQOkhxjvYnwv",
+   "_score": null,
+   "_source": {
+    "sku": "60062019",
+    "lotId": 172948,
+    "event": {
+     "id": 2819,
+     "date": "2026-11-09"
+    },
+    "number": 34,
+    "estimatedStartTime": "2026-11-09 11:08:15",
+    "lotStatus": "aberto_para_lance",
+    "isFinanciable": true,
+    "slug": "vw-novo-gol-1-0-city-2012-2013-60062019",
+    "url": "exclusivo-edp/vw-novo-gol-1-0-city-2012-2013/2819/172948",
+    "lastBid": 12000,
+    "location": "Mogi Das Cruzes-SP",
+    "brand": "VOLKSWAGEN",
+    "model": "GOL",
+    "version": "1.0 MI 8V FLEX 4P MANUAL G.IV",
+    "category": "Leve",
+    "transmission": "Câmbio Manual",
+    "fuel": "Álcool/Gasolina",
+    "modelYear": 2013,
+    "manufactureYear": 2012,
+    "color": "Prata",
+    "mileage": 249838,
+    "score": 237,
+    "licensePlate": "9",
+    "ipvaPaid": false,
+    "image": "vw-novo-gol-1-0-city-frente-motorista-e9d2fbbf.jpg",
+    "isArmored": false,
+    "documentationDeadline": 30
+   },
+   "sort": [
+    1794182400000,
+    237
+   ]
+  },
+  {
+   "_index": "prodleilao_20261108180001",
+   "_type": "_doc",
+   "_id": "s4H2vKEBPQOkhxjvYnws",
+   "_score": null,
+   "_source": {
+    "sku": "60061368",
+    "lotId": 172947,
+    "event": {
+     "id": 2819,
+     "date": "2026-11-09"
+    },
+    "number": 33,
+    "estimatedStartTime": "2026-11-09 11:08:00",
+    "lotStatus": "aberto_para_lance",
+    "isFinanciable": true,
+    "slug": "vw-novo-gol-1-0-city-2013-2014-60061368",
+    "url": "exclusivo-edp/vw-novo-gol-1-0-city-2013-2014/2819/172947",
+    "lastBid": 12000,
+    "location": "Mogi Das Cruzes-SP",
+    "brand": "VOLKSWAGEN",
+    "model": "GOL",
+    "version": "1.0 MI 8V FLEX 4P MANUAL G.IV",
+    "category": "Leve",
+    "transmission": "Câmbio Manual",
+    "fuel": "Álcool/Gasolina",
+    "modelYear": 2014,
+    "manufactureYear": 2013,
+    "color": "Branca",
+    "mileage": 196659,
+    "score": 189,
+    "licensePlate": "2",
+    "ipvaPaid": false,
+    "image": "volkswagen-gol-1-0-mi-8v-flex-4p-manual-g-iv-frente-motorista-d2775833.jpg",
+    "isArmored": false,
+    "documentationDeadline": 30
+   },
+   "sort": [
+    1794182400000,
+    189
+   ]
+  },
+  {
+   "_index": "prodleilao_20261108180001",
+   "_type": "_doc",
+   "_id": "rYH2vKEBPQOkhxjvYnwa",
+   "_score": null,
+   "_source": {
+    "sku": "60054686",
+    "lotId": 172945,
+    "event": {
+     "id": 2819,
+     "date": "2026-11-09"
+    },
+    "number": 31,
+    "estimatedStartTime": "2026-11-09 11:07:30",
+    "lotStatus": "aberto_para_lance",
+    "isFinanciable": true,
+    "slug": "vw-amarok-cs-4x4-s-2015-2016-60054686",
+    "url": "exclusivo-edp/vw-amarok-cs-4x4-s-2015-2016/2819/172945",
+    "lastBid": 30000,
+    "location": "Mogi Das Cruzes-SP",
+    "brand": "VOLKSWAGEN",
+    "model": "AMAROK",
+    "version": "2.0 SE 4X4 CD 16V TURBO INTERCOOLER DIESEL 4P MANUAL",
+    "category": "Leve",
+    "transmission": "Câmbio Manual",
+    "fuel": "Diesel",
+    "modelYear": 2016,
+    "manufactureYear": 2015,
+    "color": "Branca",
+    "mileage": 134055,
+    "score": 181,
+    "licensePlate": "3",
+    "ipvaPaid": false,
+    "image": "vw-amarok-cs-4x4-s-frente-motorista-874895f5.jpg",
+    "isArmored": false,
+    "documentationDeadline": 30
+   },
+   "sort": [
+    1794182400000,
+    181
+   ]
+  },
+  {
+   "_index": "prodleilao_20261108180001",
+   "_type": "_doc",
+   "_id": "voH2vKEBPQOkhxjvYnxN",
+   "_score": null,
+   "_source": {
+    "sku": "60073283",
+    "lotId": 172954,
+    "event": {
+     "id": 2819,
+     "date": "2026-11-09"
+    },
+    "number": 40,
+    "estimatedStartTime": "2026-11-09 11:09:45",
+    "lotStatus": "aberto_para_lance",
+    "isFinanciable": true,
+    "slug": "2013-2014-60073283",
+    "url": "exclusivo-edp/vw-nova-saveiro-cs-2013-2014/2819/172954",
+    "lastBid": 20000,
+    "location": "Mogi Das Cruzes-SP",
+    "brand": "VOLKSWAGEN",
+    "model": "SAVEIRO",
+    "version": "1.6 MI CS 8V FLEX 2P MANUAL G.VI",
+    "category": "Leve",
+    "transmission": "Câmbio Manual",
+    "fuel": "Álcool/Gasolina",
+    "modelYear": 2014,
+    "manufactureYear": 2013,
+    "color": "Branca",
+    "mileage": 194195,
+    "score": 176,
+    "licensePlate": "7",
+    "ipvaPaid": false,
+    "image": "vw-nova-saveiro-cs-frente-motorista-ab5e1159.jpg",
+    "isArmored": false,
+    "documentationDeadline": 30
+   },
+   "sort": [
+    1794182400000,
+    176
+   ]
+  },
+  {
+   "_index": "prodleilao_20261108180001",
+   "_type": "_doc",
+   "_id": "uYH2vKEBPQOkhxjvYnw-",
+   "_score": null,
+   "_source": {
+    "sku": "60067802",
+    "lotId": 172950,
+    "event": {
+     "id": 2819,
+     "date": "2026-11-09"
+    },
+    "number": 36,
+    "estimatedStartTime": "2026-11-09 11:08:45",
+    "lotStatus": "aberto_para_lance",
+    "isFinanciable": true,
+    "slug": "vw-novo-gol-1-0-city-2012-2013-60067802",
+    "url": "exclusivo-edp/vw-novo-gol-1-0-city-2012-2013/2819/172950",
+    "lastBid": 12000,
+    "location": "Mogi Das Cruzes-SP",
+    "brand": "VOLKSWAGEN",
+    "model": "GOL",
+    "version": "1.0 MI 8V FLEX 4P MANUAL G.IV",
+    "category": "Leve",
+    "transmission": "Câmbio Manual",
+    "fuel": "Álcool/Gasolina",
+    "modelYear": 2013,
+    "manufactureYear": 2012,
+    "color": "Prata",
+    "mileage": 234540,
+    "score": 173,
+    "licensePlate": "9",
+    "ipvaPaid": false,
+    "image": "vw-novo-gol-1-0-city-frente-motorista-a91ee44f.jpg",
+    "isArmored": false,
+    "documentationDeadline": 30
+   },
+   "sort": [
+    1794182400000,
+    173
+   ]
+  },
+  {
+   "_index": "prodleilao_20261108180001",
+   "_type": "_doc",
+   "_id": "soH2vKEBPQOkhxjvYnwp",
+   "_score": null,
+   "_source": {
+    "sku": "60060837",
+    "lotId": 172946,
+    "event": {
+     "id": 2819,
+     "date": "2026-11-09"
+    },
+    "number": 32,
+    "estimatedStartTime": "2026-11-09 11:07:45",
+    "lotStatus": "aberto_para_lance",
+    "isFinanciable": true,
+    "slug": "ford-courier-l-1-6-flex-2011-2012-60060837",
+    "url": "exclusivo-edp/ford-courier-l-1-6-flex-2011-2012/2819/172946",
+    "lastBid": 12000,
+    "location": "Mogi Das Cruzes-SP",
+    "brand": "FORD",
+    "model": "COURIER",
+    "version": "1.6 MPI L 8V FLEX 2P MANUAL",
+    "category": "Leve",
+    "transmission": "Câmbio Manual",
+    "fuel": "Álcool/Gasolina",
+    "modelYear": 2012,
+    "manufactureYear": 2011,
+    "color": "Branca",
+    "mileage": 157524,
+    "score": 171,
+    "licensePlate": "9",
+    "ipvaPaid": false,
+    "image": "ford-courier-l-1-6-flex-frente-motorista-e3ac993f.jpg",
+    "isArmored": false,
+    "documentationDeadline": 30
+   },
+   "sort": [
+    1794182400000,
+    171
+   ]
+  },
+  {
+   "_index": "prodleilao_20261108180001",
+   "_type": "_doc",
+   "_id": "v4H2vKEBPQOkhxjvYnxQ",
+   "_score": null,
+   "_source": {
+    "sku": "60075294",
+    "lotId": 172955,
+    "event": {
+     "id": 2819,
+     "date": "2026-11-09"
+    },
+    "number": 41,
+    "estimatedStartTime": "2026-11-09 11:10:00",
+    "lotStatus": "aberto_para_lance",
+    "isFinanciable": true,
+    "slug": "l-4-4-2015-2015-60075294",
+    "url": "exclusivo-edp/toyota-hilux-cs4x4chas-2015-2015/2819/172955",
+    "lastBid": 30000,
+    "location": "Mogi Das Cruzes-SP",
+    "brand": "TOYOTA",
+    "model": "HILUX",
+    "version": "3.0 4X4 CS 16V TURBO INTERCOOLER DIESEL 2P MANUAL",
+    "category": "Leve",
+    "transmission": "Câmbio Manual",
+    "fuel": "Diesel",
+    "modelYear": 2015,
+    "manufactureYear": 2015,
+    "color": "Branca",
+    "mileage": 208186,
+    "score": 165,
+    "licensePlate": "7",
+    "ipvaPaid": false,
+    "image": "toyota-hilux-cs4x4chas-frente-motorista-2e0f9f46.jpg",
+    "isArmored": false,
+    "documentationDeadline": 30
+   },
+   "sort": [
+    1794182400000,
+    165
+   ]
+  },
+  {
+   "_index": "prodleilao_20261108180001",
+   "_type": "_doc",
+   "_id": "uoH2vKEBPQOkhxjvYnxB",
+   "_score": null,
+   "_source": {
+    "sku": "60068741",
+    "lotId": 172951,
+    "event": {
+     "id": 2819,
+     "date": "2026-11-09"
+    },
+    "number": 37,
+    "estimatedStartTime": "2026-11-09 11:09:00",
+    "lotStatus": "aberto_para_lance",
+    "isFinanciable": true,
+    "slug": "vw-spacefox-trend-gii-2013-2013-60068741",
+    "url": "exclusivo-edp/vw-spacefox-trend-gii-2013-2013/2819/172951",
+    "lastBid": 12000,
+    "location": "Mogi Das Cruzes-SP",
+    "brand": "VOLKSWAGEN",
+    "model": "SPACEFOX",
+    "version": "1.6 MI 8V FLEX 4P AUTOMATIZADO",
+    "category": "Leve",
+    "transmission": "Câmbio Manual",
+    "fuel": "Álcool/Gasolina",
+    "modelYear": 2013,
+    "manufactureYear": 2013,
+    "color": "Branca",
+    "mileage": 1,
+    "score": 157,
+    "licensePlate": "2",
+    "ipvaPaid": false,
+    "image": "vw-spacefox-trend-gii-frente-motorista-c173c038.jpg",
+    "isArmored": false,
+    "documentationDeadline": 30
+   },
+   "sort": [
+    1794182400000,
+    157
+   ]
+  }
+ ],
+ "total_found": {
+  "value": 2096,
+  "relation": "eq"
+ }
+}

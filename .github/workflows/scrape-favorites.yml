@@ -1,0 +1,47 @@
+name: Lances dos favoritos
+
+on:
+  schedule:
+    # a cada 2h das 07:00 às 23:00 em Brasília (10:00–02:00 UTC)
+    - cron: "0 10-22/2 * * *"
+    - cron: "0 0,2 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: robo
+  cancel-in-progress: false
+
+jobs:
+  favoritos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Navegador do Playwright
+        run: pnpm --filter @karv/scraper exec playwright install --with-deps chromium
+
+      - name: Atualizar favoritos
+        working-directory: packages/scraper
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: pnpm start --modo=favoritos
+
+      - name: Guardar screenshots de erro
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: erros-favoritos-${{ github.run_id }}
+          path: packages/scraper/artifacts/
+          if-no-files-found: ignore
+          retention-days: 7

@@ -36,8 +36,21 @@ export interface LoteColetado {
   fimEm?: string;
   status?: string;
   fotos: string[];
+  /** Observações/descrição de condição do site (texto original). */
+  observacoes?: string;
+  chave?: "sim" | "nao";
+  financiavel?: boolean;
+  ipvaPago?: boolean;
+  /** Valor FIPE informado pelo próprio site. */
+  fipeSite?: number;
+  /** Taxas fixas do lote informadas pelo site (adm, transporte, inspeção…). */
+  taxasSite?: number;
+  /** Texto que ajuda a classificar procedência (comitente, origem…). */
+  procedenciaTexto?: string;
   raw: unknown;
 }
+
+export const UFS_ALVO = ["SP", "MG"] as const;
 
 export interface TermoBusca {
   id: string;
