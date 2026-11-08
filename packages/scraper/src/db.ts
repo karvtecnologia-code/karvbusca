@@ -2,8 +2,10 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { TermoBusca } from "@karv/core";
 
 export function supabaseAdmin(): SupabaseClient {
-  const url = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  // remove BOM/espaços que o PowerShell às vezes cola nos valores
+  const limpo = (v?: string) => v?.replace(/^﻿/, "").trim() || undefined;
+  const url = limpo(process.env.SUPABASE_URL) ?? limpo(process.env.NEXT_PUBLIC_SUPABASE_URL);
+  const key = limpo(process.env.SUPABASE_SERVICE_ROLE_KEY);
   if (!url || !key) throw new Error("Faltam SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY no ambiente.");
   return createClient(url, key, { auth: { persistSession: false } });
 }
