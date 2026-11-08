@@ -12,3 +12,4 @@ artifacts/
 supabase/.temp/
 supabase/.branches/
 *.log
+packages/scraper/explore/out/
