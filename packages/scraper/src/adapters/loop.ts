@@ -1,11 +1,11 @@
 import { dataBR, extrairCidade, extrairUF, type LoteColetado, type TipoVeiculo } from "@karv/core";
-import { abrir, pausa, type Adapter } from "../base";
+import { pausa, pedir, type Adapter } from "../base";
 
-const LISTA = "https://loopleiloes.com.br/estoque";
+const ORIGEM = "https://loopleiloes.com.br";
 const API = "https://api.loopleiloes.com.br/search/leilao";
 const FOTOS =
   "https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/KwUyhjEv9VxIWkPo_Ql7FUmLthg8HKxwThZvvaed7_Tqz9QfJfwrzzgt_3EIvqRG/n/loopbrasil/b/vehicle-photos/o/md/";
-const LOTE_API = 300;
+const LOTE_API = 3000; // uma chamada só costuma cobrir todo o estoque
 
 const TIPOS: Record<string, TipoVeiculo> = { leve: "carro", moto: "moto" };
 
@@ -112,14 +112,9 @@ export function parseLoopDetalhe(html: string, lote: LoteColetado): LoteColetado
 export const loop: Adapter = {
   slug: "loop",
   async listar({ page, log }) {
-    await abrir(page, LISTA);
-    // a API devolve os N primeiros veículos; pedimos em blocos crescentes até cobrir o total
-    const buscar = (n: number) =>
-      page.evaluate(async (url) => {
-        const r = await fetch(url);
-        if (!r.ok) throw new Error(`search/leilao HTTP ${r.status}`);
-        return r.json();
-      }, `${API}?numero_veiculos=${n}`);
+    // a Loop recusa (429) a página /estoque vinda do IP do GitHub, mas a API responde;
+    // então pedimos a API direto, como o navegador faria a partir do site
+    const buscar = async (n: number) => JSON.parse(await pedir(page, `${API}?numero_veiculos=${n}`, ORIGEM));
 
     let n = LOTE_API;
     let json = await buscar(n);
@@ -136,7 +131,9 @@ export const loop: Adapter = {
     return lotes;
   },
   async detalhar({ page }, lote) {
-    await abrir(page, lote.url);
-    return parseLoopDetalhe(await page.content(), lote);
+    // o JSON do Next.js vem pronto no HTML do servidor: não precisa executar a página
+    const html = await pedir(page, lote.url, ORIGEM);
+    await pausa();
+    return parseLoopDetalhe(html, lote);
   },
 };

@@ -104,6 +104,7 @@ export async function rodarSite(opts: {
           .in("id_externo", ids)
       : { data: [] as Prev[] };
     const anteriores = new Map((prevs as Prev[]).map((p) => [p.id_externo, p]));
+    let detalhesFalhos = 0;
 
     for (const base of candidatos) {
       let l = base;
@@ -113,7 +114,10 @@ export async function rodarSite(opts: {
           l = await adapter.detalhar({ page, termos, log }, base);
           if (page.url() !== antes) await pausa(); // só pausa se abriu página
         } catch (e) {
-          log(`detalhe falhou (${base.idExterno}): ${(e as Error).message}`);
+          // sem o detalhe não sabemos a condição: não grava agora, tenta na próxima busca
+          log(`detalhe falhou (${base.idExterno}), fica para a próxima: ${(e as Error).message}`);
+          detalhesFalhos++;
+          continue;
         }
       }
       if (!l.uf && l.cidade) l = { ...l, uf: await ufPorCidade(l.cidade) };
@@ -185,6 +189,8 @@ export async function rodarSite(opts: {
     }
 
     if (res.encontrados === 0) res.erro = "0 lotes na listagem (site mudou ou bloqueou?)";
+    else if (candidatos.length && detalhesFalhos === candidatos.length)
+      res.erro = `todas as ${detalhesFalhos} páginas de detalhe falharam (bloqueio ou limite do site?)`;
   } catch (e) {
     res.erro = (e as Error).message;
     log(`ERRO: ${res.erro}`);

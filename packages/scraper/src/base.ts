@@ -34,12 +34,36 @@ export async function novoContexto(browser: Browser): Promise<BrowserContext> {
 }
 
 export async function abrir(page: Page, url: string) {
-  const r = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  let r = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  // 429 = "devagar": espera 30 s, 60 s e 90 s antes de desistir
+  for (let t = 1; r?.status() === 429 && t <= 3; t++) {
+    await pausa(30_000 * t, 30_000 * t + 5000);
+    r = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  }
   if (r && r.status() >= 400) throw new Error(`HTTP ${r.status()} em ${url}`);
   await page.waitForLoadState("networkidle", { timeout: 15_000 }).catch(() => {});
   const titulo = await page.title();
   if (/just a moment|attention required|access denied/i.test(titulo)) {
     throw new Error(`Bloqueio anti-robô em ${url} ("${titulo}")`);
+  }
+}
+
+/**
+ * Requisição direta (sem abrir a página), com os cabeçalhos de um navegador vindo do site.
+ * Repete em caso de 429 com espera crescente.
+ */
+export async function pedir(page: Page, url: string, origem: string): Promise<string> {
+  for (let t = 0; ; t++) {
+    const r = await page.request.get(url, {
+      headers: { "user-agent": USER_AGENT, origin: origem, referer: `${origem}/`, accept: "*/*" },
+      timeout: 60_000,
+    });
+    if (r.status() === 429 && t < 3) {
+      await pausa(30_000 * (t + 1), 30_000 * (t + 1) + 5000);
+      continue;
+    }
+    if (!r.ok()) throw new Error(`HTTP ${r.status()} em ${url}`);
+    return r.text();
   }
 }
 
