@@ -1,0 +1,14 @@
+{
+  "name": "karvbusca",
+  "private": true,
+  "license": "MIT",
+  "packageManager": "pnpm@12.18.0",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "pnpm --filter @karv/web dev",
+    "build": "pnpm --filter @karv/web build",
+    "test": "pnpm -r --if-present test",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "scrape": "pnpm --filter @karv/scraper start"
+  }
+}
