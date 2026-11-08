@@ -4,16 +4,27 @@
  * A ordem de checagem fica em classify.ts: o mais grave vence.
  */
 export const PALAVRAS_MONTA = {
-  sucata: ["sucata", "baixa definitiva", "irrecuperavel", "para desmonte", "so pecas"],
-  grande: ["grande monta", "danos de grande", "dano de grande"],
+  sucata: [
+    "sucata",
+    "baixa definitiva",
+    "baixa permanente",
+    "irrecuperavel",
+    "para desmonte",
+    "so pecas",
+    "venda de pecas",
+    "motor inservivel",
+  ],
+  grande: ["grande monta", "danos de grande", "dano de grande", "perda total"],
   media: ["media monta", "danos de media", "dano de media"],
   pequena: ["pequena monta", "danos de pequena", "dano de pequena"],
   sem_monta: [
     "sem monta",
+    "sem sinistro",
     "sem registro de monta",
     "nao consta monta",
-    "sem sinistro",
+    "conservado",
     "recuperado de financiamento",
+    "recuperado financiamento",
     "retomado",
   ],
 } as const;
@@ -24,19 +35,65 @@ export const PALAVRAS_RODA = {
     "nao da partida",
     "nao funciona",
     "nao liga",
+    "nao ligando",
     "sem motor",
     "motor travado",
     "motor fundido",
+    "motor nao funciona",
     "nao anda",
     "sem cambio",
+    "funcionando na entrada nao",
+    "motor inservivel",
   ],
   sim: [
     "funcionando",
     "motor funciona",
+    "motor funcionando",
+    "ligando motor funciona",
     "da partida",
     "em funcionamento",
     "rodando",
     "liga e anda",
-    "funciona",
+    "funcionando na entrada sim",
   ],
+} as const;
+
+/** Circulação proibida até regularizar (vistoria CSV) ou para sempre. */
+export const PALAVRAS_CIRCULACAO_VEDADA = [
+  "circul vedada",
+  "circulacao vedada",
+  "circulacao proibida",
+  "impedido de circular",
+  "impedimento de circulacao",
+  "proibido circular",
+  "nao pode circular",
+  "nao circula",
+] as const;
+
+/** Danos que pesam na estrutura do carro. */
+export const PALAVRAS_DANO_ESTRUTURAL = [
+  "longarina",
+  "coluna a",
+  "coluna b",
+  "coluna c",
+  "chassi apresenta oxidacao",
+  "corrosao acentuada",
+  "assoalho danificado",
+  "chassi danificado",
+  "chassi remarcado",
+  "chassi adulterado",
+  "teto amassado",
+  "alagado",
+  "submerso",
+  "incendio",
+  "queimado",
+] as const;
+
+export const PALAVRAS_PROCEDENCIA = {
+  financiamento: ["recuperado de financiamento", "recuperado financiamento", "financeira"],
+  seguradora: ["seguradora", "sinistro recuperado", "indenizado"],
+  judicial: ["judicial", "penhorado", "tribunal", "justica"],
+  apreensao: ["apreensao", "apreendido", "detran", "patio de transito", "removido"],
+  frota: ["frota", "locadora", "renovacao de frota"],
+  patrimonio: ["patrimonio", "orgao publico", "prefeitura"],
 } as const;
