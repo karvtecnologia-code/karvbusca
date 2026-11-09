@@ -11,3 +11,7 @@ enable_signup = false
 
 [auth.email]
 enable_signup = false
+
+# chamada pelo pg_cron sem JWT; é idempotente e não expõe dados
+[functions.lembretes]
+verify_jwt = false

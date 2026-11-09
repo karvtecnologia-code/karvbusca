@@ -1,5 +1,5 @@
 import { timingSafeEqual } from "node:crypto";
-import { esc, Telegram, tecladoLote } from "@karv/core";
+import { esc, normalizar, reais, Telegram, tecladoLote } from "@karv/core";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
@@ -97,8 +97,95 @@ async function tratarComando(texto: string, chatId: number, tg: Telegram, db: Re
     await tg.enviarTexto(chatId, `<b>Saúde dos robôs</b>\n${linhas.join("\n")}`);
     return;
   }
+  if (cmd === "/favoritos") {
+    const { data } = await db
+      .from("lotes_painel")
+      .select("titulo, lance_atual, fim_em, url, site_nome")
+      .eq("decisao", "gostei")
+      .gt("fim_em", new Date().toISOString())
+      .order("fim_em")
+      .limit(15);
+    if (!data?.length) return void (await tg.enviarTexto(chatId, "Nenhum favorito aberto. Toque em 👍 num alerta."));
+    await tg.enviarTexto(chatId, `<b>⭐ Favoritos (${data.length})</b>\n\n${data.map(linhaLote).join("\n\n")}`);
+    return;
+  }
+
+  if (cmd === "/hoje") {
+    // "hoje" no horário de Brasília: até 23:59 de hoje
+    const fimDoDia = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" }).replace(/,.*/, "") + " 23:59:59 GMT-0300",
+    );
+    const { data } = await db
+      .from("lotes_painel")
+      .select("titulo, lance_atual, fim_em, url, site_nome, decisao, apto_rodar")
+      .or("decisao.is.null,decisao.eq.gostei")
+      .or("apto_rodar.eq.true,decisao.eq.gostei")
+      .in("uf", ["SP", "MG"])
+      .gt("fim_em", new Date().toISOString())
+      .lte("fim_em", fimDoDia.toISOString())
+      .order("fim_em")
+      .limit(20);
+    if (!data?.length) return void (await tg.enviarTexto(chatId, "Nenhum lote apto ou favorito encerra hoje."));
+    await tg.enviarTexto(
+      chatId,
+      `<b>📅 Encerram hoje (${data.length})</b>\n\n${data
+        .map((l) => (l.decisao === "gostei" ? "⭐ " : "") + linhaLote(l))
+        .join("\n\n")}`,
+    );
+    return;
+  }
+
+  if (cmd === "/termos") {
+    const { data } = await db.from("termos_busca").select("termo, apelidos, tipo, ativo").order("termo");
+    const linhas = (data ?? []).map(
+      (t) =>
+        `${t.ativo ? "🟢" : "⚪"} <b>${esc(t.termo)}</b>${t.tipo ? ` · ${t.tipo}` : ""}${
+          t.apelidos?.length ? ` <i>(${esc(t.apelidos.join(", "))})</i>` : ""
+        }`,
+    );
+    await tg.enviarTexto(chatId, `<b>Termos de busca</b>\n${linhas.join("\n")}\n\nAdicione com /add modelo`);
+    return;
+  }
+
+  if (cmd === "/add") {
+    const resto = texto.trim().split(/\s+/).slice(1).join(" ");
+    const termo = normalizar(resto);
+    if (!termo) return void (await tg.enviarTexto(chatId, "Use assim: /add civic"));
+    const { error } = await db.from("termos_busca").insert({ termo });
+    await tg.enviarTexto(
+      chatId,
+      error?.code === "23505"
+        ? `"${esc(termo)}" já está cadastrado.`
+        : error
+          ? `Erro: ${esc(error.message)}`
+          : `✅ <b>${esc(termo)}</b> adicionado. Entra na próxima busca (07h, 12h ou 18h).\nAjuste ano, tipo e lance máximo no painel.`,
+    );
+    return;
+  }
+
   await tg.enviarTexto(
     chatId,
-    "Comandos: /status (saúde dos robôs).\nEm breve: /favoritos, /hoje, /add &lt;modelo&gt;, /termos.",
+    [
+      "<b>Comandos</b>",
+      "/favoritos — favoritos abertos, pelo encerramento",
+      "/hoje — aptos e favoritos que encerram hoje",
+      "/termos — modelos monitorados",
+      "/add &lt;modelo&gt; — monitorar um modelo novo",
+      "/status — saúde dos robôs",
+    ].join("\n"),
   );
+}
+
+function linhaLote(l: { titulo: string; lance_atual: number | null; fim_em: string | null; url: string; site_nome: string }) {
+  const fim = l.fim_em
+    ? new Date(l.fim_em).toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        weekday: "short",
+        day: "2-digit",
+        month: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : "—";
+  return `<a href="${esc(l.url)}">${esc(l.titulo)}</a>\n${reais(l.lance_atual)} · ${esc(fim)} · <i>${esc(l.site_nome)}</i>`;
 }
