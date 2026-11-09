@@ -60,7 +60,7 @@ export function parseSodre(json: { results: SodreLote[] }): LoteColetado[] {
       descricao: r.lot_description,
       anoFab: r.lot_year_manufacture,
       anoMod: r.lot_year_model,
-      km: r.lot_km,
+      km: r.lot_km || undefined, // a Sodré manda 0 quando não sabe
       uf: extrairUF(r.lot_location),
       cidade: extrairCidade(r.lot_location),
       condicaoTexto: condicao,

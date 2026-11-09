@@ -5,6 +5,13 @@ import { abrir, linhas, pausa, textoVisivel, type Adapter } from "../base";
 const BASE = "https://www.freitasleiloeiro.com.br";
 const POR_PAGINA = 12;
 const MAX_PAGINAS = 60;
+/** Filtro "Condição" do site → texto que o classificador entende. */
+const CONDICOES: [string, string][] = [
+  ["inteiros", "sem monta"],
+  ["pequena monta", "pequena monta"],
+  ["media monta", "media monta"],
+  ["sucatas", "sucata"],
+];
 const TIPOS: [number, TipoVeiculo][] = [
   [1, "carro"],
   [3, "moto"],
@@ -19,7 +26,8 @@ export function parseFreitasLista(html: string, tipo?: TipoVeiculo): LoteColetad
     const href = c.find("a[href*='LoteDetalhes']").first().attr("href");
     const m = href?.match(/leilaoId=(\d+)&(?:amp;)?loteNumero=(\d+)/);
     if (!href || !m) return;
-    const desc = c.find(".cardLote-descVeic").text().replace(/\s+/g, " ").trim();
+    // "I MMC ASX…": o "I" marca importado; tiramos do título
+    const desc = c.find(".cardLote-descVeic").text().replace(/\s+/g, " ").trim().replace(/^I[\s/]+/, "");
     // "HONDA/FIT EX CVT, 15/16, PLACA: L__-___8, GASOL/ALC, CINZA"
     const partes = desc.split(",").map((p) => p.trim());
     const [marca, ...resto] = (partes[0] ?? "").split("/");
@@ -73,14 +81,16 @@ export const freitas: Adapter = {
   async listar({ page, log }) {
     await abrir(page, `${BASE}/Leiloes/Pesquisar?Categoria=1&TipoLoteId=1`);
     const vistos = new Map<string, LoteColetado>();
-    for (const [tipoId, tipo] of TIPOS) {
+    // buscamos por condição (filtro oficial do site) para marcar a monta de cada lote
+    for (const [tipoId, tipo] of TIPOS)
+    for (const [condicao, rotulo] of CONDICOES) {
       for (let pagina = 1; pagina <= MAX_PAGINAS; pagina++) {
         const p = new URLSearchParams({
           Nome: "",
           Categoria: "1",
           TipoLoteId: String(tipoId),
           FaixaValor: "0",
-          Condicao: "0",
+          Condicao: condicao,
           PatioId: "0",
           AnoModeloMin: "0",
           AnoModeloMax: "0",
@@ -99,10 +109,13 @@ export const freitas: Adapter = {
           return r.text();
         }, `/Leiloes/PesquisarLotes?${p}`);
         if (html.includes("Nenhum lote localizado")) break;
-        const cards = parseFreitasLista(html, tipo);
+        const cards = parseFreitasLista(html, tipo).map((c) => ({
+          ...c,
+          condicaoTexto: [rotulo, c.condicaoTexto].join(" . "),
+        }));
         const novos = cards.filter((c) => !vistos.has(c.idExterno));
         for (const c of cards) vistos.set(c.idExterno, c);
-        log(`${tipo} p${pagina}: ${cards.length} lotes`);
+        log(`${tipo} ${condicao} p${pagina}: ${cards.length} lotes`);
         if (cards.length < POR_PAGINA || !novos.length) break;
         await pausa();
       }

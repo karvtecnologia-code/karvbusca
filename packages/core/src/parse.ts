@@ -71,7 +71,13 @@ export function extrairCidade(texto?: string | null): string | undefined {
   if (!texto) return undefined;
   const c = texto.replace(/[\/\-,]\s*[A-Za-z]{2}\s*$/, "").replace(/\s+[ivx]+$/i, "").trim();
   if (!c) return undefined;
-  return c.replace(/\b\p{L}/gu, (l) => l.toUpperCase());
+  // \b não entende acento ("cesário" virava "CesÁrio"): capitaliza por palavra
+  const minusculas = new Set(["de", "da", "do", "das", "dos", "e"]);
+  return c
+    .toLowerCase()
+    .split(/\s+/)
+    .map((p, i) => (i > 0 && minusculas.has(p) ? p : p.charAt(0).toUpperCase() + p.slice(1)))
+    .join(" ");
 }
 
 /** "2015/2016" ou "15/16" → [2015, 2016] */

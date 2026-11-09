@@ -70,7 +70,7 @@ describe("Loop", () => {
   const gol = () => lotes.find((l) => l.idExterno === "60062019")!;
   it("lê os lotes com UF, ano e lance (id = SKU do veículo)", () => {
     expect(lotes.length).toBeGreaterThan(0);
-    expect(gol()).toMatchObject({ uf: "SP", cidade: "Mogi Das Cruzes", anoMod: 2013, tipo: "carro", lanceAtual: 12000 });
+    expect(gol()).toMatchObject({ uf: "SP", cidade: "Mogi das Cruzes", anoMod: 2013, tipo: "carro", lanceAtual: 12000 });
     expect(gol().url).toBe("https://loopleiloes.com.br/leilao/exclusivo-edp/vw-novo-gol-1-0-city-2012-2013/2819/172948");
     expect(gol().fotos[0]).toMatch(/vehicle-photos\/o\/md\/.+\.jpg$/);
   });

@@ -14,6 +14,7 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
     .from("lotes_painel")
     .select(CAMPOS_CARD)
     .or("decisao.is.null,decisao.eq.gostei") // descartados nunca aparecem aqui
+    .in("uf", ["SP", "MG"])
     .or(`fim_em.is.null,fim_em.gte.${new Date(Date.now() - 3600_000).toISOString()}`) // só abertos
     .limit(400);
 

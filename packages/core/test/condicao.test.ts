@@ -42,6 +42,13 @@ describe("condição com textos reais", () => {
     expect(classificarProcedencia(VIP)).toBe("patrimonio");
   });
 
+  it("Freitas: danos estruturais abreviados e motor com problema grave", () => {
+    expect(danosEstruturais("FINANCEIRA . DANOS ESTRUTURAIS ( LONGARINA DIA ESQ / LONG DIANT DIR")).toContain("danos estruturais");
+    expect(danosEstruturais("PARA-BRISA TRINCADO / MOTOR QUEIMANDO OLEO, BATENDO COM")).toContain("queimando oleo");
+    expect(danosEstruturais("MOTOR BATENDO VALVULAS / IPVA 2026 PAGO")).toContain("motor batendo");
+    expect(danosEstruturais("PARA-BRISA TRINCADO / SEM ESTEPE")).toEqual([]);
+  });
+
   it("apto a rodar", () => {
     const base = { roda: "sim" as const, circulacao: "nao_informado" as const, danoEstrutural: false };
     expect(aptoRodar({ ...base, monta: "sem_monta" })).toBe(true);
