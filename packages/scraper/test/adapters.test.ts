@@ -74,9 +74,12 @@ describe("Loop", () => {
     expect(gol().url).toBe("https://loopleiloes.com.br/leilao/exclusivo-edp/vw-novo-gol-1-0-city-2012-2013/2819/172948");
     expect(gol().fotos[0]).toMatch(/vehicle-photos\/o\/md\/.+\.jpg$/);
   });
-  it("ignora veículos de estoque sem leilão marcado", () => {
-    const sem = parseLoop({ hits: [{ _source: { sku: "1", lotId: null, url: null, category: "Leve" } }] });
-    expect(sem).toHaveLength(0);
+  it("estoque sem leilão marcado entra como 'estoque' (Em breve), sem data", () => {
+    const [e] = parseLoop({
+      hits: [{ _source: { sku: "60069040", lotId: null, url: null, category: "Leve", brand: "HYUNDAI", model: "HB20X", location: "Uberlândia-MG" } }],
+    });
+    expect(e).toMatchObject({ idExterno: "60069040", status: "estoque", uf: "MG", url: "https://loopleiloes.com.br/estoque" });
+    expect(e!.fimEm).toBeUndefined();
   });
   it("detalhe: encerramento real, vistoria, FIPE e taxas", () => {
     const d = parseLoopDetalhe(fx("loop-detalhe.html"), gol());

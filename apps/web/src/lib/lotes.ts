@@ -52,7 +52,7 @@ export interface LotePainel {
 }
 
 export const CAMPOS_CARD =
-  "id, site_id, site_slug, site_nome, comissao_pct, taxa_adm, id_externo, url, titulo, tipo, ano_fab, ano_mod, km, uf, cidade, condicao_monta, roda, circulacao, chave, dano_estrutural, apto_rodar, lance_atual, fim_em, fotos, fipe_valor, fipe_site, fipe_aproximada, taxas_site, custo_patio, custo_doc, custo_frete, visto_primeiro_em, decisao, nota, termos";
+  "id, site_id, site_slug, site_nome, comissao_pct, taxa_adm, id_externo, url, titulo, tipo, ano_fab, ano_mod, km, uf, cidade, condicao_monta, roda, circulacao, chave, dano_estrutural, apto_rodar, lance_atual, fim_em, status, fotos, fipe_valor, fipe_site, fipe_aproximada, taxas_site, custo_patio, custo_doc, custo_frete, visto_primeiro_em, decisao, nota, termos";
 
 export type Config = PadroesCusto & {
   chat_id_telegram: number | null;

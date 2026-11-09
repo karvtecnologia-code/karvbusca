@@ -84,6 +84,12 @@ export function CardLote({
             </div>
 
             <div className="flex flex-wrap gap-1">
+              {l.status === "estoque" && (
+                <Etiqueta tom="warn" title="Estoque da Loop ainda sem leilão marcado: sem data e sem lance">
+                  Em breve
+                </Etiqueta>
+              )}
+              {l.status === "retirado" && <Etiqueta tom="bad">Saiu do site</Etiqueta>}
               <Etiqueta tom={monta.tom}>{monta.rotulo}</Etiqueta>
               <Etiqueta tom={roda.tom}>{roda.rotulo}</Etiqueta>
               {l.circulacao === "vedada" && <Etiqueta tom="bad">Circulação vedada</Etiqueta>}

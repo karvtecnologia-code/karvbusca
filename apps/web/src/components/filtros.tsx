@@ -140,6 +140,9 @@ export function Filtros({ sites, termos, total }: { sites: Opcao[]; termos: Opca
         <button onClick={() => set("fav", val("fav") ? null : "1")} className={chip(!!val("fav"))}>
           Esconder favoritos
         </button>
+        <button onClick={() => set("breve", val("breve") ? null : "1")} className={chip(!!val("breve"))}>
+          Esconder “Em breve”
+        </button>
       </div>
 
       {ativos > 0 && (

@@ -33,6 +33,7 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
   if (sp.lance) q = q.lte("lance_atual", Number(sp.lance));
   if (sp.h24) q = q.lte("fim_em", new Date(Date.now() + 86_400_000).toISOString());
   if (sp.fav) q = q.is("decisao", null);
+  if (sp.breve) q = q.or("status.is.null,status.neq.estoque"); // esconder estoque "Em breve"
   // busca livre: "hr-v 2017" → título/modelo contém "hr-v" e ano-modelo 2017
   for (const tok of (sp.q ?? "").trim().split(/\s+/).filter(Boolean).slice(0, 4)) {
     if (/^(19|20)\d{2}$/.test(tok)) q = q.eq("ano_mod", Number(tok));

@@ -14,7 +14,7 @@ interface LoopHit {
     sku?: string;
     lotId: number | null;
     url: string | null;
-    lotStatus?: string;
+    lotStatus?: string | null;
     estimatedStartTime?: string;
     event?: { date?: string };
     lastBid?: number;
@@ -38,13 +38,14 @@ export function parseLoop(json: { hits?: LoopHit[] }): LoteColetado[] {
   for (const { _source: s } of json.hits ?? []) {
     const tipo = TIPOS[(s.category ?? "").toLowerCase()];
     if (!tipo) continue;
-    // sem lote = só estoque, ainda sem leilão marcado (não dá para dar lance)
-    if (s.lotId == null || !s.url) continue;
+    // sem lote = estoque ainda sem leilão marcado: entra como "Em breve" (sem data nem lance)
+    const estoque = s.lotId == null || !s.url;
+    if (estoque && !s.sku) continue;
     out.push({
       site: "loop",
-      // o SKU é do veículo: continua o mesmo se ele for para outro leilão
+      // o SKU é do veículo: continua o mesmo quando ele sai do estoque e entra num leilão
       idExterno: s.sku ?? String(s.lotId),
-      url: `https://loopleiloes.com.br/leilao/${s.url}`,
+      url: estoque ? `${ORIGEM}/estoque` : `${ORIGEM}/leilao/${s.url}`,
       titulo: [s.brand, s.model, s.version].filter(Boolean).join(" "),
       tipo,
       marca: s.brand,
@@ -57,8 +58,8 @@ export function parseLoop(json: { hits?: LoopHit[] }): LoteColetado[] {
       cidade: extrairCidade(s.location),
       combustivel: s.fuel,
       lanceAtual: s.lastBid,
-      fimEm: dataBR(s.estimatedStartTime ?? s.event?.date),
-      status: s.lotStatus,
+      fimEm: estoque ? undefined : dataBR(s.estimatedStartTime ?? s.event?.date),
+      status: estoque ? "estoque" : (s.lotStatus ?? undefined),
       fotos: s.image ? [FOTOS + s.image] : [],
       ipvaPago: s.ipvaPaid,
       financiavel: s.isFinanciable,
@@ -131,6 +132,7 @@ export const loop: Adapter = {
     return lotes;
   },
   async detalhar({ page }, lote) {
+    if (lote.status === "estoque") return lote; // estoque não tem página de detalhe
     // as páginas passam pelo "Vercel Security Checkpoint": abre no navegador, que resolve o desafio
     await abrir(page, lote.url);
     return parseLoopDetalhe(await page.content(), lote);
