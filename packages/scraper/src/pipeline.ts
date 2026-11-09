@@ -6,7 +6,7 @@ import { novoContexto, pausa, type Adapter } from "./base";
 import { classificar, mereceAlertaNovo } from "./classificar";
 import type { SiteRow } from "./db";
 import { ufPorCidade } from "./municipios";
-import { avisarFalha } from "./alertas";
+import { avisarFalha, avisarSumiu } from "./alertas";
 
 export type Modo = "completo" | "favoritos";
 const MAX_FOTOS = 8;
@@ -191,6 +191,25 @@ export async function rodarSite(opts: {
       await db
         .from("lote_termos")
         .upsert(casados.map((t) => ({ lote_id: loteId, termo_id: t.id })), { ignoreDuplicates: true });
+    }
+
+    // favoritos ainda abertos que sumiram da listagem (só em busca completa e listagem saudável)
+    if (!seco && modo === "completo" && coletados.length > 0 && favoritos.size) {
+      const vistosAgora = new Set(coletados.map((c) => c.idExterno));
+      const sumidos = [...favoritos].filter((id) => !vistosAgora.has(id));
+      if (sumidos.length) {
+        const { data: fav } = await db
+          .from("lotes")
+          .select("id, site_id, titulo, url, fim_em, status")
+          .eq("site_id", site.id)
+          .in("id_externo", sumidos)
+          .gt("fim_em", new Date(Date.now() + 30 * 60_000).toISOString());
+        for (const f of fav ?? []) {
+          if (f.status === "retirado") continue;
+          log(`favorito sumiu da listagem: ${f.titulo}`);
+          await avisarSumiu(db, { ...f, site: site.nome }).catch((e) => log(`aviso sumiu falhou: ${(e as Error).message}`));
+        }
+      }
     }
 
     if (res.encontrados === 0) res.erro = "0 lotes na listagem (site mudou ou bloqueou?)";

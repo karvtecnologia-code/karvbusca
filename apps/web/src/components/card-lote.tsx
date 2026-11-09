@@ -8,7 +8,17 @@ import { anosFmt, kmFmt, MONTA, quando, reais, RODA, valoresLote, type LotePaine
 import { Contagem } from "./contagem";
 import { Etiqueta } from "./etiqueta";
 
-export function CardLote({ lote: l, padroes, indice = 0 }: { lote: LotePainel; padroes: PadroesCusto; indice?: number }) {
+export function CardLote({
+  lote: l,
+  padroes,
+  indice = 0,
+  novo = false,
+}: {
+  lote: LotePainel;
+  padroes: PadroesCusto;
+  indice?: number;
+  novo?: boolean;
+}) {
   const [decisao, setDecisao] = useState(l.decisao);
   const [saindo, setSaindo] = useState(false);
   const [, start] = useTransition();
@@ -46,6 +56,11 @@ export function CardLote({ lote: l, padroes, indice = 0 }: { lote: LotePainel; p
               />
             ) : (
               <div className="grid aspect-[4/3] h-full place-items-center text-xs text-faint">sem foto</div>
+            )}
+            {novo && decisao !== "gostei" && (
+              <span className="absolute top-1.5 left-1.5 rounded bg-amber px-1.5 py-0.5 text-[11px] font-medium text-bg">
+                Novo
+              </span>
             )}
             {decisao === "gostei" && (
               <span className="absolute top-1.5 left-1.5 rounded bg-bg/80 px-1.5 py-0.5 text-[11px] text-amber backdrop-blur">

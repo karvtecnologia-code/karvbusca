@@ -152,6 +152,73 @@ export async function enviarPendentes(db: SupabaseClient, log = console.log) {
   return enviados;
 }
 
+/** Favorito que não aparece mais na listagem do site, ainda antes do encerramento. */
+export async function avisarSumiu(db: SupabaseClient, l: { id: string; site_id: number; titulo: string; url: string; site: string }) {
+  const tg = telegramDoAmbiente();
+  const cfg = await carregarConfig(db);
+  const { count } = await db
+    .from("alertas_enviados")
+    .select("id", { count: "exact", head: true })
+    .eq("lote_id", l.id)
+    .eq("tipo", "sumiu");
+  if (count) return;
+  await db.from("lotes").update({ status: "retirado" }).eq("id", l.id);
+  if (!tg || !cfg?.chat_id_telegram) return;
+  const msg = await tg.enviarTexto(
+    cfg.chat_id_telegram,
+    `👻 <b>Favorito sumiu do site</b>\n${esc(l.titulo)}\nNão aparece mais na listagem da ${esc(l.site)} (vendido antes, retirado ou adiado).`,
+    [[{ text: "🔗 Conferir no site", url: l.url }]],
+  );
+  await db.from("alertas_enviados").insert({ lote_id: l.id, site_id: l.site_id, tipo: "sumiu", telegram_msg_id: msg.message_id });
+}
+
+/** Resumo da manhã: aptos novos em 24h, o que encerra hoje e os melhores em % FIPE. Uma vez por dia. */
+export async function enviarResumo(db: SupabaseClient, log = console.log) {
+  const tg = telegramDoAmbiente();
+  const cfg = await carregarConfig(db);
+  if (!tg || !cfg?.chat_id_telegram) return;
+  const hojeBR = new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" }); // AAAA-MM-DD
+  const inicioDia = new Date(`${hojeBR}T00:00:00-03:00`);
+  const fimDia = new Date(`${hojeBR}T23:59:59-03:00`);
+  const { count: ja } = await db
+    .from("alertas_enviados")
+    .select("id", { count: "exact", head: true })
+    .eq("tipo", "resumo")
+    .gte("enviado_em", inicioDia.toISOString());
+  if (ja) return;
+
+  const agora = new Date().toISOString();
+  const { data } = await db
+    .from("lotes_painel")
+    .select("titulo, lance_atual, fim_em, url, site_nome, visto_primeiro_em, decisao, comissao_pct, taxa_adm, taxas_site, custo_patio, custo_doc, custo_frete, fipe_valor, fipe_site")
+    .eq("apto_rodar", true)
+    .in("uf", ["SP", "MG"])
+    .or("decisao.is.null,decisao.eq.gostei")
+    .gt("fim_em", agora);
+  const lotes = data ?? [];
+  const novos = lotes.filter((l) => new Date(l.visto_primeiro_em).getTime() > Date.now() - 86_400_000);
+  const hoje = lotes.filter((l) => new Date(l.fim_em!).getTime() <= fimDia.getTime());
+  const melhores = lotes
+    .map((l) => ({ l, pct: calcularLote(l, cfg).pct }))
+    .filter((x) => x.pct != null)
+    .sort((a, b) => a.pct! - b.pct!)
+    .slice(0, 3);
+
+  const linha = (l: (typeof lotes)[number], extra = "") =>
+    `• <a href="${esc(l.url)}">${esc(l.titulo)}</a> — ${reais(l.lance_atual)}${extra} · <i>${esc(l.site_nome)}</i>`;
+  const texto = [
+    `☀️ <b>Bom dia! Resumo KarvBusca</b>`,
+    `${lotes.length} lotes aptos abertos · <b>${novos.length}</b> novos nas últimas 24h · <b>${hoje.length}</b> encerram hoje`,
+    melhores.length ? `\n<b>Melhores em % FIPE</b>\n${melhores.map((x) => linha(x.l, ` · ${Math.round(x.pct! * 100)}% FIPE`)).join("\n")}` : null,
+    hoje.length ? `\n<b>Encerram hoje</b>\n${hoje.slice(0, 8).map((l) => linha(l, ` · ${quando(l.fim_em)}`)).join("\n")}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+  const msg = await tg.enviarTexto(cfg.chat_id_telegram, texto);
+  await db.from("alertas_enviados").insert({ tipo: "resumo", telegram_msg_id: msg.message_id });
+  log("[telegram] resumo diário enviado");
+}
+
 /** Alerta "robô do <site> falhou". */
 export async function avisarFalha(db: SupabaseClient, site: { id: number; nome: string }, erro: string) {
   const tg = telegramDoAmbiente();

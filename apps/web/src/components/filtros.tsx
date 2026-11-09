@@ -53,6 +53,7 @@ export function Filtros({ sites, termos, total }: { sites: Opcao[]; termos: Opca
 
   const painel = (
     <div className="space-y-4">
+      <Busca valor={val("q")} onChange={(v) => set("q", v.trim() || null)} classe={campo} />
       <label className="flex cursor-pointer items-center justify-between gap-3 rounded-md border border-line bg-bg px-3 py-2">
         <span>
           <span className="block text-sm">Só aptos a rodar</span>
@@ -221,6 +222,30 @@ function Sel(p: { rotulo: string; valor: string; onChange: (v: string) => void; 
           </option>
         ))}
       </select>
+    </label>
+  );
+}
+
+function Busca(p: { valor: string; onChange: (v: string) => void; classe: string }) {
+  const [v, setV] = useState(p.valor);
+  useEffect(() => setV(p.valor), [p.valor]);
+  // aplica 400 ms depois de parar de digitar
+  useEffect(() => {
+    if (v === p.valor) return;
+    const t = setTimeout(() => p.onChange(v), 400);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [v]);
+  return (
+    <label className="block">
+      <span className="sr-only">Buscar</span>
+      <input
+        type="search"
+        value={v}
+        onChange={(e) => setV(e.target.value)}
+        placeholder="Buscar: hr-v 2017, bros, asx…"
+        className={`${p.classe} h-9`}
+      />
     </label>
   );
 }

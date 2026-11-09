@@ -8,7 +8,7 @@
  */
 import { chromium } from "playwright";
 import { adapters } from "./adapters";
-import { enviarPendentes } from "./alertas";
+import { enviarPendentes, enviarResumo } from "./alertas";
 import { atualizarFipe } from "./fipe";
 import { carregarSites, carregarTermos, supabaseAdmin } from "./db";
 import { rodarSite, type Modo, type Resultado } from "./pipeline";
@@ -52,6 +52,11 @@ try {
 
 if (args.seco !== "true") {
   await atualizarFipe(db).catch((e) => console.log(`[fipe] erro: ${(e as Error).message}`));
+  // resumo da manhã: na busca das 07:00 (antes das 10h de Brasília), uma vez por dia
+  const horaBR = Number(new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo", hour: "numeric", hour12: false }));
+  if (modo === "completo" && horaBR < 10) {
+    await enviarResumo(db).catch((e) => console.log(`[telegram] resumo: ${(e as Error).message}`));
+  }
   await enviarPendentes(db).catch((e) => console.log(`[telegram] erro: ${(e as Error).message}`));
 }
 

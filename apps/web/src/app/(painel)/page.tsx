@@ -1,4 +1,6 @@
+import { cookies } from "next/headers";
 import { Suspense } from "react";
+import { MarcarVisita } from "@/components/marcar-visita";
 import { CardLote } from "@/components/card-lote";
 import { Filtros } from "@/components/filtros";
 import { CAMPOS_CARD, valoresLote, type Config, type LotePainel } from "@/lib/lotes";
@@ -31,6 +33,14 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
   if (sp.lance) q = q.lte("lance_atual", Number(sp.lance));
   if (sp.h24) q = q.lte("fim_em", new Date(Date.now() + 86_400_000).toISOString());
   if (sp.fav) q = q.is("decisao", null);
+  // busca livre: "hr-v 2017" → título/modelo contém "hr-v" e ano-modelo 2017
+  for (const tok of (sp.q ?? "").trim().split(/\s+/).filter(Boolean).slice(0, 4)) {
+    if (/^(19|20)\d{2}$/.test(tok)) q = q.eq("ano_mod", Number(tok));
+    else {
+      const t = tok.replace(/[%_,()]/g, "");
+      if (t) q = q.or(`titulo.ilike.%${t}%,modelo.ilike.%${t}%,versao.ilike.%${t}%`);
+    }
+  }
 
   const ordem = sp.ordem ?? "fim";
   if (ordem === "lance") q = q.order("lance_atual", { ascending: true, nullsFirst: false });
@@ -44,6 +54,7 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
     supabase.from("termos_busca").select("id, termo").order("termo"),
   ]);
   const padroes = (cfg ?? { custo_doc_padrao: 0, custo_patio_padrao: 0 }) as Config;
+  const visita = Number((await cookies()).get("kb_visita")?.value ?? 0);
 
   let lotes = (data ?? []) as unknown as LotePainel[];
   if (sp.fipe || ordem === "fipe") {
@@ -79,9 +90,16 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
         )}
         <ul>
           {lotes.map((l, i) => (
-            <CardLote key={l.id} lote={l} padroes={padroes} indice={i} />
+            <CardLote
+              key={l.id}
+              lote={l}
+              padroes={padroes}
+              indice={i}
+              novo={visita > 0 && new Date(l.visto_primeiro_em).getTime() > visita}
+            />
           ))}
         </ul>
+        <MarcarVisita />
       </section>
     </div>
   );

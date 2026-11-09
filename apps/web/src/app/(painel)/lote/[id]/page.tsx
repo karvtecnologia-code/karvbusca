@@ -9,14 +9,21 @@ import { Calculadora } from "./calculadora";
 import { Decisao } from "./decisao";
 import { FipeForm } from "./fipe-form";
 import { Galeria } from "./galeria";
+import { LoteIA } from "./lote-ia";
+import type { AnaliseIA } from "@/lib/ia";
 
 export default async function LotePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const supabase = await supabaseServer();
-  const [{ data: lote }, { data: hist }, { data: cfg }] = await Promise.all([
+  const [{ data: lote }, { data: hist }, { data: cfg }, { data: ia }, { data: msgs }] = await Promise.all([
     supabase.from("lotes_painel").select("*").eq("id", id).maybeSingle(),
     supabase.from("lotes_historico").select("capturado_em, lance_atual").eq("lote_id", id).order("capturado_em"),
-    supabase.from("config").select("custo_doc_padrao, custo_patio_padrao, frete_padrao, chat_id_telegram, origem").single(),
+    supabase
+      .from("config")
+      .select("custo_doc_padrao, custo_patio_padrao, frete_padrao, chat_id_telegram, origem, ia_secret_id")
+      .single(),
+    supabase.from("lote_ia").select("analise, modelo, gerado_em").eq("lote_id", id).maybeSingle(),
+    supabase.from("lote_ia_mensagens").select("papel, texto").eq("lote_id", id).order("criado_em"),
   ]);
   if (!lote) notFound();
   const l = lote as LotePainel;
@@ -68,6 +75,15 @@ export default async function LotePage({ params }: { params: Promise<{ id: strin
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         <div className="space-y-6">
           <Galeria fotos={l.fotos} />
+
+          <LoteIA
+            loteId={l.id}
+            analise={(ia?.analise as AnaliseIA) ?? null}
+            geradoEm={ia?.gerado_em ?? null}
+            modelo={ia?.modelo ?? null}
+            mensagens={(msgs ?? []) as { papel: "user" | "assistant"; texto: string }[]}
+            configurada={!!cfg?.ia_secret_id}
+          />
 
           <section className="rounded-lg border border-line bg-surface p-4">
             <h2 className="mb-3 text-sm font-medium">Histórico de lances</h2>
