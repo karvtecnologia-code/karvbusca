@@ -13,6 +13,11 @@ export const PALAVRAS_MONTA = {
     "so pecas",
     "venda de pecas",
     "motor inservivel",
+    "sucateado", // Sold: "Veículo Sucateado/Canibalizado"
+    "canibalizado",
+    "estado de sucata",
+    "somente o quadro",
+    "faltam rodas",
   ],
   grande: ["grande monta", "danos de grande", "dano de grande", "perda total"],
   media: ["media monta", "danos de media", "dano de media"],
@@ -48,6 +53,14 @@ export const PALAVRAS_RODA = {
     "motor danif",
     "motor avariado",
     "motor parcial", // Sodré: motor incompleto
+    "motor desmontado", // Sodré: "MOTOR DESMONTADO - FALTANDO PARTES"
+    "motor falta", // Sold: "Motor: Falta"
+    "falta motor",
+    "faltando motor",
+    "motor faltando",
+    "motor avariado faltando",
+    "veiculo nao funciona",
+    "faltando pecas mecanicas",
   ],
   sim: [
     "funcionando",

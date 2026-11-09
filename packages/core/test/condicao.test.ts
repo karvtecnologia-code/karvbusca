@@ -64,6 +64,16 @@ describe("condição com textos reais", () => {
     expect(aptoRodar({ monta: "media", roda: "sim", circulacao: "nao_informado", danoEstrutural: false })).toBe(true);
   });
 
+  it("textos reais de 09/11: motor desmontado, motor faltando e moto canibalizada", () => {
+    expect(classificarRoda("OBS.: MOTOR DESMONTADO - FALTANDO PARTES E PEÇAS. (COM DIREITO A DOCUMENTO)")).toBe("nao");
+    expect(classificarRoda("Chassi: Motor: Falta Partida elétrica: Não")).toBe("nao");
+    expect(classificarMonta("Veículo em estado de sucata Veículo Sucateado/Canibalizado Somente o quadro e guidão")).toBe("sucata");
+    // "Motor não original" é troca de motor regularizada, não falta de motor
+    expect(classificarRoda("MOTOR NÃO ORIGINAL, Nº REGULARIZADO NA BASE ESTADUAL")).toBe("nao_informado");
+    // boilerplate da Loop não pode virar sucata
+    expect(classificarMonta("QUALQUER REGULARIZAÇÃO, PLACA MERCOSUL, FALTA DE PEÇAS E PEÇAS DANIFICADAS, SERÁ POR CONTA DO COMPRADOR")).toBe("nao_informado");
+  });
+
   it("apto a rodar", () => {
     const base = { roda: "sim" as const, circulacao: "nao_informado" as const, danoEstrutural: false };
     expect(aptoRodar({ ...base, monta: "sem_monta" })).toBe(true);
