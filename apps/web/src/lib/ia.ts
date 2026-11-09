@@ -28,28 +28,42 @@ async function configIA() {
 }
 
 /** Chamada OpenAI-compatível (Gemini, Groq, OpenRouter, Ollama…). */
+/** Modelo reserva quando o principal está sobrecarregado (só para o Gemini). */
+const RESERVA: Record<string, string> = {
+  "gemini-flash-latest": "gemini-flash-lite-latest",
+  "gemini-pro-latest": "gemini-flash-latest",
+};
+
 async function completar(mensagens: Mensagem[], json: boolean) {
   const { base, modelo, chave } = await configIA();
-  const r = await fetch(`${base}chat/completions`, {
-    method: "POST",
-    headers: { "content-type": "application/json", authorization: `Bearer ${chave}` },
-    body: JSON.stringify({
-      model: modelo,
-      messages: mensagens,
-      temperature: 0.3,
-      ...(json ? { response_format: { type: "json_object" } } : {}),
-    }),
-    signal: AbortSignal.timeout(90_000),
-  });
-  const corpo = await r.text();
-  if (!r.ok) {
-    const msg = /quota|rate|429/i.test(corpo)
-      ? "Limite gratuito da IA atingido. Tente de novo em alguns minutos."
-      : `IA respondeu ${r.status}: ${corpo.slice(0, 200)}`;
-    throw new Error(msg);
+  const tentativas = [modelo, modelo, RESERVA[modelo]].filter(Boolean) as string[];
+  let ultimo = "";
+  for (const [i, m] of tentativas.entries()) {
+    if (i > 0) await new Promise((r) => setTimeout(r, 2000 * i)); // espera 2 s, 4 s
+    const r = await fetch(`${base}chat/completions`, {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: `Bearer ${chave}` },
+      body: JSON.stringify({
+        model: m,
+        messages: mensagens,
+        temperature: 0.3,
+        ...(json ? { response_format: { type: "json_object" } } : {}),
+      }),
+      signal: AbortSignal.timeout(90_000),
+    });
+    const corpo = await r.text();
+    if (r.ok) {
+      const j = JSON.parse(corpo);
+      return { texto: String(j.choices?.[0]?.message?.content ?? ""), modelo: m };
+    }
+    ultimo = `${r.status}: ${corpo.slice(0, 200)}`;
+    // 503 (sobrecarga) e 429 (limite por minuto) são passageiros: tenta de novo; o resto não
+    if (r.status !== 503 && r.status !== 429) break;
   }
-  const j = JSON.parse(corpo);
-  return { texto: String(j.choices?.[0]?.message?.content ?? ""), modelo };
+  if (/^503/.test(ultimo)) throw new Error("A IA está sobrecarregada agora (plano grátis). Tente de novo em 1 minuto.");
+  if (/^429/.test(ultimo)) throw new Error("Limite gratuito da IA atingido. Tente de novo em alguns minutos.");
+  if (/^404/.test(ultimo)) throw new Error("Modelo de IA indisponível: troque o modelo em Configurações (ex.: gemini-flash-latest).");
+  throw new Error(`IA respondeu ${ultimo}`);
 }
 
 /** Ficha do lote em texto, usada como contexto da análise e da conversa. */

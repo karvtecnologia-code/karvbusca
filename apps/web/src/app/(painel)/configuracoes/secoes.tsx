@@ -17,9 +17,9 @@ function Status({ r, pendente }: { r: Res; pendente?: boolean }) {
 }
 
 const PROVEDORES = [
-  { nome: "Google Gemini (grátis)", base: "https://generativelanguage.googleapis.com/v1beta/openai/", modelo: "gemini-2.5-flash", chave: "https://aistudio.google.com/apikey" },
+  { nome: "Google Gemini (grátis)", base: "https://generativelanguage.googleapis.com/v1beta/openai/", modelo: "gemini-flash-latest", chave: "https://aistudio.google.com/apikey" },
   { nome: "Groq (grátis, open source)", base: "https://api.groq.com/openai/v1/", modelo: "llama-3.3-70b-versatile", chave: "https://console.groq.com/keys" },
-  { nome: "OpenRouter", base: "https://openrouter.ai/api/v1/", modelo: "google/gemini-2.5-flash", chave: "https://openrouter.ai/keys" },
+  { nome: "OpenRouter", base: "https://openrouter.ai/api/v1/", modelo: "google/gemini-flash-latest", chave: "https://openrouter.ai/keys" },
 ];
 
 export function SecaoIA(p: { base: string; modelo: string; temChave: boolean }) {
