@@ -62,6 +62,8 @@ export function aptoRodar(c: {
 }): boolean {
   if (c.monta === "sucata" || c.monta === "grande") return false;
   if (c.roda === "nao") return false;
+  // média monta exige vistoria e costuma ser batida forte: só conta se o site confirma que o motor funciona
+  if (c.monta === "media" && c.roda !== "sim") return false;
   if (c.circulacao === "vedada") return false;
   if (c.danoEstrutural) return false;
   return true;

@@ -166,10 +166,14 @@ export async function rodarSite(opts: {
         res.novos++;
       } else {
         const lanceMudou = Number(prev.lance_atual ?? 0) !== Number(linha.lance_atual ?? 0);
+        // lote que passou a merecer alerta (ex.: classificação melhorou) entra na fila;
+        // enviarPendentes confere alertas_enviados e não repete o "novo"
         const extra =
           lanceMudou && favoritos.has(l.idExterno)
             ? { alerta_pendente: "lance", lance_anterior: prev.lance_atual }
-            : {};
+            : mereceAlertaNovo(linha) && !favoritos.has(l.idExterno)
+              ? { alerta_pendente: "novo" }
+              : {};
         const { error } = await db
           .from("lotes")
           .update({ ...linha, ...extra, visto_ultimo_em: agora })

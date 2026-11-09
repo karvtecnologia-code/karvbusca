@@ -49,6 +49,21 @@ describe("condição com textos reais", () => {
     expect(danosEstruturais("PARA-BRISA TRINCADO / SEM ESTEPE")).toEqual([]);
   });
 
+  it("Sodré: HR-V média monta com motor e airbag danificados → não apta", () => {
+    const desc =
+      "Cambio: Automatico - Danif Motor: Danificado Air-Bags: Danificado Motor de Arranque: Danificado - Média Monta..- colisão";
+    const monta = classificarMonta("média monta", desc);
+    const roda = classificarRoda(desc);
+    const danos = danosEstruturais(desc);
+    expect(monta).toBe("media");
+    expect(roda).toBe("nao");
+    expect(danos).toEqual(expect.arrayContaining(["cambio automatico danif", "air bags danificado"]));
+    expect(aptoRodar({ monta, roda, circulacao: "nao_informado", danoEstrutural: danos.length > 0 })).toBe(false);
+    // a mesma descrição sem a palavra "Danificado" no motor também não basta: média monta sem motor confirmado
+    expect(aptoRodar({ monta: "media", roda: "nao_informado", circulacao: "nao_informado", danoEstrutural: false })).toBe(false);
+    expect(aptoRodar({ monta: "media", roda: "sim", circulacao: "nao_informado", danoEstrutural: false })).toBe(true);
+  });
+
   it("apto a rodar", () => {
     const base = { roda: "sim" as const, circulacao: "nao_informado" as const, danoEstrutural: false };
     expect(aptoRodar({ ...base, monta: "sem_monta" })).toBe(true);

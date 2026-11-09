@@ -1,0 +1,5 @@
+para ligar o loop no pc
+.\scripts\agendar-loop.ps1
+
+para desativar a tarefa no pc
+Unregister-ScheduledTask -TaskName "KarvBusca Loop" -Confirm:$false

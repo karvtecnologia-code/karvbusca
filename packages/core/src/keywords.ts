@@ -44,6 +44,10 @@ export const PALAVRAS_RODA = {
     "sem cambio",
     "funcionando na entrada nao",
     "motor inservivel",
+    "motor danificado", // Sodré: "Motor: Danificado"
+    "motor danif",
+    "motor avariado",
+    "motor parcial", // Sodré: motor incompleto
   ],
   sim: [
     "funcionando",
@@ -98,6 +102,16 @@ export const PALAVRAS_DANO_ESTRUTURAL = [
   "motor fundido",
   "cambio danificado",
   "cambio quebrado",
+  "cambio automatico danif", // Sodré: "Cambio: Automatico - Danif"
+  "cambio manual danif",
+  "cambio danif",
+  // airbag disparado/danificado = colisão forte
+  "air bags danificado",
+  "airbags danificado",
+  "airbag danificado",
+  "air bags acionados",
+  "airbags acionados",
+  "airbag acionado",
   "alagado",
   "submerso",
   "incendio",
