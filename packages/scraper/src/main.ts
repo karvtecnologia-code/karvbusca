@@ -27,6 +27,8 @@ const args = Object.fromEntries(
 );
 const modo: Modo = args.modo === "favoritos" ? "favoritos" : "completo";
 const filtro = args.sites?.split(/[\s,]+/).filter(Boolean); // o PowerShell troca vírgula por espaço
+// sites que este ambiente não roda (ex.: a Loop bloqueia IP de datacenter → roda no PC)
+const excluir = (process.env.KARV_SITES_EXCLUIR ?? "").split(/[\s,]+/).filter(Boolean);
 
 const db = supabaseAdmin();
 const [termos, sites] = await Promise.all([carregarTermos(db), carregarSites(db)]);
@@ -39,7 +41,7 @@ const resultados: Resultado[] = [];
 try {
   // um site por vez, de propósito
   for (const site of sites) {
-    if (!site.ativo || (filtro && !filtro.includes(site.slug))) continue;
+    if (!site.ativo || (filtro && !filtro.includes(site.slug)) || excluir.includes(site.slug)) continue;
     const adapter = adapters[site.slug as keyof typeof adapters];
     if (!adapter) continue;
     resultados.push(await rodarSite({ browser, db, site, adapter, termos, modo, seco: args.seco === "true" }));

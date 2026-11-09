@@ -42,6 +42,8 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          # a Loop barra IP de datacenter: roda no PC (scripts/agendar-loop.ps1)
+          KARV_SITES_EXCLUIR: loop
         run: pnpm start --modo=completo ${{ inputs.sites && format('--sites={0}', inputs.sites) || '' }}
 
       - name: Guardar screenshots de erro
