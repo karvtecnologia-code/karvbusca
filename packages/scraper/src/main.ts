@@ -32,7 +32,9 @@ const db = supabaseAdmin();
 const [termos, sites] = await Promise.all([carregarTermos(db), carregarSites(db)]);
 console.log(`modo=${modo} termos=${termos.map((t) => t.termo).join(",")}`);
 
-const browser = await chromium.launch({ headless: args.visivel !== "true" });
+// channel "chromium" = Chromium completo no modo sem janela (o "headless shell" padrão
+// é barrado pelo desafio anti-robô da Loop/Vercel)
+const browser = await chromium.launch({ headless: args.visivel !== "true", channel: "chromium" });
 const resultados: Resultado[] = [];
 try {
   // um site por vez, de propósito
