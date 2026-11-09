@@ -41,6 +41,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: pnpm start --modo=completo ${{ inputs.sites && format('--sites={0}', inputs.sites) || '' }}
 
       - name: Guardar screenshots de erro

@@ -6,6 +6,7 @@ import { novoContexto, pausa, type Adapter } from "./base";
 import { classificar, mereceAlertaNovo } from "./classificar";
 import type { SiteRow } from "./db";
 import { ufPorCidade } from "./municipios";
+import { avisarFalha } from "./alertas";
 
 export type Modo = "completo" | "favoritos";
 const MAX_FOTOS = 8;
@@ -224,7 +225,13 @@ export async function rodarSite(opts: {
           falhas_seguidas: falhas,
         })
         .eq("id", site.id);
-      if (falhas >= 2) log("2 falhas seguidas: alerta 'robô falhou' será enviado (fase 3)");
+      // avisa uma vez, quando chega a 2 falhas seguidas (não repete a cada execução)
+      if (falhas === 2) {
+        log("2 falhas seguidas: avisando no Telegram");
+        await avisarFalha(db, site, res.erro ?? "erro desconhecido").catch((e) =>
+          log(`não consegui avisar no Telegram: ${(e as Error).message}`),
+        );
+      }
     }
   }
   return res;

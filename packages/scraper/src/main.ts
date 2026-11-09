@@ -8,6 +8,7 @@
  */
 import { chromium } from "playwright";
 import { adapters } from "./adapters";
+import { enviarPendentes } from "./alertas";
 import { carregarSites, carregarTermos, supabaseAdmin } from "./db";
 import { rodarSite, type Modo, type Resultado } from "./pipeline";
 
@@ -42,6 +43,10 @@ try {
   }
 } finally {
   await browser.close();
+}
+
+if (args.seco !== "true") {
+  await enviarPendentes(db).catch((e) => console.log(`[telegram] erro: ${(e as Error).message}`));
 }
 
 console.table(resultados);
