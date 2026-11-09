@@ -1,0 +1,5 @@
+node_modules/
+.next/
+packages/scraper/explore/out/
+packages/scraper/test/fixtures/
+graphify-out/

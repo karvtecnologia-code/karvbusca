@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Testes com HTML/JSON reais capturados em 08/11/2026.
  * Se um site mudar o formato, estes testes continuam passando (fixture antiga),
  * mas o robô vai trazer 0 lotes e o alerta "robô falhou" dispara. Aí basta

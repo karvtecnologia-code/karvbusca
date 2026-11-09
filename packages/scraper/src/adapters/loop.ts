@@ -1,5 +1,5 @@
 import { dataBR, extrairCidade, extrairUF, type LoteColetado, type TipoVeiculo } from "@karv/core";
-import { pausa, pedir, type Adapter } from "../base";
+import { abrir, pausa, pedir, type Adapter } from "../base";
 
 const ORIGEM = "https://loopleiloes.com.br";
 const API = "https://api.loopleiloes.com.br/search/leilao";
@@ -131,9 +131,8 @@ export const loop: Adapter = {
     return lotes;
   },
   async detalhar({ page }, lote) {
-    // o JSON do Next.js vem pronto no HTML do servidor: não precisa executar a página
-    const html = await pedir(page, lote.url, ORIGEM);
-    await pausa();
-    return parseLoopDetalhe(html, lote);
+    // as páginas passam pelo "Vercel Security Checkpoint": abre no navegador, que resolve o desafio
+    await abrir(page, lote.url);
+    return parseLoopDetalhe(await page.content(), lote);
   },
 };

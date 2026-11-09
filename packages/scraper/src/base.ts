@@ -35,14 +35,25 @@ export async function novoContexto(browser: Browser): Promise<BrowserContext> {
 
 export async function abrir(page: Page, url: string) {
   let r = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60_000 });
-  // 429 = "devagar": espera 30 s, 60 s e 90 s antes de desistir
-  for (let t = 1; r?.status() === 429 && t <= 3; t++) {
-    await pausa(30_000 * t, 30_000 * t + 5000);
-    r = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  // Desafio anti-robô em JavaScript (Vercel Security Checkpoint, Cloudflare "Just a moment"):
+  // o navegador resolve sozinho e recarrega a página; só precisamos esperar.
+  const DESAFIO = /security checkpoint|just a moment|checking your browser/i;
+  if (DESAFIO.test(await page.title().catch(() => ""))) {
+    await page
+      .waitForFunction((re) => !new RegExp(re, "i").test(document.title), DESAFIO.source, { timeout: 45_000 })
+      .catch(() => {});
+    await page.waitForLoadState("domcontentloaded").catch(() => {});
+  } else {
+    // 429 comum = "devagar": espera 30 s, 60 s e 90 s antes de desistir
+    for (let t = 1; r?.status() === 429 && t <= 3; t++) {
+      await pausa(30_000 * t, 30_000 * t + 5000);
+      r = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60_000 });
+    }
+    if (r && r.status() >= 400) throw new Error(`HTTP ${r.status()} em ${url}`);
   }
-  if (r && r.status() >= 400) throw new Error(`HTTP ${r.status()} em ${url}`);
   await page.waitForLoadState("networkidle", { timeout: 15_000 }).catch(() => {});
   const titulo = await page.title();
+  if (DESAFIO.test(titulo)) throw new Error(`Desafio anti-robô não resolvido em ${url} ("${titulo}")`);
   if (/just a moment|attention required|access denied/i.test(titulo)) {
     throw new Error(`Bloqueio anti-robô em ${url} ("${titulo}")`);
   }
