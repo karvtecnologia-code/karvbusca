@@ -8,6 +8,7 @@ const LINKS = [
   { href: "/favoritos", label: "Favoritos" },
   { href: "/termos", label: "Termos" },
   { href: "/saude", label: "Saúde" },
+  { href: "/ajustes", label: "Ajustes" },
 ];
 
 export function Nav() {

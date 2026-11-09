@@ -30,6 +30,51 @@ export function freteEstimado(opts: {
   return 0;
 }
 
+/** Dados mínimos de um lote/site/config para calcular o custo real (mesma regra no painel e no Telegram). */
+export interface EntradaCusto {
+  lance_atual: number | string | null;
+  comissao_pct: number | string;
+  taxa_adm: number | string;
+  taxas_site?: number | string | null;
+  custo_patio?: number | string | null;
+  custo_doc?: number | string | null;
+  custo_frete?: number | string | null;
+  fipe_valor?: number | string | null;
+  fipe_site?: number | string | null;
+}
+export interface PadroesCusto {
+  custo_doc_padrao: number | string;
+  custo_patio_padrao: number | string;
+  frete_padrao?: number | string | null;
+}
+
+const num = (v: unknown) => (v == null || v === "" ? null : Number(v));
+
+/** Custo real, FIPE e % FIPE com os valores do lote (se editados) ou os padrões. */
+export function calcularLote(l: EntradaCusto, p: PadroesCusto) {
+  const lance = num(l.lance_atual) ?? 0;
+  const taxasSite = num(l.taxas_site);
+  // a taxa da Loop já inclui estadia (pátio); nos outros sites usamos o padrão
+  const patio = num(l.custo_patio) ?? (taxasSite != null ? 0 : num(p.custo_patio_padrao) ?? 0);
+  const doc = num(l.custo_doc) ?? num(p.custo_doc_padrao) ?? 0;
+  const frete = num(l.custo_frete) ?? num(p.frete_padrao) ?? 0;
+  const comissaoPct = num(l.comissao_pct) ?? 5;
+  const taxaAdm = (num(l.taxa_adm) ?? 0) + (taxasSite ?? 0);
+  const custo = custoReal({ lance, comissaoPct, taxaAdm, patio, frete, documentacao: doc });
+  const fipe = num(l.fipe_valor) ?? num(l.fipe_site);
+  return {
+    lance,
+    comissao: Math.round(lance * comissaoPct) / 100,
+    taxaAdm,
+    patio,
+    doc,
+    frete,
+    custo,
+    fipe,
+    pct: lance ? pctFipe(custo, fipe) : null,
+  };
+}
+
 /** % FIPE = custo real / valor FIPE (0.7 = 70%). */
 export function pctFipe(custo: number, fipe: number | null | undefined): number | null {
   if (!fipe || fipe <= 0) return null;

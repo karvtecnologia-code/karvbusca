@@ -6,3 +6,4 @@ export * from "./custo";
 export * from "./keywords";
 export * from "./parse";
 export * from "./telegram";
+export * from "./fipe";

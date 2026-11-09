@@ -1,8 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import {
-  custoReal,
+  calcularLote,
   esc,
-  pctFipe,
   quando,
   reais,
   ROTULO_MONTA,
@@ -15,6 +14,7 @@ interface Config {
   chat_id_telegram: number | null;
   custo_doc_padrao: number;
   custo_patio_padrao: number;
+  frete_padrao: number | null;
 }
 
 interface LoteAlerta {
@@ -51,24 +51,13 @@ export function telegramDoAmbiente(): Telegram | null {
 }
 
 async function carregarConfig(db: SupabaseClient): Promise<Config | null> {
-  const { data } = await db.from("config").select("chat_id_telegram, custo_doc_padrao, custo_patio_padrao").single();
+  const { data } = await db.from("config").select("chat_id_telegram, custo_doc_padrao, custo_patio_padrao, frete_padrao").single();
   return data;
 }
 
 /** Custo real e % FIPE de um lote, com os padrões da config. */
 export function valores(l: LoteAlerta, cfg: Config) {
-  const lance = Number(l.lance_atual ?? 0);
-  // a taxa do site (Loop) já inclui estadia/pátio; senão usamos o padrão
-  const patio = l.custo_patio ?? (l.taxas_site != null ? 0 : Number(cfg.custo_patio_padrao));
-  const custo = custoReal({
-    lance,
-    comissaoPct: Number(l.sites.comissao_pct),
-    taxaAdm: Number(l.sites.taxa_adm) + Number(l.taxas_site ?? 0),
-    patio,
-    documentacao: l.custo_doc ?? Number(cfg.custo_doc_padrao),
-  });
-  const fipe = l.fipe_valor ?? l.fipe_site;
-  return { custo, fipe, pct: lance ? pctFipe(custo, fipe) : null };
+  return calcularLote({ ...l, comissao_pct: l.sites.comissao_pct, taxa_adm: l.sites.taxa_adm }, cfg);
 }
 
 function legenda(l: LoteAlerta, cfg: Config): string {

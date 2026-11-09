@@ -9,6 +9,7 @@
 import { chromium } from "playwright";
 import { adapters } from "./adapters";
 import { enviarPendentes } from "./alertas";
+import { atualizarFipe } from "./fipe";
 import { carregarSites, carregarTermos, supabaseAdmin } from "./db";
 import { rodarSite, type Modo, type Resultado } from "./pipeline";
 
@@ -46,6 +47,7 @@ try {
 }
 
 if (args.seco !== "true") {
+  await atualizarFipe(db).catch((e) => console.log(`[fipe] erro: ${(e as Error).message}`));
   await enviarPendentes(db).catch((e) => console.log(`[telegram] erro: ${(e as Error).message}`));
 }
 

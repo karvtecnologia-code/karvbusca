@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  calcularLote,
   casarTermos,
   classificarMonta,
   classificarRoda,
@@ -86,5 +87,21 @@ describe("custo real", () => {
     ).toBe(12500);
     expect(pctFipe(7000, 10000)).toBe(0.7);
     expect(pctFipe(7000, null)).toBeNull();
+  });
+  it("calcularLote: padrões, taxas do site e valores do lote", () => {
+    const p = { custo_doc_padrao: 1000, custo_patio_padrao: 300 };
+    // padrão: 10000 × 1,05 + 0 adm + 300 pátio + 1000 doc
+    expect(calcularLote({ lance_atual: 10000, comissao_pct: 5, taxa_adm: 0, fipe_valor: 20000 }, p)).toMatchObject({
+      custo: 11800,
+      pct: 0.59,
+    });
+    // Loop: taxas do site já incluem estadia → pátio padrão não entra
+    expect(calcularLote({ lance_atual: 10000, comissao_pct: 5, taxa_adm: 0, taxas_site: 8605 }, p).custo).toBe(20105);
+    // valores do lote sobrescrevem o padrão; FIPE do site quando não há FIPE própria
+    const r = calcularLote(
+      { lance_atual: "10000", comissao_pct: "5", taxa_adm: "0", custo_doc: 0, custo_patio: 0, custo_frete: 700, fipe_site: 15000 },
+      p,
+    );
+    expect(r).toMatchObject({ custo: 11200, fipe: 15000 });
   });
 });
