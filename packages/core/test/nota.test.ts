@@ -19,7 +19,7 @@ describe("nota de oportunidade", () => {
   it("financeira sem monta, motor ok, 60% FIPE, perto → nota alta com motivos", () => {
     const r = notaOportunidade(base);
     expect(r.nota).toBeGreaterThanOrEqual(85);
-    expect(r.motivos).toEqual(expect.arrayContaining(["60% FIPE", "sem monta", "financeira", "km baixo", "250 km de Passos"]));
+    expect(r.motivos).toEqual(expect.arrayContaining(["60% FIPE", "sem monta", "financeira", "km baixo", "250 km de você"]));
   });
   it("preço pesa mais: 92% da FIPE derruba a nota", () => {
     expect(notaOportunidade({ ...base, pctFipe: 0.92 }).nota).toBeLessThan(notaOportunidade(base).nota - 30);

@@ -1,4 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { destino } from "./destino";
+import { ufsAtivas } from "./ufs";
 import {
   calcularLote,
   esc,
@@ -58,10 +60,7 @@ interface LoteAlerta {
   lote_ia?: { analise: { veredito: AnaliseIA["veredito"]; resumo: string } } | null;
 }
 
-export function telegramDoAmbiente(): Telegram | null {
-  const token = process.env.TELEGRAM_BOT_TOKEN?.replace(/^﻿/, "").trim();
-  return token ? new Telegram(token) : null;
-}
+export { destino };
 
 async function carregarConfig(db: SupabaseClient): Promise<Config | null> {
   const { data } = await db
@@ -105,7 +104,7 @@ function legenda(l: LoteAlerta, cfg: Config): string {
     topo,
     cabecalho || null,
     `<b>${esc(l.titulo)}</b>`,
-    [ano, km, local, l.distancia_km != null ? `${l.distancia_km} km de Passos` : null].filter(Boolean).map(esc).join(" · "),
+    [ano, km, local, l.distancia_km != null ? `${l.distancia_km} km de você` : null].filter(Boolean).map(esc).join(" · "),
     `Lance: <b>${reais(l.lance_atual)}</b>${pctTxt}`,
     `Custo real ≈ ${reais(custo)}${fipe ? ` · FIPE ${reais(fipe)}` : ""}`,
     `${ROTULO_MONTA[l.condicao_monta] ?? ""} · ${ROTULO_RODA[l.roda] ?? ""}${extras.length ? " · " + extras.join(" · ") : ""}`,
@@ -121,9 +120,9 @@ function legenda(l: LoteAlerta, cfg: Config): string {
 
 /** Envia os alertas pendentes (lote novo e lance mudou) e limpa a fila. */
 export async function enviarPendentes(db: SupabaseClient, log = console.log) {
-  const tg = telegramDoAmbiente();
+  const tg = await destino(db);
   const cfg = await carregarConfig(db);
-  if (!tg || !cfg?.chat_id_telegram) {
+  if (!tg || !cfg) {
     log("[telegram] sem token ou chat_id ainda: alertas ficam na fila");
     return 0;
   }
@@ -164,9 +163,7 @@ export async function enviarPendentes(db: SupabaseClient, log = console.log) {
       }
     }
     try {
-      const msg = await tg.enviarFoto(
-        cfg.chat_id_telegram,
-        l.fotos[0],
+      const msg = await tg.enviarFoto(l.fotos[0],
         legenda(l, cfg),
         tecladoLote(l.id, l.url, dec?.decisao === "gostei" ? "gostei" : undefined),
       );
@@ -189,7 +186,7 @@ export async function enviarPendentes(db: SupabaseClient, log = console.log) {
 
 /** Favorito que não aparece mais na listagem do site, ainda antes do encerramento. */
 export async function avisarSumiu(db: SupabaseClient, l: { id: string; site_id: number; titulo: string; url: string; site: string }) {
-  const tg = telegramDoAmbiente();
+  const tg = await destino(db);
   const cfg = await carregarConfig(db);
   const { count } = await db
     .from("alertas_enviados")
@@ -198,10 +195,8 @@ export async function avisarSumiu(db: SupabaseClient, l: { id: string; site_id: 
     .eq("tipo", "sumiu");
   if (count) return;
   await db.from("lotes").update({ status: "retirado" }).eq("id", l.id);
-  if (!tg || !cfg?.chat_id_telegram) return;
-  const msg = await tg.enviarTexto(
-    cfg.chat_id_telegram,
-    `👻 <b>Favorito sumiu do site</b>\n${esc(l.titulo)}\nNão aparece mais na listagem da ${esc(l.site)} (vendido antes, retirado ou adiado).`,
+  if (!tg || !cfg) return;
+  const msg = await tg.enviarTexto(`👻 <b>Favorito sumiu do site</b>\n${esc(l.titulo)}\nNão aparece mais na listagem da ${esc(l.site)} (vendido antes, retirado ou adiado).`,
     [[{ text: "🔗 Conferir no site", url: l.url }]],
   );
   await db.from("alertas_enviados").insert({ lote_id: l.id, site_id: l.site_id, tipo: "sumiu", telegram_msg_id: msg.message_id });
@@ -209,9 +204,9 @@ export async function avisarSumiu(db: SupabaseClient, l: { id: string; site_id: 
 
 /** Resumo da manhã: aptos novos em 24h, o que encerra hoje e os melhores em % FIPE. Uma vez por dia. */
 export async function enviarResumo(db: SupabaseClient, log = console.log) {
-  const tg = telegramDoAmbiente();
+  const tg = await destino(db);
   const cfg = await carregarConfig(db);
-  if (!tg || !cfg?.chat_id_telegram) return;
+  if (!tg || !cfg) return;
   const hojeBR = new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" }); // AAAA-MM-DD
   const inicioDia = new Date(`${hojeBR}T00:00:00-03:00`);
   const fimDia = new Date(`${hojeBR}T23:59:59-03:00`);
@@ -227,7 +222,7 @@ export async function enviarResumo(db: SupabaseClient, log = console.log) {
     .from("lotes_painel")
     .select("titulo, lance_atual, fim_em, url, site_nome, visto_primeiro_em, decisao, comissao_pct, taxa_adm, taxas_site, custo_patio, custo_doc, custo_frete, fipe_valor, fipe_site")
     .eq("apto_rodar", true)
-    .in("uf", ["SP", "MG"])
+    .in("uf", ufsAtivas())
     .or("decisao.is.null,decisao.eq.gostei")
     .gt("fim_em", agora);
   const lotes = data ?? [];
@@ -249,22 +244,20 @@ export async function enviarResumo(db: SupabaseClient, log = console.log) {
   ]
     .filter(Boolean)
     .join("\n");
-  const msg = await tg.enviarTexto(cfg.chat_id_telegram, texto);
+  const msg = await tg.enviarTexto(texto);
   await db.from("alertas_enviados").insert({ tipo: "resumo", telegram_msg_id: msg.message_id });
   log("[telegram] resumo diário enviado");
 }
 
 /** Alerta "robô do <site> falhou". */
 export async function avisarFalha(db: SupabaseClient, site: { id: number; nome: string }, erro: string) {
-  const tg = telegramDoAmbiente();
+  const tg = await destino(db);
   const cfg = await carregarConfig(db);
-  if (!tg || !cfg?.chat_id_telegram) return;
+  if (!tg || !cfg) return;
   const run = process.env.GITHUB_RUN_ID
     ? `\n\n<a href="https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}">ver execução e screenshot</a>`
     : "";
-  const msg = await tg.enviarTexto(
-    cfg.chat_id_telegram,
-    `⚠️ <b>Robô da ${esc(site.nome)} falhou</b> 2 vezes seguidas.\n<code>${esc(erro.slice(0, 400))}</code>${run}`,
+  const msg = await tg.enviarTexto(`⚠️ <b>Robô da ${esc(site.nome)} falhou</b> 2 vezes seguidas.\n<code>${esc(erro.slice(0, 400))}</code>${run}`,
   );
   await db.from("alertas_enviados").insert({ site_id: site.id, tipo: "robo_falhou", telegram_msg_id: msg.message_id });
 }

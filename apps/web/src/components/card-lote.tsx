@@ -37,7 +37,7 @@ export function CardLote({
   const monta = MONTA[l.condicao_monta] ?? MONTA.nao_informado!;
   const roda = RODA[l.roda] ?? RODA.nao_informado!;
   const local = [l.cidade, l.uf].filter(Boolean).join("-");
-  const linha = [anosFmt(l.ano_fab, l.ano_mod), kmFmt(l.km), local, l.distancia_km != null ? `${l.distancia_km} km de Passos` : null]
+  const linha = [anosFmt(l.ano_fab, l.ano_mod), kmFmt(l.km), local, l.distancia_km != null ? `${l.distancia_km} km de você` : null]
     .filter(Boolean)
     .join(" · ");
 

@@ -12,11 +12,14 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
   const sp = await searchParams;
   const supabase = await supabaseServer();
 
+  const { data: cfgUf } = await supabase.from("config").select("ufs").single();
+  const ufs: string[] = cfgUf?.ufs ?? ["SP", "MG"];
+
   let q = supabase
     .from("lotes_painel")
     .select(CAMPOS_CARD)
     .is("decisao", null) // só os ainda não decididos: favoritos vão para /favoritos, descartados somem
-    .in("uf", ["SP", "MG"])
+    .in("uf", ufs)
     .or(`fim_em.is.null,fim_em.gte.${new Date(Date.now() - 3600_000).toISOString()}`) // só abertos
     .limit(400);
 
@@ -80,6 +83,7 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
         <Suspense>
           <Filtros
             total={lotes.length}
+            ufs={ufs}
             sites={(sites ?? []).map((s) => ({ valor: s.slug, rotulo: s.nome }))}
             termos={(termos ?? []).map((t) => ({ valor: t.id, rotulo: t.termo }))}
           />

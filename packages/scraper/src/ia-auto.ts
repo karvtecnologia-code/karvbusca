@@ -41,7 +41,7 @@ export async function iaAutomatica(db: SupabaseClient, log = console.log) {
     const v = calcularLote(l, cfg);
     const ficha = [
       `Veículo: ${l.titulo} | Site: ${l.site_nome}`,
-      `Ano: ${l.ano_fab ?? "?"}/${l.ano_mod ?? "?"} | Km: ${l.km ?? "não informado"} | Local: ${l.cidade ?? "?"}-${l.uf}${l.distancia_km != null ? ` (${l.distancia_km} km de Passos-MG)` : ""}`,
+      `Ano: ${l.ano_fab ?? "?"}/${l.ano_mod ?? "?"} | Km: ${l.km ?? "não informado"} | Local: ${l.cidade ?? "?"}-${l.uf}${l.distancia_km != null ? ` (${l.distancia_km} km da cidade do comprador)` : ""}`,
       `Sistema: ${ROTULO_MONTA[l.condicao_monta]} | ${ROTULO_RODA[l.roda]} | circulação ${l.circulacao} | procedência ${l.procedencia}`,
       `Lance: ${reais(l.lance_atual)} | Custo real: ${reais(v.custo)} | FIPE: ${reais(v.fipe)} | ${v.pct != null ? Math.round(v.pct * 100) + "% FIPE" : ""} | Encerra: ${quando(l.fim_em)}`,
       `\nTexto do site:\n${(l.observacoes ?? l.descricao ?? "").slice(0, 3000)}`,

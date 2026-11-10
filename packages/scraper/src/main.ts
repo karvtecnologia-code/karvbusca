@@ -13,6 +13,7 @@ import { atualizarFipe, FipeCache } from "./fipe";
 import { atualizarDistancias } from "./geo";
 import { iaAutomatica } from "./ia-auto";
 import { recalcularNotas } from "./notas";
+import { definirUfs, ufsAtivas } from "./ufs";
 import { carregarSites, carregarTermos, supabaseAdmin } from "./db";
 import { rodarSite, type Modo, type Resultado } from "./pipeline";
 
@@ -37,9 +38,10 @@ const db = supabaseAdmin();
 const [termos, sites, { data: cfg }] = await Promise.all([
   carregarTermos(db),
   carregarSites(db),
-  db.from("config").select("descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min").single(),
+  db.from("config").select("descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min, ufs").single(),
 ]);
-console.log(`modo=${modo} termos=${termos.map((t) => t.termo).join(",")}`);
+definirUfs(cfg?.ufs);
+console.log(`modo=${modo} ufs=${ufsAtivas().join(",")} termos=${termos.map((t) => t.termo).join(",")}`);
 
 // FIPE com cache persistente; o orçamento de consultas novas é dividido entre descoberta e lotes
 const fipe = new FipeCache(db, 150);

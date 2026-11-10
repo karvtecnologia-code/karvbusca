@@ -17,7 +17,17 @@ const MONTAS: Opcao[] = [
   { valor: "nao_informado", rotulo: "Não inf." },
 ];
 
-export function Filtros({ sites, termos, total }: { sites: Opcao[]; termos: Opcao[]; total: number }) {
+export function Filtros({
+  sites,
+  termos,
+  total,
+  ufs = ["SP", "MG"],
+}: {
+  sites: Opcao[];
+  termos: Opcao[];
+  total: number;
+  ufs?: string[];
+}) {
   const router = useRouter();
   const path = usePathname();
   const sp = useSearchParams();
@@ -74,10 +84,7 @@ export function Filtros({ sites, termos, total }: { sites: Opcao[]; termos: Opca
           rotulo="UF"
           valor={val("uf")}
           onChange={(v) => set("uf", v)}
-          opcoes={[
-            { valor: "SP", rotulo: "SP" },
-            { valor: "MG", rotulo: "MG" },
-          ]}
+          opcoes={ufs.map((u) => ({ valor: u, rotulo: u }))}
           classe={campo}
         />
         <Sel
@@ -132,7 +139,7 @@ export function Filtros({ sites, termos, total }: { sites: Opcao[]; termos: Opca
 
       <div className="grid grid-cols-2 gap-2">
         <Sel
-          rotulo="Distância de Passos"
+          rotulo="Distância de você"
           valor={val("raio")}
           onChange={(v) => set("raio", v)}
           opcoes={[

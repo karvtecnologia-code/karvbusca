@@ -2,30 +2,46 @@ import Link from "next/link";
 import { supabaseServer } from "@/lib/supabase/server";
 import { FormPadroes, FormSite } from "./forms";
 import { Cofre, SecaoIA, SecaoOportunidades, SecaoSenha } from "./secoes";
+import { SecaoEstados, SecaoOrigem, SecaoTelegram, SecaoUsuarios } from "./secoes-instalacao";
+import { listarUsuarios } from "./acoes-instalacao";
+import { tokenBot } from "@/lib/telegram";
 
 const NAV = [
+  ["telegram", "Telegram"],
+  ["regiao", "Estados e origem"],
   ["custos", "Custos"],
   ["oportunidades", "Oportunidades"],
   ["sites", "Sites"],
   ["ia", "IA"],
   ["cofre", "Logins"],
-  ["telegram", "Telegram"],
+  ["usuarios", "Usuários"],
   ["senha", "Senha"],
 ] as const;
 
 export default async function ConfiguracoesPage() {
   const supabase = await supabaseServer();
-  const [{ data: cfg }, { data: sites }, { data: creds }, { data: { user } }] = await Promise.all([
-    supabase
-      .from("config")
-      .select(
-        "custo_doc_padrao, custo_patio_padrao, frete_padrao, frete_por_km, chat_id_telegram, ia_base_url, ia_modelo, ia_secret_id, descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min, nota_alerta_quente, ia_auto_max_dia",
-      )
-      .single(),
-    supabase.from("sites").select("id, slug, nome, comissao_pct, taxa_adm, ativo").order("id"),
-    supabase.from("credenciais").select("id, nome, site_slug, usuario, observacao, secret_id").order("nome"),
-    supabase.auth.getUser(),
-  ]);
+  const [{ data: cfg }, { data: sites }, { data: creds }, { data: { user } }, { data: chats }, usuarios, token] =
+    await Promise.all([
+      supabase
+        .from("config")
+        .select(
+          "custo_doc_padrao, custo_patio_padrao, frete_padrao, frete_por_km, ia_base_url, ia_modelo, ia_secret_id, descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min, nota_alerta_quente, ia_auto_max_dia, ufs, origem, codigo_vinculo, telegram_secret_id",
+        )
+        .single(),
+      supabase.from("sites").select("id, slug, nome, comissao_pct, taxa_adm, ativo").order("id"),
+      supabase.from("credenciais").select("id, nome, site_slug, usuario, observacao, secret_id").order("nome"),
+      supabase.auth.getUser(),
+      supabase.from("telegram_chats").select("chat_id, nome").order("vinculado_em"),
+      listarUsuarios(),
+      tokenBot(),
+    ]);
+  // nome do bot para as instruções (só se já houver token)
+  const usuarioBot = token
+    ? await fetch(`https://api.telegram.org/bot${token}/getMe`, { next: { revalidate: 3600 } })
+        .then((r) => r.json())
+        .then((j) => (j.ok ? (j.result.username as string) : null))
+        .catch(() => null)
+    : null;
 
   const Titulo = ({ id, children, sub }: { id: string; children: React.ReactNode; sub?: string }) => (
     <div id={id} className="scroll-mt-20 space-y-0.5">
@@ -51,8 +67,29 @@ export default async function ConfiguracoesPage() {
       <section className="max-w-2xl space-y-10">
         <header className="enter space-y-1">
           <h1 className="text-xl font-semibold tracking-tight">Configurações</h1>
-          <p className="text-sm text-muted">Custos, sites, IA, logins guardados e a sua senha.</p>
+          <p className="text-sm text-muted">Telegram, região, custos, sites, IA, logins guardados, usuários e senha.</p>
         </header>
+
+        <div className="space-y-3">
+          <Titulo id="telegram" sub="Os alertas chegam por um bot seu. Os botões 👍/🗑 do Telegram valem no site.">
+            Telegram
+          </Titulo>
+          <SecaoTelegram
+            temToken={!!cfg?.telegram_secret_id}
+            tokenNoEnv={!!process.env.TELEGRAM_BOT_TOKEN}
+            codigo={cfg?.codigo_vinculo ?? ""}
+            chats={(chats ?? []).map((c) => ({ chat_id: Number(c.chat_id), nome: c.nome }))}
+            usuarioBot={usuarioBot}
+          />
+        </div>
+
+        <div className="space-y-3">
+          <Titulo id="regiao" sub="Estados onde o robô procura (lotes de outros estados são ignorados) e a sua cidade, para a distância e o frete.">
+            Estados e origem
+          </Titulo>
+          <SecaoEstados ufs={cfg?.ufs ?? ["SP", "MG"]} />
+          <SecaoOrigem origem={cfg?.origem ?? "Passos-MG"} />
+        </div>
 
         <div className="space-y-3">
           <Titulo id="custos" sub="Usados no custo real. Cada lote pode sobrescrever na própria página.">
@@ -105,11 +142,11 @@ export default async function ConfiguracoesPage() {
           />
         </div>
 
-        <div className="space-y-1">
-          <Titulo id="telegram">Telegram</Titulo>
-          <p className="text-sm text-muted">
-            {cfg?.chat_id_telegram ? "Conectado ao seu chat." : "Ainda não conectado: mande uma mensagem para o bot."}
-          </p>
+        <div className="space-y-3">
+          <Titulo id="usuarios" sub="Quem pode entrar no painel. O cadastro público fica desligado: só quem já tem acesso cria outros.">
+            Usuários
+          </Titulo>
+          <SecaoUsuarios usuarios={usuarios} eu={user?.id ?? ""} />
         </div>
 
         <div className="space-y-3">

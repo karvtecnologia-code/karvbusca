@@ -75,7 +75,7 @@ export function notaOportunidade(e: EntradaNota): { nota: number; motivos: strin
 
   if (e.distanciaKm != null) {
     n += e.distanciaKm <= 300 ? 6 : e.distanciaKm <= 600 ? 3 : 0;
-    motivos.push(`${e.distanciaKm} km de Passos`);
+    motivos.push(`${e.distanciaKm} km de você`);
   } else n += 2;
 
   if (e.chave === "sim") n += 2;

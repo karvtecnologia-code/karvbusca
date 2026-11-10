@@ -4,7 +4,8 @@
 // só traz contagens. Por isso roda sem JWT (--no-verify-jwt) e sem segredo no SQL.
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
-const TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN")!;
+// token: secret da função (opcional) ou o salvo em Configurações (Vault)
+let TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN") ?? "";
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {
   auth: { persistSession: false },
 });
@@ -49,9 +50,17 @@ const JANELAS = [
 ] as const;
 
 Deno.serve(async () => {
-  const { data: cfg } = await db.from("config").select("chat_id_telegram").single();
-  const chat = cfg?.chat_id_telegram;
-  if (!chat || !TOKEN) return Response.json({ ok: true, enviados: 0, motivo: "sem chat/token" });
+  if (!TOKEN) TOKEN = ((await db.rpc("telegram_token")).data as string | null) ?? "";
+  const { data: ligados } = await db.from("telegram_chats").select("chat_id");
+  const chats = (ligados ?? []).map((c) => Number(c.chat_id));
+  if (!chats.length || !TOKEN) return Response.json({ ok: true, enviados: 0, motivo: "sem chat/token" });
+  // manda para todos os chats ligados; devolve a 1ª mensagem para registrar
+  const todos = async (f: (chat: number) => Promise<{ message_id: number }>) => {
+    let primeiro: { message_id: number } | null = null;
+    for (const c of chats) primeiro ??= await f(c).catch(() => null);
+    if (!primeiro) throw new Error("nenhum chat recebeu");
+    return primeiro;
+  };
 
   const agora = Date.now();
   const resultado: Record<string, number> = {};
@@ -88,9 +97,9 @@ Deno.serve(async () => {
         .join("\n");
       const teclado = { inline_keyboard: [[{ text: "🔗 Abrir lote no site", url: f.url }]] };
       try {
-        const msg =
+        const msg = await todos((chat) =>
           j.foto && f.fotos[0]
-            ? await telegram("sendPhoto", {
+            ? telegram("sendPhoto", {
                 chat_id: chat,
                 photo: f.fotos[0],
                 caption: texto,
@@ -99,7 +108,8 @@ Deno.serve(async () => {
               }).catch(() =>
                 telegram("sendMessage", { chat_id: chat, text: texto, parse_mode: "HTML", reply_markup: teclado }),
               )
-            : await telegram("sendMessage", { chat_id: chat, text: texto, parse_mode: "HTML", reply_markup: teclado });
+            : telegram("sendMessage", { chat_id: chat, text: texto, parse_mode: "HTML", reply_markup: teclado }),
+        );
         await db
           .from("alertas_enviados")
           .insert({ lote_id: f.id, site_id: f.site_id, tipo: j.tipo, telegram_msg_id: msg.message_id });

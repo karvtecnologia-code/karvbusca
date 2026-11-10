@@ -1,6 +1,7 @@
 import { timingSafeEqual } from "node:crypto";
 import { esc, normalizar, reais, Telegram, tecladoLote } from "@karv/core";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { bot, chatsLigados, segredoWebhook } from "@/lib/telegram";
 
 export const dynamic = "force-dynamic";
 
@@ -13,38 +14,44 @@ interface Update {
   };
 }
 
-function segredoOk(recebido: string | null) {
-  const esperado = process.env.TELEGRAM_WEBHOOK_SECRET ?? "";
+function iguais(recebido: string | null, esperado: string | null) {
   if (!recebido || !esperado || recebido.length !== esperado.length) return false;
   return timingSafeEqual(Buffer.from(recebido), Buffer.from(esperado));
 }
 
 export async function POST(req: Request) {
   // 1) só o Telegram conhece o secret_token cadastrado no setWebhook
-  if (!segredoOk(req.headers.get("x-telegram-bot-api-secret-token"))) {
+  if (!iguais(req.headers.get("x-telegram-bot-api-secret-token"), await segredoWebhook())) {
     return new Response("unauthorized", { status: 401 });
   }
   const update = (await req.json()) as Update;
-  const tg = new Telegram(process.env.TELEGRAM_BOT_TOKEN!);
+  const tg = await bot();
+  if (!tg) return Response.json({ ok: true });
   const db = supabaseAdmin();
 
-  const { data: cfg } = await db.from("config").select("chat_id_telegram").single();
-  const chatDono = cfg?.chat_id_telegram ? Number(cfg.chat_id_telegram) : null;
   const chatId = update.message?.chat.id ?? update.callback_query?.message?.chat.id;
   if (!chatId) return Response.json({ ok: true });
+  const ligados = await chatsLigados();
 
-  // 2) primeira mensagem: captura o chat_id do dono
-  if (!chatDono && update.message) {
-    await db.from("config").update({ chat_id_telegram: chatId }).eq("id", true);
-    await tg.enviarTexto(
-      chatId,
-      `✅ <b>KarvBusca conectado</b>, ${esc(update.message.from?.first_name ?? "")}.\nOs alertas de lotes novos vão chegar aqui.`,
-    );
+  // 2) ligar um chat: o primeiro chat da instalação liga sozinho; os seguintes com /start CÓDIGO
+  if (!ligados.includes(chatId) && update.message) {
+    const { data: cfg } = await db.from("config").select("codigo_vinculo").single();
+    const codigo = (update.message.text ?? "").trim().split(/\s+/)[1];
+    const nome = update.message.from?.first_name ?? "";
+    if (!ligados.length || (codigo && cfg?.codigo_vinculo && codigo === cfg.codigo_vinculo)) {
+      await db.from("telegram_chats").upsert({ chat_id: chatId, nome });
+      if (!ligados.length) await db.from("config").update({ chat_id_telegram: chatId }).eq("id", true);
+      await tg.enviarTexto(
+        chatId,
+        `✅ <b>KarvBusca conectado</b>, ${esc(nome)}.\nOs alertas de lotes vão chegar aqui. Digite /ajuda para ver os comandos.`,
+      );
+    }
+    // chat não ligado e sem código válido: ignora em silêncio
     return Response.json({ ok: true });
   }
 
   // 3) qualquer outro chat é ignorado em silêncio
-  if (chatId !== chatDono) return Response.json({ ok: true });
+  if (!ligados.includes(chatId)) return Response.json({ ok: true });
 
   try {
     if (update.callback_query) await tratarBotao(update.callback_query, tg, db);
@@ -115,12 +122,13 @@ async function tratarComando(texto: string, chatId: number, tg: Telegram, db: Re
     const fimDoDia = new Date(
       new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" }).replace(/,.*/, "") + " 23:59:59 GMT-0300",
     );
+    const { data: cfgUf } = await db.from("config").select("ufs").single();
     const { data } = await db
       .from("lotes_painel")
       .select("titulo, lance_atual, fim_em, url, site_nome, decisao, apto_rodar")
       .or("decisao.is.null,decisao.eq.gostei")
       .or("apto_rodar.eq.true,decisao.eq.gostei")
-      .in("uf", ["SP", "MG"])
+      .in("uf", cfgUf?.ufs ?? ["SP", "MG"])
       .gt("fim_em", new Date().toISOString())
       .lte("fim_em", fimDoDia.toISOString())
       .order("fim_em")

@@ -1,7 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import type { Browser } from "playwright";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { casarTermos, classificarMonta, normalizar, UFS_ALVO, type LoteColetado, type TermoBusca } from "@karv/core";
+import { casarTermos, classificarMonta, normalizar, type LoteColetado, type TermoBusca } from "@karv/core";
+import { ufOk } from "./ufs";
 import { novoContexto, pausa, type Adapter } from "./base";
 import { classificar, mereceAlertaNovo } from "./classificar";
 import type { SiteRow } from "./db";
@@ -107,7 +108,6 @@ export interface Resultado {
   erro?: string;
 }
 
-const ufOk = (uf?: string) => !uf || (UFS_ALVO as readonly string[]).includes(uf);
 
 async function copiarFotos(db: SupabaseClient, l: LoteColetado): Promise<string[]> {
   const out: string[] = [];

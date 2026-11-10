@@ -37,7 +37,6 @@ export async function atualizarDistancias(db: SupabaseClient, log = console.log,
     .select("id, cidade, uf")
     .is("distancia_km", null)
     .not("cidade", "is", null)
-    .in("uf", ["SP", "MG"])
     .limit(400);
   if (!lotes?.length) return;
 

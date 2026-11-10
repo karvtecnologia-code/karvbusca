@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
-import { anos, dataBR, dinheiro, inteiro, normalizar, UFS_ALVO, type LoteColetado } from "@karv/core";
+import { anos, dataBR, dinheiro, inteiro, normalizar, type LoteColetado } from "@karv/core";
+import { ufsAtivas } from "../ufs";
 import { abrir, campo, linhas, pausa, textoVisivel, type Adapter } from "../base";
 
 const BASE = "https://www.vipleiloes.com.br";
@@ -93,7 +94,7 @@ export const vip: Adapter = {
       const chave = normalizar(texto);
       if (jaBuscado.has(chave)) continue;
       jaBuscado.add(chave);
-      for (const uf of UFS_ALVO) {
+      for (const uf of ufsAtivas()) {
         for (let pagina = 1; pagina <= MAX_PAGINAS; pagina++) {
           const html = await page.evaluate(
             async ({ texto, uf, pagina }) => {

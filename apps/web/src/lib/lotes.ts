@@ -116,3 +116,8 @@ export const chaveArremate = (l: { marca: string | null; modelo: string | null; 
 /** Cor da nota de oportunidade. */
 export const corNota = (n: number) =>
   n >= 75 ? "border-amber/60 bg-amber/15 text-amber" : n >= 55 ? "border-ok/40 bg-ok/10 text-[#8fc9a1]" : "border-line-strong bg-raised text-muted";
+
+export const UFS_BR = [
+  "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
+  "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO",
+];

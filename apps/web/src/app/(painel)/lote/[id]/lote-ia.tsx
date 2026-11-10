@@ -12,7 +12,7 @@ const VEREDITO = {
 } as const;
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
-const SUGESTOES = ["Quanto devo gastar de reparo?", "Vale levar até Passos-MG?", "Esse carro passa na vistoria?"];
+const SUGESTOES = ["Quanto devo gastar de reparo?", "Compensa buscar até a minha cidade?", "Esse carro passa na vistoria?"];
 
 interface Msg {
   papel: "user" | "assistant";
