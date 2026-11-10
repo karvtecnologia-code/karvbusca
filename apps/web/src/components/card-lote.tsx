@@ -105,12 +105,14 @@ export function CardLote({
               </div>
               <div>
                 <dt className="text-faint">Custo real</dt>
-                <dd className="text-fg">{reais(v.custo)}</dd>
+                {/* sem lance (estoque "Em breve") não há custo a calcular */}
+                <dd className="text-fg">{l.lance_atual ? reais(v.custo) : "—"}</dd>
               </div>
               <div>
                 <dt className="text-faint">FIPE{l.fipe_aproximada ? " ≈" : ""}</dt>
                 <dd className={v.pct != null && v.pct < 0.7 ? "text-[#8fc9a1]" : "text-fg"}>
-                  {v.pct != null ? `${Math.round(v.pct * 100)}%` : "—"}
+                  {/* com lance: % da FIPE; sem lance: o valor da FIPE em reais */}
+                  {v.pct != null ? `${Math.round(v.pct * 100)}%` : v.fipe ? reais(v.fipe) : "—"}
                 </dd>
               </div>
               <div className="hidden sm:block">
