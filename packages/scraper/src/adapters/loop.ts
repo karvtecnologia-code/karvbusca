@@ -12,6 +12,7 @@ const TIPOS: Record<string, TipoVeiculo> = { leve: "carro", moto: "moto" };
 interface LoopHit {
   _source: {
     sku?: string;
+    slug?: string;
     lotId: number | null;
     url: string | null;
     lotStatus?: string | null;
@@ -45,7 +46,12 @@ export function parseLoop(json: { hits?: LoopHit[] }): LoteColetado[] {
       site: "loop",
       // o SKU é do veículo: continua o mesmo quando ele sai do estoque e entra num leilão
       idExterno: s.sku ?? String(s.lotId),
-      url: estoque ? `${ORIGEM}/estoque` : `${ORIGEM}/leilao/${s.url}`,
+      // estoque tem página própria em /veiculo/<slug>; sem slug, abre o estoque filtrado
+      url: estoque
+        ? s.slug
+          ? `${ORIGEM}/veiculo/${s.slug}`
+          : `${ORIGEM}/estoque?${new URLSearchParams({ marca: s.brand ?? "", modelo: s.model ?? "" })}`
+        : `${ORIGEM}/leilao/${s.url}`,
       titulo: [s.brand, s.model, s.version].filter(Boolean).join(" "),
       tipo,
       marca: s.brand,

@@ -55,7 +55,7 @@ export default async function FavoritosPage({ searchParams }: { searchParams: Pr
       <CardLote key={l.id} lote={l} padroes={padroes} indice={i} modo="favoritos">
         <div className={`grid gap-3 ${pontos.length > 1 ? "sm:grid-cols-[1fr_280px] sm:items-end" : ""}`}>
           {pontos.length > 1 && <GraficoLances pontos={pontos} fipe={v.fipe} compacto />}
-          <NotaFavorito loteId={l.id} nota={l.nota} />
+          <NotaFavorito loteId={l.id} nota={l.nota_pessoal} />
         </div>
       </CardLote>
     );

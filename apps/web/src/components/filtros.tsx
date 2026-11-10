@@ -130,7 +130,36 @@ export function Filtros({ sites, termos, total }: { sites: Opcao[]; termos: Opca
         <Num rotulo="Lance máx." valor={val("lance")} onChange={(v) => set("lance", v)} classe={campo} />
       </div>
 
+      <div className="grid grid-cols-2 gap-2">
+        <Sel
+          rotulo="Distância de Passos"
+          valor={val("raio")}
+          onChange={(v) => set("raio", v)}
+          opcoes={[
+            { valor: "150", rotulo: "até 150 km" },
+            { valor: "300", rotulo: "até 300 km" },
+            { valor: "500", rotulo: "até 500 km" },
+            { valor: "800", rotulo: "até 800 km" },
+          ]}
+          classe={campo}
+        />
+        <Sel
+          rotulo="Nota mínima"
+          valor={val("nmin")}
+          onChange={(v) => set("nmin", v)}
+          opcoes={[
+            { valor: "75", rotulo: "🔥 75+" },
+            { valor: "60", rotulo: "60+" },
+            { valor: "45", rotulo: "45+" },
+          ]}
+          classe={campo}
+        />
+      </div>
+
       <div className="flex flex-wrap gap-1">
+        <button onClick={() => set("desc", val("desc") ? null : "1")} className={chip(!!val("desc"))}>
+          🧭 Só descobertas
+        </button>
         <button onClick={() => set("h24", val("h24") ? null : "1")} className={chip(!!val("h24"))}>
           Encerra em 24h
         </button>
@@ -159,10 +188,11 @@ export function Filtros({ sites, termos, total }: { sites: Opcao[]; termos: Opca
         <div className="flex items-center gap-2">
           <select
             aria-label="Ordenar"
-            value={val("ordem") || "fim"}
-            onChange={(e) => set("ordem", e.target.value === "fim" ? null : e.target.value)}
+            value={val("ordem") || "nota"}
+            onChange={(e) => set("ordem", e.target.value === "nota" ? null : e.target.value)}
             className="press h-8 rounded-md border border-line bg-surface px-2 text-sm outline-none hover:border-line-strong"
           >
+            <option value="nota">Melhor nota</option>
             <option value="fim">Encerra antes</option>
             <option value="fipe">Menor % FIPE</option>
             <option value="lance">Menor lance</option>

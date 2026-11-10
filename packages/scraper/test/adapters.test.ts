@@ -76,9 +76,27 @@ describe("Loop", () => {
   });
   it("estoque sem leilão marcado entra como 'estoque' (Em breve), sem data", () => {
     const [e] = parseLoop({
-      hits: [{ _source: { sku: "60069040", lotId: null, url: null, category: "Leve", brand: "HYUNDAI", model: "HB20X", location: "Uberlândia-MG" } }],
+      hits: [
+        {
+          _source: {
+            sku: "60069040",
+            slug: "hyundai-hb20x-16a-evolut-2021-2022-60069040",
+            lotId: null,
+            url: null,
+            category: "Leve",
+            brand: "HYUNDAI",
+            model: "HB20X",
+            location: "Uberlândia-MG",
+          },
+        },
+      ],
     });
-    expect(e).toMatchObject({ idExterno: "60069040", status: "estoque", uf: "MG", url: "https://loopleiloes.com.br/estoque" });
+    expect(e).toMatchObject({
+      idExterno: "60069040",
+      status: "estoque",
+      uf: "MG",
+      url: "https://loopleiloes.com.br/veiculo/hyundai-hb20x-16a-evolut-2021-2022-60069040",
+    });
     expect(e!.fimEm).toBeUndefined();
   });
   it("detalhe: encerramento real, vistoria, FIPE e taxas", () => {

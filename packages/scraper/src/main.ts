@@ -9,7 +9,10 @@
 import { chromium } from "playwright";
 import { adapters } from "./adapters";
 import { enviarPendentes, enviarResumo } from "./alertas";
-import { atualizarFipe } from "./fipe";
+import { atualizarFipe, FipeCache } from "./fipe";
+import { atualizarDistancias } from "./geo";
+import { iaAutomatica } from "./ia-auto";
+import { recalcularNotas } from "./notas";
 import { carregarSites, carregarTermos, supabaseAdmin } from "./db";
 import { rodarSite, type Modo, type Resultado } from "./pipeline";
 
@@ -31,8 +34,25 @@ const filtro = args.sites?.split(/[\s,]+/).filter(Boolean); // o PowerShell troc
 const excluir = (process.env.KARV_SITES_EXCLUIR ?? "").split(/[\s,]+/).filter(Boolean);
 
 const db = supabaseAdmin();
-const [termos, sites] = await Promise.all([carregarTermos(db), carregarSites(db)]);
+const [termos, sites, { data: cfg }] = await Promise.all([
+  carregarTermos(db),
+  carregarSites(db),
+  db.from("config").select("descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min").single(),
+]);
 console.log(`modo=${modo} termos=${termos.map((t) => t.termo).join(",")}`);
+
+// FIPE com cache persistente; o orçamento de consultas novas é dividido entre descoberta e lotes
+const fipe = new FipeCache(db, 150);
+const descoberta =
+  modo === "completo" && cfg?.descoberta_ativa && args.descoberta !== "0"
+    ? {
+        fipe,
+        pctMax: Number(cfg.descoberta_pct_fipe),
+        anoMin: Number(cfg.descoberta_ano_min),
+        maxPorSite: 10,
+        maxAvaliados: 40,
+      }
+    : null;
 
 // channel "chromium" = Chromium completo no modo sem janela (o "headless shell" padrão
 // é barrado pelo desafio anti-robô da Loop/Vercel)
@@ -44,14 +64,19 @@ try {
     if (!site.ativo || (filtro && !filtro.includes(site.slug)) || excluir.includes(site.slug)) continue;
     const adapter = adapters[site.slug as keyof typeof adapters];
     if (!adapter) continue;
-    resultados.push(await rodarSite({ browser, db, site, adapter, termos, modo, seco: args.seco === "true" }));
+    resultados.push(await rodarSite({ browser, db, site, adapter, termos, modo, seco: args.seco === "true", descoberta }));
   }
 } finally {
   await browser.close();
 }
 
 if (args.seco !== "true") {
-  await atualizarFipe(db).catch((e) => console.log(`[fipe] erro: ${(e as Error).message}`));
+  const avisa = (o: string) => (e: unknown) => console.log(`[${o}] erro: ${(e as Error).message}`);
+  // ordem importa: a nota depende da FIPE e da distância; a IA e os alertas dependem da nota
+  await atualizarFipe(db, fipe).catch(avisa("fipe"));
+  await atualizarDistancias(db).catch(avisa("geo"));
+  await recalcularNotas(db).catch(avisa("nota"));
+  if (modo === "completo") await iaAutomatica(db).catch(avisa("ia"));
   // resumo da manhã: na busca das 07:00 (antes das 10h de Brasília), uma vez por dia
   const horaBR = Number(new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo", hour: "numeric", hour12: false }));
   if (modo === "completo" && horaBR < 10) {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import type { PadroesCusto } from "@karv/core";
 import { decidir } from "@/app/(painel)/lotes-actions";
-import { anosFmt, kmFmt, MONTA, quando, reais, RODA, valoresLote, type LotePainel } from "@/lib/lotes";
+import { anosFmt, corNota, kmFmt, MONTA, quando, reais, RODA, valoresLote, type LotePainel } from "@/lib/lotes";
 import { Contagem } from "./contagem";
 import { Etiqueta } from "./etiqueta";
 
@@ -15,7 +15,12 @@ export function CardLote({
   novo = false,
   modo = "lotes",
   children,
+  pctArremate = null,
+  notaQuente = 75,
 }: {
+  /** mediana de quanto este modelo fecha em relação à FIPE (arremates_modelo) */
+  pctArremate?: number | null;
+  notaQuente?: number;
   lote: LotePainel;
   padroes: PadroesCusto;
   indice?: number;
@@ -32,7 +37,9 @@ export function CardLote({
   const monta = MONTA[l.condicao_monta] ?? MONTA.nao_informado!;
   const roda = RODA[l.roda] ?? RODA.nao_informado!;
   const local = [l.cidade, l.uf].filter(Boolean).join("-");
-  const linha = [anosFmt(l.ano_fab, l.ano_mod), kmFmt(l.km), local].filter(Boolean).join(" · ");
+  const linha = [anosFmt(l.ano_fab, l.ano_mod), kmFmt(l.km), local, l.distancia_km != null ? `${l.distancia_km} km de Passos` : null]
+    .filter(Boolean)
+    .join(" · ");
 
   const marcar = (d: "gostei" | "descartado") => {
     const nova = decisao === d ? null : d;
@@ -85,9 +92,20 @@ export function CardLote({
                 </Link>
                 <p className="num mt-0.5 truncate text-xs text-muted">{linha || "—"}</p>
               </div>
-              <div className="hidden shrink-0 text-right sm:block">
-                <div className="num text-base font-medium">{reais(l.lance_atual)}</div>
-                <div className="text-[11px] text-faint">lance atual</div>
+              <div className="flex shrink-0 items-start gap-3">
+                <div className="hidden text-right sm:block">
+                  <div className="num text-base font-medium">{reais(l.lance_atual)}</div>
+                  <div className="text-[11px] text-faint">lance atual</div>
+                </div>
+                {l.nota != null && (
+                  <div
+                    title={`Nota de oportunidade: ${l.nota_motivos.join(" · ") || "—"}`}
+                    className={`num grid size-11 shrink-0 place-items-center rounded-lg border text-center leading-none ${corNota(l.nota)}`}
+                  >
+                    <span className="text-base font-semibold">{l.nota}</span>
+                    <span className="text-[9px] opacity-70">{l.nota >= notaQuente ? "🔥 nota" : "nota"}</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -98,6 +116,16 @@ export function CardLote({
                 </Etiqueta>
               )}
               {l.status === "retirado" && <Etiqueta tom="bad">Saiu do site</Etiqueta>}
+              {l.descoberta && (
+                <Etiqueta tom="ok" title="Achado pelo modo descoberta: fora dos seus termos, barato em relação à FIPE">
+                  🧭 Descoberta
+                </Etiqueta>
+              )}
+              {l.relistado_de && (
+                <Etiqueta tom="warn" title={l.lance_anterior_relist ? `Último lance visto antes: ${reais(l.lance_anterior_relist)}` : undefined}>
+                  🔁 Voltou a leilão
+                </Etiqueta>
+              )}
               <Etiqueta tom={monta.tom}>{monta.rotulo}</Etiqueta>
               <Etiqueta tom={roda.tom}>{roda.rotulo}</Etiqueta>
               {l.circulacao === "vedada" && <Etiqueta tom="bad">Circulação vedada</Etiqueta>}
@@ -120,6 +148,11 @@ export function CardLote({
                 <dd className={v.pct != null && v.pct < 0.7 ? "text-[#8fc9a1]" : "text-fg"}>
                   {/* com lance: % da FIPE; sem lance: o valor da FIPE em reais */}
                   {v.pct != null ? `${Math.round(v.pct * 100)}%` : v.fipe ? reais(v.fipe) : "—"}
+                  {pctArremate != null && (
+                    <span className="block text-[10px] text-faint" title="Mediana do último lance visto em leilões encerrados deste modelo">
+                      fecha ~{Math.round(pctArremate * 100)}%
+                    </span>
+                  )}
                 </dd>
               </div>
               <div className="hidden sm:block">

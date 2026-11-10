@@ -69,7 +69,7 @@ export default async function LotePage({ params }: { params: Promise<{ id: strin
             {l.site_nome} · encerra {quando(l.fim_em)} · <Contagem fim={l.fim_em} />
           </p>
         </div>
-        <Decisao loteId={l.id} url={l.url} decisao={l.decisao} nota={l.nota} />
+        <Decisao loteId={l.id} url={l.url} decisao={l.decisao} nota={l.nota_pessoal} />
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">

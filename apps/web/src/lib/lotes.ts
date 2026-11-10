@@ -47,12 +47,18 @@ export interface LotePainel {
   custo_frete: number | null;
   visto_primeiro_em: string;
   decisao: "gostei" | "descartado" | null;
-  nota: string | null;
+  nota_pessoal: string | null;
+  nota: number | null;
+  nota_motivos: string[];
+  distancia_km: number | null;
+  descoberta: boolean;
+  relistado_de: string | null;
+  lance_anterior_relist: number | null;
   termos: string[];
 }
 
 export const CAMPOS_CARD =
-  "id, site_id, site_slug, site_nome, comissao_pct, taxa_adm, id_externo, url, titulo, tipo, ano_fab, ano_mod, km, uf, cidade, condicao_monta, roda, circulacao, chave, dano_estrutural, apto_rodar, lance_atual, fim_em, status, fotos, fipe_valor, fipe_site, fipe_aproximada, taxas_site, custo_patio, custo_doc, custo_frete, visto_primeiro_em, decisao, nota, termos";
+  "id, site_id, site_slug, site_nome, comissao_pct, taxa_adm, id_externo, url, titulo, tipo, marca, modelo, ano_fab, ano_mod, km, uf, cidade, condicao_monta, roda, circulacao, chave, dano_estrutural, apto_rodar, lance_atual, fim_em, status, fotos, fipe_valor, fipe_site, fipe_aproximada, taxas_site, custo_patio, custo_doc, custo_frete, visto_primeiro_em, decisao, nota, nota_motivos, nota_pessoal, distancia_km, descoberta, relistado_de, lance_anterior_relist, termos";
 
 export type Config = PadroesCusto & {
   chat_id_telegram: number | null;
@@ -102,3 +108,11 @@ export const PROCEDENCIA: Record<string, string> = {
   particular: "Particular",
   nao_informado: "Não informada",
 };
+
+/** Chave do modelo usada na view arremates_modelo ("mitsubishi asx"). */
+export const chaveArremate = (l: { marca: string | null; modelo: string | null; titulo: string }) =>
+  `${(l.marca ?? "").toLowerCase()} ${(l.modelo ?? l.titulo).toLowerCase().split(" ")[0]}`;
+
+/** Cor da nota de oportunidade. */
+export const corNota = (n: number) =>
+  n >= 75 ? "border-amber/60 bg-amber/15 text-amber" : n >= 55 ? "border-ok/40 bg-ok/10 text-[#8fc9a1]" : "border-line-strong bg-raised text-muted";

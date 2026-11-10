@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { MarcarVisita } from "@/components/marcar-visita";
 import { CardLote } from "@/components/card-lote";
 import { Filtros } from "@/components/filtros";
-import { CAMPOS_CARD, valoresLote, type Config, type LotePainel } from "@/lib/lotes";
+import { CAMPOS_CARD, chaveArremate, valoresLote, type Config, type LotePainel } from "@/lib/lotes";
 import { supabaseServer } from "@/lib/supabase/server";
 
 type SP = Record<string, string | undefined>;
@@ -33,6 +33,9 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
   if (sp.lance) q = q.lte("lance_atual", Number(sp.lance));
   if (sp.h24) q = q.lte("fim_em", new Date(Date.now() + 86_400_000).toISOString());
   if (sp.breve) q = q.or("status.is.null,status.neq.estoque"); // esconder estoque "Em breve"
+  if (sp.raio) q = q.lte("distancia_km", Number(sp.raio));
+  if (sp.nmin) q = q.gte("nota", Number(sp.nmin));
+  if (sp.desc) q = q.eq("descoberta", true);
   // busca livre: "hr-v 2017" → título/modelo contém "hr-v" e ano-modelo 2017
   for (const tok of (sp.q ?? "").trim().split(/\s+/).filter(Boolean).slice(0, 4)) {
     if (/^(19|20)\d{2}$/.test(tok)) q = q.eq("ano_mod", Number(tok));
@@ -42,17 +45,24 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
     }
   }
 
-  const ordem = sp.ordem ?? "fim";
+  // padrão: melhor nota de oportunidade primeiro
+  const ordem = sp.ordem ?? "nota";
   if (ordem === "lance") q = q.order("lance_atual", { ascending: true, nullsFirst: false });
   else if (ordem === "novos") q = q.order("visto_primeiro_em", { ascending: false });
-  else q = q.order("fim_em", { ascending: true, nullsFirst: false });
+  else if (ordem === "fim") q = q.order("fim_em", { ascending: true, nullsFirst: false });
+  else if (ordem === "nota") q = q.order("nota", { ascending: false, nullsFirst: false }).order("fim_em", { ascending: true, nullsFirst: false });
 
-  const [{ data, error }, { data: cfg }, { data: sites }, { data: termos }] = await Promise.all([
+  const [{ data, error }, { data: cfg }, { data: sites }, { data: termos }, { data: arremates }] = await Promise.all([
     q,
-    supabase.from("config").select("custo_doc_padrao, custo_patio_padrao, frete_padrao, chat_id_telegram, origem").single(),
+    supabase
+      .from("config")
+      .select("custo_doc_padrao, custo_patio_padrao, frete_padrao, frete_por_km, chat_id_telegram, origem, nota_alerta_quente")
+      .single(),
     supabase.from("sites").select("slug, nome").order("id"),
     supabase.from("termos_busca").select("id, termo").order("termo"),
+    supabase.from("arremates_modelo").select("modelo_base, pct_fipe_mediana"),
   ]);
+  const pctArremate = new Map((arremates ?? []).map((a) => [a.modelo_base as string, Number(a.pct_fipe_mediana)]));
   const padroes = (cfg ?? { custo_doc_padrao: 0, custo_patio_padrao: 0 }) as Config;
   const visita = Number((await cookies()).get("kb_visita")?.value ?? 0);
 
@@ -96,6 +106,8 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
               padroes={padroes}
               indice={i}
               novo={visita > 0 && new Date(l.visto_primeiro_em).getTime() > visita}
+              pctArremate={pctArremate.get(chaveArremate(l)) ?? null}
+              notaQuente={cfg?.nota_alerta_quente ?? 75}
             />
           ))}
         </ul>

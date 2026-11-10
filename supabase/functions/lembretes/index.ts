@@ -40,7 +40,7 @@ interface Fav {
   fim_em: string;
   fotos: string[];
   site_nome: string;
-  nota: string | null;
+  nota_pessoal: string | null;
 }
 
 const JANELAS = [
@@ -60,7 +60,7 @@ Deno.serve(async () => {
     // favoritos que encerram dentro da janela e ainda não receberam este lembrete
     const { data: favs } = await db
       .from("lotes_painel")
-      .select("id, site_id, titulo, url, lance_atual, fim_em, fotos, site_nome, nota")
+      .select("id, site_id, titulo, url, lance_atual, fim_em, fotos, site_nome, nota_pessoal")
       .eq("decisao", "gostei")
       .gt("fim_em", new Date(agora).toISOString())
       .lte("fim_em", new Date(agora + j.horas * 3600_000).toISOString());
@@ -81,7 +81,7 @@ Deno.serve(async () => {
         `<b>${esc(f.titulo)}</b>`,
         `Lance atual: <b>${f.lance_atual != null ? brl.format(f.lance_atual) : "—"}</b>`,
         `Encerra: ${esc(hora.format(new Date(f.fim_em)))}`,
-        f.nota ? `📝 ${esc(f.nota)}` : null,
+        f.nota_pessoal ? `📝 ${esc(f.nota_pessoal)}` : null,
         `<i>${esc(f.site_nome)}</i>`,
       ]
         .filter(Boolean)

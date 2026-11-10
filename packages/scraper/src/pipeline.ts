@@ -1,10 +1,11 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import type { Browser } from "playwright";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { casarTermos, UFS_ALVO, type LoteColetado, type TermoBusca } from "@karv/core";
+import { casarTermos, classificarMonta, normalizar, UFS_ALVO, type LoteColetado, type TermoBusca } from "@karv/core";
 import { novoContexto, pausa, type Adapter } from "./base";
 import { classificar, mereceAlertaNovo } from "./classificar";
 import type { SiteRow } from "./db";
+import type { FipeCache } from "./fipe";
 import { ufPorCidade } from "./municipios";
 import { avisarFalha, avisarSumiu } from "./alertas";
 
@@ -15,8 +16,86 @@ interface Prev {
   id: string;
   id_externo: string;
   lance_atual: number | null;
+  lance_inicial: number | null;
   status: string | null;
   fim_em: string | null;
+}
+
+export interface OpcoesDescoberta {
+  fipe: FipeCache;
+  pctMax: number; // lance ÷ FIPE máximo (0,65)
+  anoMin: number;
+  maxPorSite: number; // quantos achados viram candidatos por site/execução
+  maxAvaliados: number; // quantos passam pela checagem de FIPE por site/execução
+}
+
+/** Identifica o mesmo carro em leilões diferentes (relistado). Sem km não dá para afirmar. */
+export function chaveVeiculo(l: LoteColetado): string | null {
+  if (!l.km || l.km < 100) return null;
+  const modelo = normalizar(l.modelo ?? l.titulo).split(" ").slice(0, 2).join(" ");
+  return [normalizar(l.marca ?? ""), modelo, l.anoMod ?? l.anoFab ?? "", l.km].join("|");
+}
+
+/**
+ * Modo descoberta: entre os lotes que NÃO casam com os termos, acha os baratos em relação à FIPE.
+ * Filtra primeiro pelo que é barato verificar (UF, ano, lance, monta no texto da listagem) e só
+ * então consulta a FIPE (com cache), respeitando um limite por site para caber no plano gratuito.
+ */
+async function achar(
+  coletados: LoteColetado[],
+  porTermo: LoteColetado[],
+  descartados: Set<string>,
+  termos: TermoBusca[],
+  o: OpcoesDescoberta,
+  db: SupabaseClient,
+  site: SiteRow,
+  log: (m: string) => void,
+): Promise<LoteColetado[]> {
+  const jaPorTermo = new Set(porTermo.map((l) => l.idExterno));
+  // achados de execuções anteriores continuam sendo acompanhados (lance, status)
+  const { data: antigos } = await db
+    .from("lotes")
+    .select("id_externo")
+    .eq("site_id", site.id)
+    .eq("descoberta", true)
+    .gt("fim_em", new Date().toISOString());
+  const acompanhar = new Set((antigos ?? []).map((a) => a.id_externo));
+
+  const pre = coletados
+    .filter(
+      (l) =>
+        !jaPorTermo.has(l.idExterno) &&
+        !descartados.has(l.idExterno) &&
+        ufOk(l.uf) &&
+        l.status !== "estoque" &&
+        (l.lanceAtual ?? 0) > 0 &&
+        (l.anoMod ?? l.anoFab ?? 0) >= o.anoMin &&
+        casarTermos(l, termos).length === 0 &&
+        !["sucata", "grande"].includes(classificarMonta(l.condicaoTexto, l.titulo, l.observacoes)),
+    )
+    .sort((a, b) => (b.anoMod ?? b.anoFab ?? 0) - (a.anoMod ?? a.anoFab ?? 0)); // mais novos primeiro
+
+  const achados: { l: LoteColetado; pct: number }[] = [];
+  let avaliados = 0;
+  for (const l of pre) {
+    if (acompanhar.has(l.idExterno)) {
+      achados.push({ l, pct: 0 });
+      continue;
+    }
+    if (avaliados >= o.maxAvaliados) continue;
+    avaliados++;
+    const fipe =
+      l.fipeSite ??
+      (await o.fipe.buscar({ tipo: l.tipo, marca: l.marca, modelo: l.modelo, versao: l.versao, titulo: l.titulo, anoMod: l.anoMod ?? l.anoFab, combustivel: l.combustivel }))?.valor;
+    if (!fipe) continue;
+    const pct = (l.lanceAtual ?? 0) / fipe;
+    if (pct <= o.pctMax) achados.push({ l, pct });
+  }
+  achados.sort((a, b) => a.pct - b.pct);
+  const novos = achados.filter((a) => !acompanhar.has(a.l.idExterno)).slice(0, o.maxPorSite);
+  const final = [...achados.filter((a) => acompanhar.has(a.l.idExterno)), ...novos].map((a) => a.l);
+  log(`descoberta: ${pre.length} fora dos termos, ${avaliados} avaliados na FIPE, ${novos.length} novos achados + ${acompanhar.size} acompanhados`);
+  return final;
 }
 
 export interface Resultado {
@@ -59,8 +138,9 @@ export async function rodarSite(opts: {
   termos: TermoBusca[];
   modo: Modo;
   seco?: boolean;
+  descoberta?: OpcoesDescoberta | null;
 }): Promise<Resultado> {
-  const { browser, db, site, adapter, termos, modo, seco } = opts;
+  const { browser, db, site, adapter, termos, modo, seco, descoberta } = opts;
   const logs: string[] = [];
   const log = (m: string) => {
     const linha = `[${site.slug}] ${m}`;
@@ -86,21 +166,26 @@ export async function rodarSite(opts: {
     res.encontrados = coletados.length;
     log(`${coletados.length} lotes na listagem`);
 
-    const candidatos = coletados.filter(
+    const porTermo = coletados.filter(
       (l) =>
         ufOk(l.uf) &&
         !descartados.has(l.idExterno) &&
         (modo === "completo" || favoritos.has(l.idExterno)) &&
         casarTermos(l, termos).length > 0,
     );
+    log(`${porTermo.length} casam com os termos`);
+
+    // modo descoberta: qualquer veículo fora dos termos, barato em relação à FIPE
+    const descobertos = descoberta && modo === "completo" ? await achar(coletados, porTermo, descartados, termos, descoberta, db, site, log) : [];
+    const idsDescoberta = new Set(descobertos.map((d) => d.idExterno));
+    const candidatos = [...porTermo, ...descobertos];
     res.candidatos = candidatos.length;
-    log(`${candidatos.length} casam com os termos`);
 
     const ids = candidatos.map((c) => c.idExterno);
     const { data: prevs } = ids.length
       ? await db
           .from("lotes")
-          .select("id, id_externo, lance_atual, status, fim_em")
+          .select("id, id_externo, lance_atual, lance_inicial, status, fim_em")
           .eq("site_id", site.id)
           .in("id_externo", ids)
       : { data: [] as Prev[] };
@@ -124,9 +209,12 @@ export async function rodarSite(opts: {
       if (!l.uf && l.cidade) l = { ...l, uf: await ufPorCidade(l.cidade) };
       if (!ufOk(l.uf)) continue; // UF só conhecida no detalhe (Sold, VIP)
       const casados = casarTermos(l, termos);
-      if (!casados.length) continue;
+      const ehDescoberta = idsDescoberta.has(l.idExterno);
+      if (!casados.length && !ehDescoberta) continue;
 
-      const linha = classificar(l);
+      const linha = { ...classificar(l), chave_veiculo: chaveVeiculo(l) };
+      // descoberta só interessa se, com o detalhe, continuar apto a rodar
+      if (ehDescoberta && !casados.length && !linha.apto_rodar) continue;
       const prev = anteriores.get(l.idExterno);
       const agora = new Date().toISOString();
 
@@ -150,6 +238,18 @@ export async function rodarSite(opts: {
 
       if (!prev) {
         const fotos = await copiarFotos(db, l);
+        // relistado: o mesmo carro (marca, modelo, ano e km) já esteve num leilão encerrado
+        const anterior = linha.chave_veiculo
+          ? (
+              await db
+                .from("lotes")
+                .select("id, lance_atual")
+                .eq("chave_veiculo", linha.chave_veiculo)
+                .lt("fim_em", new Date().toISOString())
+                .order("fim_em", { ascending: false })
+                .limit(1)
+            ).data?.[0]
+          : undefined;
         const { data, error } = await db
           .from("lotes")
           .insert({
@@ -157,7 +257,10 @@ export async function rodarSite(opts: {
             site_id: site.id,
             id_externo: l.idExterno,
             fotos,
-            alerta_pendente: mereceAlertaNovo(linha) ? "novo" : null,
+            descoberta: ehDescoberta && !casados.length,
+            relistado_de: anterior?.id ?? null,
+            lance_anterior_relist: anterior?.lance_atual ?? null,
+            alerta_pendente: mereceAlertaNovo(linha) ? (anterior ? "relistado" : "novo") : null,
           })
           .select("id")
           .single();
@@ -166,14 +269,21 @@ export async function rodarSite(opts: {
         res.novos++;
       } else {
         const lanceMudou = Number(prev.lance_atual ?? 0) !== Number(linha.lance_atual ?? 0);
-        // lote que passou a merecer alerta (ex.: classificação melhorou) entra na fila;
-        // enviarPendentes confere alertas_enviados e não repete o "novo"
+        // 2ª praça: o lance mínimo caiu pelo menos 5%
+        const segundaPraca =
+          linha.lance_inicial != null &&
+          prev.lance_inicial != null &&
+          Number(linha.lance_inicial) < Number(prev.lance_inicial) * 0.95;
+        // prioridade: lance do favorito > 2ª praça > lote que passou a merecer alerta
+        // (enviarPendentes confere alertas_enviados e não repete o "novo")
         const extra =
           lanceMudou && favoritos.has(l.idExterno)
             ? { alerta_pendente: "lance", lance_anterior: prev.lance_atual }
-            : mereceAlertaNovo(linha) && !favoritos.has(l.idExterno)
-              ? { alerta_pendente: "novo" }
-              : {};
+            : segundaPraca && linha.apto_rodar
+              ? { alerta_pendente: "segunda_praca", lance_inicial_anterior: prev.lance_inicial }
+              : mereceAlertaNovo(linha) && !favoritos.has(l.idExterno)
+                ? { alerta_pendente: "novo" }
+                : {};
         const { error } = await db
           .from("lotes")
           .update({ ...linha, ...extra, visto_ultimo_em: agora })
@@ -188,9 +298,10 @@ export async function rodarSite(opts: {
           .from("lotes_historico")
           .insert({ lote_id: loteId, lance_atual: linha.lance_atual, status: linha.status, fim_em: linha.fim_em });
       }
-      await db
-        .from("lote_termos")
-        .upsert(casados.map((t) => ({ lote_id: loteId, termo_id: t.id })), { ignoreDuplicates: true });
+      if (casados.length)
+        await db
+          .from("lote_termos")
+          .upsert(casados.map((t) => ({ lote_id: loteId, termo_id: t.id })), { ignoreDuplicates: true });
     }
 
     // favoritos ainda abertos que sumiram da listagem (só em busca completa e listagem saudável)

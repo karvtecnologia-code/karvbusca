@@ -6,8 +6,10 @@ import {
   reais,
   ROTULO_MONTA,
   ROTULO_RODA,
+  ROTULO_VEREDITO,
   Telegram,
   tecladoLote,
+  type AnaliseIA,
 } from "@karv/core";
 
 interface Config {
@@ -15,6 +17,8 @@ interface Config {
   custo_doc_padrao: number;
   custo_patio_padrao: number;
   frete_padrao: number | null;
+  frete_por_km: number | null;
+  nota_alerta_quente: number;
 }
 
 interface LoteAlerta {
@@ -41,8 +45,17 @@ interface LoteAlerta {
   fipe_site: number | null;
   custo_patio: number | null;
   custo_doc: number | null;
-  alerta_pendente: "novo" | "lance";
+  custo_frete: number | null;
+  distancia_km: number | null;
+  nota: number | null;
+  nota_motivos: string[];
+  descoberta: boolean;
+  lance_inicial: number | null;
+  lance_inicial_anterior: number | null;
+  lance_anterior_relist: number | null;
+  alerta_pendente: "novo" | "lance" | "relistado" | "segunda_praca";
   sites: { nome: string; comissao_pct: number; taxa_adm: number };
+  lote_ia?: { analise: { veredito: AnaliseIA["veredito"]; resumo: string } } | null;
 }
 
 export function telegramDoAmbiente(): Telegram | null {
@@ -51,7 +64,10 @@ export function telegramDoAmbiente(): Telegram | null {
 }
 
 async function carregarConfig(db: SupabaseClient): Promise<Config | null> {
-  const { data } = await db.from("config").select("chat_id_telegram, custo_doc_padrao, custo_patio_padrao, frete_padrao").single();
+  const { data } = await db
+    .from("config")
+    .select("chat_id_telegram, custo_doc_padrao, custo_patio_padrao, frete_padrao, frete_por_km, nota_alerta_quente")
+    .single();
   return data;
 }
 
@@ -71,19 +87,36 @@ function legenda(l: LoteAlerta, cfg: Config): string {
     l.chave === "sim" ? "🔑 com chave" : l.chave === "nao" ? "🔑 sem chave" : null,
   ].filter(Boolean);
 
-  const topo =
-    l.alerta_pendente === "lance"
-      ? `💸 <b>Lance mudou</b>: ${reais(l.lance_anterior)} → <b>${reais(l.lance_atual)}</b>\n`
-      : "";
+  const quente = l.nota != null && l.nota >= cfg.nota_alerta_quente;
+  const topo = {
+    lance: `💸 <b>Lance mudou</b>: ${reais(l.lance_anterior)} → <b>${reais(l.lance_atual)}</b>`,
+    relistado: `🔁 <b>Voltou a leilão</b>${l.lance_anterior_relist ? ` (último lance visto: ${reais(l.lance_anterior_relist)})` : ""}`,
+    segunda_praca: `📉 <b>2ª praça</b>: lance mínimo ${reais(l.lance_inicial_anterior)} → <b>${reais(l.lance_inicial)}</b>`,
+    novo: null,
+  }[l.alerta_pendente];
+  const cabecalho = [
+    quente ? `🔥 <b>Oportunidade · nota ${l.nota}</b>` : l.nota != null ? `Nota ${l.nota}/100` : null,
+    l.descoberta ? "🧭 <i>descoberta (fora dos seus termos)</i>" : null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  const ia = l.lote_ia?.analise;
   return [
-    `${topo}<b>${esc(l.titulo)}</b>`,
-    [ano, km, local].filter(Boolean).map(esc).join(" · "),
+    topo,
+    cabecalho || null,
+    `<b>${esc(l.titulo)}</b>`,
+    [ano, km, local, l.distancia_km != null ? `${l.distancia_km} km de Passos` : null].filter(Boolean).map(esc).join(" · "),
     `Lance: <b>${reais(l.lance_atual)}</b>${pctTxt}`,
     `Custo real ≈ ${reais(custo)}${fipe ? ` · FIPE ${reais(fipe)}` : ""}`,
     `${ROTULO_MONTA[l.condicao_monta] ?? ""} · ${ROTULO_RODA[l.roda] ?? ""}${extras.length ? " · " + extras.join(" · ") : ""}`,
+    quente && l.nota_motivos.length ? `✔ ${esc(l.nota_motivos.slice(0, 5).join(" · "))}` : null,
+    ia ? `🤖 ${ROTULO_VEREDITO[ia.veredito]}: ${esc(ia.resumo.slice(0, 280))}` : null,
     `⏰ Encerra: ${esc(quando(l.fim_em))}`,
     `<i>${esc(l.sites.nome)}</i>`,
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n")
+    .slice(0, 1020); // limite da legenda de foto do Telegram
 }
 
 /** Envia os alertas pendentes (lote novo e lance mudou) e limpa a fila. */
@@ -96,8 +129,10 @@ export async function enviarPendentes(db: SupabaseClient, log = console.log) {
   }
   const { data, error } = await db
     .from("lotes")
-    .select("*, sites(nome, comissao_pct, taxa_adm)")
+    .select("*, sites(nome, comissao_pct, taxa_adm), lote_ia(analise)")
     .not("alerta_pendente", "is", null)
+    // melhores primeiro: se houver mais de 30 na fila, as oportunidades saem antes
+    .order("nota", { ascending: false, nullsFirst: false })
     .order("fim_em", { ascending: true })
     .limit(30); // limite por execução para não inundar o celular
   if (error) throw error;

@@ -11,7 +11,8 @@ function urlOfertas(pagina: number) {
     locale: "pt_BR",
     timeZoneId: "America/Sao_Paulo",
     searchType: "opened",
-    filter: "product.productType.description:carros-motos;stores.id:[1161,1741]",
+    // Superbid inteiro (a Sold é uma das lojas dele): ~15x mais estoque, sem duplicar lotes
+    filter: "product.productType.description:carros-motos",
     pageNumber: String(pagina),
     pageSize: String(POR_PAGINA),
     orderBy: "endDate:asc",

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { supabaseServer } from "@/lib/supabase/server";
 import { FormPadroes, FormSite } from "./forms";
-import { Cofre, SecaoIA, SecaoSenha } from "./secoes";
+import { Cofre, SecaoIA, SecaoOportunidades, SecaoSenha } from "./secoes";
 
 const NAV = [
   ["custos", "Custos"],
+  ["oportunidades", "Oportunidades"],
   ["sites", "Sites"],
   ["ia", "IA"],
   ["cofre", "Logins"],
@@ -17,7 +18,9 @@ export default async function ConfiguracoesPage() {
   const [{ data: cfg }, { data: sites }, { data: creds }, { data: { user } }] = await Promise.all([
     supabase
       .from("config")
-      .select("custo_doc_padrao, custo_patio_padrao, frete_padrao, chat_id_telegram, ia_base_url, ia_modelo, ia_secret_id")
+      .select(
+        "custo_doc_padrao, custo_patio_padrao, frete_padrao, frete_por_km, chat_id_telegram, ia_base_url, ia_modelo, ia_secret_id, descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min, nota_alerta_quente, ia_auto_max_dia",
+      )
       .single(),
     supabase.from("sites").select("id, slug, nome, comissao_pct, taxa_adm, ativo").order("id"),
     supabase.from("credenciais").select("id, nome, site_slug, usuario, observacao, secret_id").order("nome"),
@@ -56,6 +59,20 @@ export default async function ConfiguracoesPage() {
             Custos padrão
           </Titulo>
           <FormPadroes doc={cfg?.custo_doc_padrao ?? 0} patio={cfg?.custo_patio_padrao ?? 0} frete={cfg?.frete_padrao ?? null} />
+        </div>
+
+        <div className="space-y-3">
+          <Titulo id="oportunidades" sub="Descoberta, nota de oportunidade, IA automática e frete por km.">
+            Oportunidades
+          </Titulo>
+          <SecaoOportunidades
+            descoberta={cfg?.descoberta_ativa ?? true}
+            pct={Number(cfg?.descoberta_pct_fipe ?? 0.65)}
+            ano={cfg?.descoberta_ano_min ?? 2012}
+            quente={cfg?.nota_alerta_quente ?? 75}
+            ia={cfg?.ia_auto_max_dia ?? 5}
+            porKm={cfg?.frete_por_km ?? null}
+          />
         </div>
 
         <div className="space-y-3">

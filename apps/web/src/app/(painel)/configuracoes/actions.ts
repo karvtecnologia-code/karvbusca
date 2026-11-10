@@ -24,6 +24,29 @@ export async function salvarPadroes(_: unknown, form: FormData) {
 
 type Res = { ok?: boolean | string; erro?: string } | null;
 
+export async function salvarOportunidades(_: unknown, form: FormData): Promise<Res> {
+  const pct = n(form.get("pct"));
+  const ano = n(form.get("ano"));
+  const quente = n(form.get("quente"));
+  const ia = n(form.get("ia"));
+  if (pct == null || pct < 20 || pct > 95) return { erro: "% da FIPE entre 20 e 95." };
+  if (ia == null || ia < 0 || ia > 50) return { erro: "Análises automáticas por dia: de 0 a 50." };
+  const supabase = await supabaseServer();
+  const { error } = await supabase
+    .from("config")
+    .update({
+      descoberta_ativa: form.get("descoberta") === "on",
+      descoberta_pct_fipe: pct / 100,
+      descoberta_ano_min: ano ?? 2012,
+      nota_alerta_quente: quente ?? 75,
+      ia_auto_max_dia: ia,
+      frete_por_km: n(form.get("porkm")),
+    })
+    .eq("id", true);
+  revalidatePath("/", "layout");
+  return error ? { erro: error.message } : { ok: true };
+}
+
 /** Provedor, modelo e (opcional) nova chave da IA. A chave vai para o Vault. */
 export async function salvarIA(_: unknown, form: FormData): Promise<Res> {
   const supabase = await supabaseServer();

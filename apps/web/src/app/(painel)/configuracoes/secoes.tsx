@@ -1,7 +1,15 @@
 "use client";
 
 import { useActionState, useState, useTransition } from "react";
-import { removerCredencial, revelarSenha, salvarCredencial, salvarIA, testarIA, trocarSenha } from "./actions";
+import {
+  removerCredencial,
+  revelarSenha,
+  salvarCredencial,
+  salvarIA,
+  salvarOportunidades,
+  testarIA,
+  trocarSenha,
+} from "./actions";
 
 const campo =
   "press h-9 w-full rounded-md border border-line bg-bg px-2.5 text-sm outline-none hover:border-line-strong focus:border-amber/70";
@@ -230,6 +238,50 @@ function FormCredencial({ c, sites, onFim }: { c?: Credencial; sites: { slug: st
         <button type="button" onClick={onFim} className={botaoSec}>
           Cancelar
         </button>
+        <button disabled={pendente} className={botao}>
+          Salvar
+        </button>
+      </div>
+    </form>
+  );
+}
+
+export function SecaoOportunidades(p: {
+  descoberta: boolean;
+  pct: number;
+  ano: number;
+  quente: number;
+  ia: number;
+  porKm: number | null;
+}) {
+  const [r, acao, pendente] = useActionState(salvarOportunidades, null);
+  const Campo = ({ nome, rotulo, valor, dica }: { nome: string; rotulo: string; valor: string | number; dica: string }) => (
+    <label className="space-y-1">
+      <span className="text-[11px] text-faint">{rotulo}</span>
+      <input name={nome} inputMode="decimal" defaultValue={valor} className={`${campo} num`} />
+      <span className="block text-[11px] text-faint/80">{dica}</span>
+    </label>
+  );
+  return (
+    <form action={acao} className="space-y-4 rounded-lg border border-line bg-surface p-4">
+      <label className="flex cursor-pointer items-center justify-between gap-3">
+        <span>
+          <span className="block text-sm">🧭 Modo descoberta</span>
+          <span className="block text-[11px] text-faint">
+            Procura qualquer carro ou moto apto em SP/MG barato em relação à FIPE, mesmo fora dos seus termos.
+          </span>
+        </span>
+        <input type="checkbox" name="descoberta" defaultChecked={p.descoberta} className="size-4 accent-[#f5a524]" />
+      </label>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Campo nome="pct" rotulo="Descoberta: lance até (% FIPE)" valor={Math.round(p.pct * 100)} dica="ex.: 65 = até 65% da FIPE" />
+        <Campo nome="ano" rotulo="Descoberta: ano mínimo" valor={p.ano} dica="mais novos que isso" />
+        <Campo nome="quente" rotulo="Nota para 🔥" valor={p.quente} dica="alerta destacado e IA automática" />
+        <Campo nome="ia" rotulo="IA automática por dia" valor={p.ia} dica="plano grátis: deixe 5 ou menos" />
+        <Campo nome="porkm" rotulo="Frete (R$ por km)" valor={p.porKm ?? ""} dica="vazio = frete padrão" />
+      </div>
+      <div className="flex items-center justify-end gap-3">
+        <Status r={r} pendente={pendente} />
         <button disabled={pendente} className={botao}>
           Salvar
         </button>

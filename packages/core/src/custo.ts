@@ -41,11 +41,14 @@ export interface EntradaCusto {
   custo_frete?: number | string | null;
   fipe_valor?: number | string | null;
   fipe_site?: number | string | null;
+  distancia_km?: number | null;
 }
 export interface PadroesCusto {
   custo_doc_padrao: number | string;
   custo_patio_padrao: number | string;
   frete_padrao?: number | string | null;
+  /** R$/km: com a distância do lote, vira o frete automático */
+  frete_por_km?: number | string | null;
 }
 
 const num = (v: unknown) => (v == null || v === "" ? null : Number(v));
@@ -57,7 +60,13 @@ export function calcularLote(l: EntradaCusto, p: PadroesCusto) {
   // a taxa da Loop já inclui estadia (pátio); nos outros sites usamos o padrão
   const patio = num(l.custo_patio) ?? (taxasSite != null ? 0 : num(p.custo_patio_padrao) ?? 0);
   const doc = num(l.custo_doc) ?? num(p.custo_doc_padrao) ?? 0;
-  const frete = num(l.custo_frete) ?? num(p.frete_padrao) ?? 0;
+  // frete: editado no lote > distância × R$/km > valor padrão
+  const porKm = num(p.frete_por_km);
+  const frete =
+    num(l.custo_frete) ??
+    (porKm && l.distancia_km != null ? Math.round(l.distancia_km * porKm) : null) ??
+    num(p.frete_padrao) ??
+    0;
   const comissaoPct = num(l.comissao_pct) ?? 5;
   const taxaAdm = (num(l.taxa_adm) ?? 0) + (taxasSite ?? 0);
   const custo = custoReal({ lance, comissaoPct, taxaAdm, patio, frete, documentacao: doc });
