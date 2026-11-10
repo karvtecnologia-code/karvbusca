@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import type { Browser } from "playwright";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { casarTermos, classificarMonta, normalizar, type LoteColetado, type TermoBusca } from "@karv/core";
-import { ufOk, ufPreferida } from "./ufs";
+import { ufAlerta, ufOk, ufPreferida } from "./ufs";
 import { novoContexto, pausa, type Adapter } from "./base";
 import { classificar, mereceAlertaNovo } from "./classificar";
 import type { SiteRow } from "./db";
@@ -214,7 +214,7 @@ export async function rodarSite(opts: {
 
       const linha = { ...classificar(l), chave_veiculo: chaveVeiculo(l) };
       // coleta todos os estados, mas o Telegram só avisa dos preferidos (Configurações)
-      const alertavel = ufPreferida(linha.uf);
+      const alertavel = ufAlerta(linha.uf);
       // descoberta só interessa se, com o detalhe, continuar apto a rodar
       if (ehDescoberta && !casados.length && !linha.apto_rodar) continue;
       const prev = anteriores.get(l.idExterno);

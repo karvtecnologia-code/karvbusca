@@ -1,0 +1,135 @@
+[
+ {
+  "id": 6284,
+  "nome": "Leilão de imóveis Sicoob - Lei 9.514",
+  "data": "2026-11-16T09:20:00",
+  "exposicao": [],
+  "leiloeiro": "LILIAMAR PESTANA GOMES - Leiloeira Oficial"
+ },
+ {
+  "id": 6332,
+  "nome": "Leilão de Veículos Retomados",
+  "data": "2026-11-25T10:00:00",
+  "exposicao": [
+   {
+    "observacoes": null,
+    "cidade": "Suzano",
+    "estado": "SP",
+    "complemento": null,
+    "numero": "390",
+    "logradouro": "Estrada Keida Harada",
+    "bairro": "Ipelândia",
+    "idPeriodoVisitacao": 6078,
+    "horarioVisitacao": "Dia 24/11/2026 das 14h e 17h e dia 25/11/2026 das 08:45h às 11:30h"
+   },
+   {
+    "observacoes": null,
+    "cidade": "Tijucas",
+    "estado": "SC",
+    "complemento": null,
+    "numero": "311",
+    "logradouro": "Rua Angelo José da Silva",
+    "bairro": "Pernambuco",
+    "idPeriodoVisitacao": 6077,
+    "horarioVisitacao": "Dia 24/11/2026 das 14h e 17h e dia 25/11/2026 das 08:45h às 11:30h"
+   },
+   {
+    "observacoes": null,
+    "cidade": "Nova Santa Rita",
+    "estado": "RS",
+    "complemento": "Km 431",
+    "numero": "S/N",
+    "logradouro": "BR 386",
+    "bairro": null,
+    "idPeriodoVisitacao": 6076,
+    "horarioVisitacao": "Dia 24/11/2026 das 14h e 17h e dia 25/11/2026 das 08:45h às 11:30h"
+   }
+  ],
+  "leiloeiro": "LILIAMAR PESTANA GOMES - Leiloeira Oficial"
+ },
+ {
+  "id": 6330,
+  "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+  "data": "2026-11-11T10:00:00",
+  "exposicao": [
+   {
+    "observacoes": null,
+    "cidade": "Ijuí",
+    "estado": "RS",
+    "complemento": null,
+    "numero": "S/N",
+    "logradouro": "Rua Rs 522 Linha 02 Oeste",
+    "bairro": "Linha 02 Oeste",
+    "idPeriodoVisitacao": 6112,
+    "horarioVisitacao": "Interessados favor entrar em contato com nossa equipe"
+   },
+   {
+    "observacoes": null,
+    "cidade": "Passos",
+    "estado": "MG",
+    "complemento": null,
+    "numero": "2702",
+    "logradouro": "Avenida Juca Stockler",
+    "bairro": "Jardim Aclimação",
+    "idPeriodoVisitacao": 6111,
+    "horarioVisitacao": "Interessados favor entrar em contato com nossa equipe"
+   },
+   {
+    "observacoes": null,
+    "cidade": "Encantado",
+    "estado": "RS",
+    "complemento": null,
+    "numero": "385",
+    "logradouro": "R. Heitor A. Pereti",
+    "bairro": "Vila Amazonas",
+    "idPeriodoVisitacao": 6089,
+    "horarioVisitacao": "No dia anterior ao leilão (10/11/2026), das 14h às 16h"
+   },
+   {
+    "observacoes": null,
+    "cidade": "Itapema",
+    "estado": "SC",
+    "complemento": null,
+    "numero": "81",
+    "logradouro": "Rua 452",
+    "bairro": "Leopoldo Zarling",
+    "idPeriodoVisitacao": 6090,
+    "horarioVisitacao": "Interessados favor entrar em contato com nossa equipe."
+   },
+   {
+    "observacoes": null,
+    "cidade": "Suzano",
+    "estado": "SP",
+    "complemento": null,
+    "numero": "390",
+    "logradouro": "Estrada Keida Harada",
+    "bairro": "Ipelândia",
+    "idPeriodoVisitacao": 6072,
+    "horarioVisitacao": "Dia 10/11/2026 das 14h às 17h e dia 11/11/2026 das 08:45h às 11:30h"
+   },
+   {
+    "observacoes": null,
+    "cidade": "Tijucas",
+    "estado": "SC",
+    "complemento": null,
+    "numero": "311",
+    "logradouro": "Rua Angelo José da Silva",
+    "bairro": "Pernambuco",
+    "idPeriodoVisitacao": 6071,
+    "horarioVisitacao": "Dia 10/11/2026 das 14h às 17h e dia 11/11/2026 das 08:45h às 11:30h"
+   },
+   {
+    "observacoes": null,
+    "cidade": "Nova Santa Rita",
+    "estado": "RS",
+    "complemento": "Km 431",
+    "numero": "S/N",
+    "logradouro": "BR 386",
+    "bairro": null,
+    "idPeriodoVisitacao": 6070,
+    "horarioVisitacao": "Dia 10/11/2026 das 14h às 17h e dia 11/11/2026 das 08:45h às 11:30h"
+   }
+  ],
+  "leiloeiro": "LILIAMAR PESTANA GOMES - Leiloeira Oficial"
+ }
+]

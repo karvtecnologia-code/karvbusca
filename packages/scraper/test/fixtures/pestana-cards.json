@@ -1,0 +1,1298 @@
+[
+ {
+  "id": 442083,
+  "leilao": 6330,
+  "numero": "280",
+  "descricao": "Volvo XC60 3.0T AWD 2010 2010 Gasolina",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 35000,
+  "lanceMinimo": 0,
+  "valorFiltro": 35000,
+  "valor": 0,
+  "idValor": 0,
+  "valorInicial": 35000,
+  "arrematante": "",
+  "destaque": false,
+  "ordem": "1",
+  "incrementoMinimo": 500,
+  "informacoesLei9514": {
+   "pertenceLei": false,
+   "valorLeilao2": null,
+   "classificacao": null,
+   "valorLeilao1": null
+  },
+  "bens": [
+   {
+    "id": 322147,
+    "descricao": "Camioneta Volvo XC60 3.0T AWD 2010 2010 Gasolina Cinza 00206755996 Retomado",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 502,
+     "nome": "Camionetas",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20782657.png",
+      "destaque": true
+     },
+     {
+      "media": "20638920.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20638896.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20782657.png",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20782658.png",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Camioneta",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 40920
+  },
+  "seloLigaPartida": false,
+  "seloIpvaPago": true,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": false,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "pertenceLei": false,
+    "valorLeilao2": null,
+    "classificacao": null,
+    "valorLeilao1": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ },
+ {
+  "id": 442085,
+  "leilao": 6330,
+  "numero": "281",
+  "descricao": "Randon Sr CA 2017 2017",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 90000,
+  "lanceMinimo": 0,
+  "valorFiltro": 90000,
+  "valor": 0,
+  "idValor": 0,
+  "valorInicial": 90000,
+  "arrematante": "",
+  "destaque": false,
+  "ordem": "2",
+  "incrementoMinimo": 1000,
+  "informacoesLei9514": {
+   "pertenceLei": false,
+   "valorLeilao2": null,
+   "classificacao": null,
+   "valorLeilao1": null
+  },
+  "bens": [
+   {
+    "id": 334702,
+    "descricao": "Semirreboque Randon Sr CA 2017 2017 Preta Renavam:01119497172 Retomado",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 522,
+     "nome": "Reboques",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20639033.jpg",
+      "destaque": true
+     },
+     {
+      "media": "20639039.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20639036.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20639033.jpg",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20639034.jpg",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Semirreboque",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 40920
+  },
+  "seloLigaPartida": false,
+  "seloIpvaPago": true,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": false,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "pertenceLei": false,
+    "valorLeilao2": null,
+    "classificacao": null,
+    "valorLeilao1": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ },
+ {
+  "id": 442141,
+  "leilao": 6330,
+  "numero": "288",
+  "descricao": "Randon Sr BA 03E 2021 2021",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 140000,
+  "lanceMinimo": 0,
+  "valorFiltro": 140000,
+  "valor": 0,
+  "idValor": 0,
+  "valorInicial": 140000,
+  "arrematante": "",
+  "destaque": false,
+  "ordem": "1",
+  "incrementoMinimo": 2000,
+  "informacoesLei9514": {
+   "pertenceLei": false,
+   "valorLeilao2": null,
+   "classificacao": null,
+   "valorLeilao1": null
+  },
+  "bens": [
+   {
+    "id": 334725,
+    "descricao": "Semirreboque Randon Sr BA 03E 2021 2021 Preta Renavam:01259403898 Retomado",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 522,
+     "nome": "Reboques",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20642672.jpg",
+      "destaque": true
+     },
+     {
+      "media": "20642675.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20642678.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20642672.jpg",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20642673.jpg",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Semirreboque",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 40938
+  },
+  "seloLigaPartida": false,
+  "seloIpvaPago": false,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": false,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "pertenceLei": false,
+    "valorLeilao2": null,
+    "classificacao": null,
+    "valorLeilao1": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ },
+ {
+  "id": 442170,
+  "leilao": 6330,
+  "numero": "286",
+  "descricao": "Volvo VM 220 4X2R 2013 2013 Diesel",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 138000,
+  "lanceMinimo": 0,
+  "valorFiltro": 138000,
+  "valor": 0,
+  "idValor": 0,
+  "valorInicial": 138000,
+  "arrematante": "",
+  "destaque": false,
+  "ordem": "2",
+  "incrementoMinimo": 2000,
+  "informacoesLei9514": {
+   "pertenceLei": false,
+   "valorLeilao2": null,
+   "classificacao": null,
+   "valorLeilao1": null
+  },
+  "bens": [
+   {
+    "id": 334727,
+    "descricao": "Caminhao Volvo VM 220 4X2R 2013 2013 Diesel Branca 00551014490 Retomado",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 482,
+     "nome": "Caminhões",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20644126.jpg",
+      "destaque": true
+     },
+     {
+      "media": "20644123.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20644117.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20644126.jpg",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20644127.jpg",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Caminhao",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     },
+     {
+      "tipo": 1759180637768,
+      "valor": "Não se aplica",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineGarage",
+      "nome": "Blindagem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 40938
+  },
+  "seloLigaPartida": true,
+  "seloIpvaPago": true,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": false,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "pertenceLei": false,
+    "valorLeilao2": null,
+    "classificacao": null,
+    "valorLeilao1": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ },
+ {
+  "id": 442172,
+  "leilao": 6330,
+  "numero": "285",
+  "descricao": "DAF XF 105 FTT 510A 2019 2020 Diesel",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 314000,
+  "lanceMinimo": 0,
+  "valorFiltro": 314000,
+  "valor": 0,
+  "idValor": 0,
+  "valorInicial": 314000,
+  "arrematante": "",
+  "destaque": false,
+  "ordem": "3",
+  "incrementoMinimo": 2000,
+  "informacoesLei9514": {
+   "pertenceLei": false,
+   "valorLeilao2": null,
+   "classificacao": null,
+   "valorLeilao1": null
+  },
+  "bens": [
+   {
+    "id": 334728,
+    "descricao": "Caminhao/Trator DAF XF 105 FTT 510A 2019 2020 Diesel Branca 01227815295 Retomado",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 482,
+     "nome": "Caminhões",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20644245.jpg",
+      "destaque": true
+     },
+     {
+      "media": "20644238.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20644235.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20644245.jpg",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20644246.jpg",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Caminhao/Trator",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     },
+     {
+      "tipo": 1759180637768,
+      "valor": "Não se aplica",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineGarage",
+      "nome": "Blindagem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 40938
+  },
+  "seloLigaPartida": true,
+  "seloIpvaPago": true,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": false,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "pertenceLei": false,
+    "valorLeilao2": null,
+    "classificacao": null,
+    "valorLeilao1": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ },
+ {
+  "id": 442173,
+  "leilao": 6330,
+  "numero": "287",
+  "descricao": "Man TGX 29.440 6X4 T 2014 2014 Diesel",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 165000,
+  "lanceMinimo": 0,
+  "valorFiltro": 165000,
+  "valor": 0,
+  "idValor": 0,
+  "valorInicial": 165000,
+  "arrematante": "",
+  "destaque": false,
+  "ordem": "4",
+  "incrementoMinimo": 2000,
+  "informacoesLei9514": {
+   "pertenceLei": false,
+   "valorLeilao2": null,
+   "classificacao": null,
+   "valorLeilao1": null
+  },
+  "bens": [
+   {
+    "id": 334729,
+    "descricao": "Caminhao/Trator Man TGX 29.440 6X4 T 2014 2014 Diesel Vermelha 01275223823 Retomado",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 482,
+     "nome": "Caminhões",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20644262.jpg",
+      "destaque": true
+     },
+     {
+      "media": "20644270.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20644273.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20644262.jpg",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20644263.jpg",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Caminhao/Trator",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     },
+     {
+      "tipo": 1759180637768,
+      "valor": "Não se aplica",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineGarage",
+      "nome": "Blindagem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 40938
+  },
+  "seloLigaPartida": false,
+  "seloIpvaPago": true,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": false,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "pertenceLei": false,
+    "valorLeilao2": null,
+    "classificacao": null,
+    "valorLeilao1": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ },
+ {
+  "id": 444389,
+  "leilao": 6330,
+  "numero": "150",
+  "descricao": "Volkswagen Voyage TL MA S 2015 2015 Gas/Alc",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 17000,
+  "lanceMinimo": 0,
+  "valorFiltro": 17000,
+  "valor": 0,
+  "idValor": 0,
+  "valorInicial": 17000,
+  "arrematante": "",
+  "destaque": false,
+  "ordem": "1",
+  "incrementoMinimo": 300,
+  "informacoesLei9514": {
+   "pertenceLei": false,
+   "valorLeilao2": null,
+   "classificacao": null,
+   "valorLeilao1": null
+  },
+  "bens": [
+   {
+    "id": 335793,
+    "descricao": "Automóvel Volkswagen Voyage TL MA S 2015 2015 Gas/Alc Branca 01050566499 Retomado",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 481,
+     "nome": "Automóveis",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20889179.jpg",
+      "destaque": true
+     },
+     {
+      "media": "20889188.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20889164.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20889179.jpg",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20889180.jpg",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Automóvel",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     },
+     {
+      "tipo": 1759180637768,
+      "valor": "Não",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineGarage",
+      "nome": "Blindagem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 138536
+  },
+  "seloLigaPartida": true,
+  "seloIpvaPago": true,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": true,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "pertenceLei": false,
+    "valorLeilao2": null,
+    "classificacao": null,
+    "valorLeilao1": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ },
+ {
+  "id": 444395,
+  "leilao": 6330,
+  "numero": "151",
+  "descricao": "Hyundai HB20 1.0M 1.0 M 2013 2013 Gas/Alc Sem Chaves",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 17200,
+  "lanceMinimo": 0,
+  "valorFiltro": 17200,
+  "valor": 0,
+  "idValor": 0,
+  "valorInicial": 17200,
+  "arrematante": "",
+  "destaque": false,
+  "ordem": "2",
+  "incrementoMinimo": 300,
+  "informacoesLei9514": {
+   "pertenceLei": false,
+   "valorLeilao2": null,
+   "classificacao": null,
+   "valorLeilao1": null
+  },
+  "bens": [
+   {
+    "id": 332473,
+    "descricao": "Automóvel Hyundai HB20 1.0M 1.0 M 2013 2013 Gas/Alc Branca 00508140919 Retomado - Sem Chaves",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 481,
+     "nome": "Automóveis",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20889447.jpg",
+      "destaque": true
+     },
+     {
+      "media": "20889471.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20889489.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20889447.jpg",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20889448.jpg",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Automóvel",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     },
+     {
+      "tipo": 1759180637768,
+      "valor": "Não",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineGarage",
+      "nome": "Blindagem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 138536
+  },
+  "seloLigaPartida": false,
+  "seloIpvaPago": true,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": true,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "pertenceLei": false,
+    "valorLeilao2": null,
+    "classificacao": null,
+    "valorLeilao1": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ },
+ {
+  "id": 444396,
+  "leilao": 6330,
+  "numero": "155",
+  "descricao": "Ford Ecosport FSL1.6FLEX 2011 2011 Gas/Alc",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 12000,
+  "lanceMinimo": 0,
+  "valorFiltro": 12000,
+  "valor": 0,
+  "idValor": 0,
+  "valorInicial": 12000,
+  "arrematante": "",
+  "destaque": false,
+  "ordem": "3",
+  "incrementoMinimo": 300,
+  "informacoesLei9514": {
+   "pertenceLei": false,
+   "valorLeilao2": null,
+   "classificacao": null,
+   "valorLeilao1": null
+  },
+  "bens": [
+   {
+    "id": 301005,
+    "descricao": "Camioneta Ford Ecosport FSL1.6FLEX 2011 2011 Gas/Alc Vermelha 00312700857 Retomado",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 502,
+     "nome": "Camionetas",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20998846.png",
+      "destaque": true
+     },
+     {
+      "media": "20889522.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20889534.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20998846.png",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20998847.png",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Camioneta",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     },
+     {
+      "tipo": 1759180637768,
+      "valor": "Não",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineGarage",
+      "nome": "Blindagem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 138536
+  },
+  "seloLigaPartida": false,
+  "seloIpvaPago": true,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": true,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "pertenceLei": false,
+    "valorLeilao2": null,
+    "classificacao": null,
+    "valorLeilao1": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ },
+ {
+  "id": 444434,
+  "leilao": 6330,
+  "numero": "176",
+  "descricao": "Chevrolet Onix 10MT JOYE 2017 2018 Gas/Alc",
+  "status": "Disponível",
+  "tipoMoeda": "REAL",
+  "situacaoId": 1,
+  "lanceInicial": 11500,
+  "lanceMinimo": 0,
+  "valorFiltro": 11500,
+  "valor": 11500,
+  "idValor": 2193702,
+  "valorInicial": 11500,
+  "arrematante": "2**m",
+  "destaque": false,
+  "ordem": "1",
+  "incrementoMinimo": 300,
+  "informacoesLei9514": {
+   "valorLeilao2": null,
+   "valorLeilao1": null,
+   "pertenceLei": false,
+   "classificacao": null
+  },
+  "bens": [
+   {
+    "id": 332916,
+    "descricao": "Automóvel Chevrolet Onix 10MT JOYE 2017 2018 Gas/Alc Branca 01116383885 Retomado",
+    "ordem": 1,
+    "origem": "Retomado",
+    "tipoBem": {
+     "id": 421,
+     "nome": "Veículos"
+    },
+    "subTipoBem": {
+     "id": 481,
+     "nome": "Automóveis",
+     "tipoBem": 421
+    },
+    "imagens": [
+     {
+      "media": "20890309.jpg",
+      "destaque": true
+     },
+     {
+      "media": "20890313.jpg",
+      "destaque": false
+     },
+     {
+      "media": "20890329.jpg",
+      "destaque": false
+     }
+    ],
+    "imagemPrincipal": {
+     "media": "20890309.jpg",
+     "destaque": true
+    },
+    "imagemPlaceholder": "20890310.jpg",
+    "aplicaSeloFinanciamento": false,
+    "caracteristicas": [
+     {
+      "tipo": 1759180608235,
+      "valor": "Retomado",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineSwitchLeft",
+      "nome": "Origem"
+     },
+     {
+      "tipo": 1759180609270,
+      "valor": "Não se aplica",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineDirectionsCarFilled",
+      "nome": "Monta"
+     },
+     {
+      "tipo": 1759180506907,
+      "valor": "Automóvel",
+      "destaque": true,
+      "idTipoAtributo": 7,
+      "icone": "MdCommute",
+      "nome": "Tipo"
+     },
+     {
+      "tipo": 1759180636735,
+      "valor": "Para circulação",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineBuildCircle",
+      "nome": "Condição do bem"
+     },
+     {
+      "tipo": 1759180637768,
+      "valor": "Não",
+      "destaque": false,
+      "idTipoAtributo": 7,
+      "icone": "MdOutlineGarage",
+      "nome": "Blindagem"
+     }
+    ],
+    "possuiBlindagem": false
+   }
+  ],
+  "visivel": true,
+  "parceiro": {
+   "id": 31115
+  },
+  "seloLigaPartida": true,
+  "seloIpvaPago": true,
+  "seloFinanciamento": false,
+  "tarjaEnchente": false,
+  "seloDespesa": null,
+  "exibirLanceInicial": true,
+  "exibirLanceMinimo": false,
+  "possuiVideo": true,
+  "possuiBlindagem": false,
+  "footer": {
+   "nome": "Leilão de Veículos Retomados e Sicredi - Sistêmico",
+   "date": "2026-11-11T10:00:00",
+   "exibirData": true,
+   "mode": "default",
+   "leilaoLei": {
+    "valorLeilao2": null,
+    "valorLeilao1": null,
+    "pertenceLei": false,
+    "classificacao": null
+   },
+   "valorLeilao1": null,
+   "valorLeilao2": null
+  }
+ }
+]

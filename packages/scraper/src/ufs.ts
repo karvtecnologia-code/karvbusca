@@ -13,5 +13,7 @@ export function definirUfs(lista: string[] | null | undefined) {
 export const ufsAtivas = () => ufs;
 /** Coleta: aceita qualquer estado. */
 export const ufOk = (_uf?: string | null) => true;
-/** Alerta/descoberta: só estados preferidos (UF desconhecida passa; o detalhe completa). */
+/** Descoberta (antes do detalhe): UF desconhecida passa, o detalhe completa. */
 export const ufPreferida = (uf?: string | null) => !uf || ufs.includes(uf);
+/** Alerta no Telegram: só com UF conhecida e preferida (evita alerta de lote de outro estado). */
+export const ufAlerta = (uf?: string | null) => !!uf && ufs.includes(uf);

@@ -88,7 +88,12 @@ export const PALAVRAS_CIRCULACAO_VEDADA = [
 ] as const;
 
 /** O site afirma que o veículo pode circular. */
-export const PALAVRAS_CIRCULACAO_LIBERADA = ["situacao em circulacao", "apto a circular", "documento ok para circular"] as const;
+export const PALAVRAS_CIRCULACAO_LIBERADA = [
+  "situacao em circulacao",
+  "apto a circular",
+  "documento ok para circular",
+  "para circulacao", // Pestana: "Condição do bem: Para circulação"
+] as const;
 
 /** Danos que pesam na estrutura do carro. */
 export const PALAVRAS_DANO_ESTRUTURAL = [
@@ -126,14 +131,15 @@ export const PALAVRAS_DANO_ESTRUTURAL = [
   "airbags acionados",
   "airbag acionado",
   "alagado",
+  "enchente", // Copart/Pestana: sinistro por enchente
   "submerso",
   "incendio",
   "queimado",
 ] as const;
 
 export const PALAVRAS_PROCEDENCIA = {
-  financiamento: ["recuperado de financiamento", "recuperado financiamento", "financeira"],
-  seguradora: ["seguradora", "sinistro recuperado", "indenizado"],
+  financiamento: ["recuperado de financiamento", "recuperado financiamento", "financeira", "financiamento", "consorcio", "retomado"],
+  seguradora: ["seguradora", "seguros", "sinistro recuperado", "indenizado", "colisao"],
   judicial: ["judicial", "penhorado", "tribunal", "justica"],
   apreensao: ["apreensao", "apreendido", "detran", "patio de transito", "removido"],
   frota: ["frota", "locadora", "renovacao de frota"],

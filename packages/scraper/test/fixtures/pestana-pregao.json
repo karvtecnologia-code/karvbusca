@@ -1,0 +1,124 @@
+{
+ "idLeilao": 6330,
+ "status": 78,
+ "idLoteEmPregao": 0,
+ "doulheDuas": false,
+ "dataHoraServidor": "2026-11-10T15:35:30",
+ "textoCondicaoComplementar": null,
+ "leiloeiroApresentacao": {
+  "id": 0,
+  "nome": null
+ },
+ "lotes": [
+  {
+   "idLote": 444389,
+   "situacao": 1,
+   "incrementoMinimo": 300,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": null,
+   "valorLanceAtual": 0,
+   "idArrematanteLote": null
+  },
+  {
+   "idLote": 444395,
+   "situacao": 1,
+   "incrementoMinimo": 300,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": null,
+   "valorLanceAtual": 0,
+   "idArrematanteLote": null
+  },
+  {
+   "idLote": 444396,
+   "situacao": 1,
+   "incrementoMinimo": 300,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": null,
+   "valorLanceAtual": 0,
+   "idArrematanteLote": null
+  },
+  {
+   "idLote": 442085,
+   "situacao": 1,
+   "incrementoMinimo": 1000,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": null,
+   "valorLanceAtual": 0,
+   "idArrematanteLote": null
+  },
+  {
+   "idLote": 442141,
+   "situacao": 1,
+   "incrementoMinimo": 2000,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": null,
+   "valorLanceAtual": 0,
+   "idArrematanteLote": null
+  },
+  {
+   "idLote": 442170,
+   "situacao": 1,
+   "incrementoMinimo": 2000,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": null,
+   "valorLanceAtual": 0,
+   "idArrematanteLote": null
+  },
+  {
+   "idLote": 442172,
+   "situacao": 1,
+   "incrementoMinimo": 2000,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": null,
+   "valorLanceAtual": 0,
+   "idArrematanteLote": null
+  },
+  {
+   "idLote": 442173,
+   "situacao": 1,
+   "incrementoMinimo": 2000,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": null,
+   "valorLanceAtual": 0,
+   "idArrematanteLote": null
+  },
+  {
+   "idLote": 444434,
+   "situacao": 1,
+   "incrementoMinimo": 300,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": "2**m",
+   "valorLanceAtual": 11500,
+   "idArrematanteLote": 201454
+  },
+  {
+   "idLote": 442083,
+   "situacao": 1,
+   "incrementoMinimo": 500,
+   "dataInicio": null,
+   "dataFinal": null,
+   "lanceAutomatico": null,
+   "arrematante": null,
+   "valorLanceAtual": 0,
+   "idArrematanteLote": null
+  }
+ ]
+}

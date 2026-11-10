@@ -8,7 +8,7 @@ export type CondicaoMonta =
   | "nao_informado";
 export type Roda = "sim" | "nao" | "nao_informado";
 export type Decisao = "gostei" | "descartado";
-export type SiteSlug = "vip" | "sodre" | "sold" | "freitas" | "loop";
+export type SiteSlug = "vip" | "sodre" | "sold" | "freitas" | "loop" | "copart" | "pestana" | "mega";
 
 /** Formato único que todo adaptador devolve. */
 export interface LoteColetado {

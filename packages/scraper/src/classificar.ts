@@ -62,9 +62,14 @@ export type LinhaLote = ReturnType<typeof classificar>;
  * Estoque sem leilão marcado ("Em breve") não gera alerta: só quando entrar em leilão.
  */
 export function mereceAlertaNovo(
-  l: Pick<LinhaLote, "apto_rodar" | "condicao_monta" | "roda" | "circulacao" | "status">,
+  l: Pick<LinhaLote, "apto_rodar" | "condicao_monta" | "roda" | "circulacao" | "status"> & { procedencia?: string },
 ): boolean {
-  // todo lote que aparece na aba Lotes (apto a rodar) é avisado; o selo de monta vai na mensagem
-  void l.circulacao;
-  return l.apto_rodar && l.roda !== "nao" && l.status !== "estoque";
+  if (!l.apto_rodar || l.roda === "nao" || l.status === "estoque") return false;
+  // precisa de pelo menos um sinal positivo do site (lote sem nenhuma informação fica só no painel)
+  const sinal =
+    l.condicao_monta === "sem_monta" || l.condicao_monta === "pequena" || l.roda === "sim" || l.circulacao === "liberada";
+  if (!sinal) return false;
+  // batida de seguradora ainda sem classificação de dano (ex.: Copart "Aguardando Classificação") não avisa
+  if (l.procedencia === "seguradora" && (l.condicao_monta === "nao_informado" || l.condicao_monta === "media")) return false;
+  return true;
 }

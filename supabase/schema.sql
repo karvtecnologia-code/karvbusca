@@ -189,7 +189,10 @@ insert into sites (slug, nome, url) values
   ('sodre',   'Sodré Santoro',     'https://www.sodresantoro.com.br/'),
   ('sold',    'Sold (Superbid)',   'https://www.sold.com.br/'),
   ('freitas', 'Freitas Leiloeiro', 'https://www.freitasleiloeiro.com.br/'),
-  ('loop',    'Loop Leilões',      'https://loopleiloes.com.br/')
+  ('loop',    'Loop Leilões',      'https://loopleiloes.com.br/'),
+  ('copart',  'Copart',            'https://www.copart.com.br/'),
+  ('pestana', 'Pestana Leilões',   'https://www.pestanaleiloes.com.br/'),
+  ('mega',    'Mega Leilões',      'https://www.megaleiloes.com.br/')
 on conflict (slug) do nothing;
 
 insert into termos_busca (termo, apelidos, tipo) values
