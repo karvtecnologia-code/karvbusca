@@ -13,11 +13,17 @@ export function CardLote({
   padroes,
   indice = 0,
   novo = false,
+  modo = "lotes",
+  children,
 }: {
   lote: LotePainel;
   padroes: PadroesCusto;
   indice?: number;
   novo?: boolean;
+  /** "favoritos": botão "Ver no site" em destaque e o card sai só ao desfavoritar/descartar */
+  modo?: "lotes" | "favoritos";
+  /** conteúdo extra embaixo do card (gráfico, nota) */
+  children?: React.ReactNode;
 }) {
   const [decisao, setDecisao] = useState(l.decisao);
   const [saindo, setSaindo] = useState(false);
@@ -30,8 +36,8 @@ export function CardLote({
 
   const marcar = (d: "gostei" | "descartado") => {
     const nova = decisao === d ? null : d;
-    // a aba Lotes só mostra os não decididos: favoritar ou descartar tira o card da lista
-    if (nova) setSaindo(true);
+    // Lotes só mostra os não decididos; Favoritos só os favoritos: o card sai quando deixa de pertencer à aba
+    if (modo === "lotes" ? nova !== null : nova !== "gostei") setSaindo(true);
     setDecisao(nova);
     start(() => decidir(l.id, nova));
   };
@@ -45,7 +51,8 @@ export function CardLote({
       style={{ animationDelay: `${Math.min(indice, 10) * 25}ms` }}
     >
       <div className="min-h-0 overflow-hidden">
-        <article className="group mb-3 flex gap-3 rounded-lg border border-line bg-surface p-2.5 transition-colors duration-150 hover:border-line-strong sm:gap-4 sm:p-3">
+        <div className="group mb-3 rounded-lg border border-line bg-surface transition-colors duration-150 hover:border-line-strong">
+        <article className="flex gap-3 p-2.5 sm:gap-4 sm:p-3">
           <Link href={`/lote/${l.id}`} className="relative block w-28 shrink-0 overflow-hidden rounded-md bg-raised sm:w-44">
             {l.fotos[0] ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -148,14 +155,20 @@ export function CardLote({
                   href={l.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="press rounded-md px-2 py-1 text-xs text-muted hover:bg-raised hover:text-fg"
+                  className={
+                    modo === "favoritos"
+                      ? "press rounded-md bg-fg px-3 py-1 text-xs font-medium text-bg hover:bg-white"
+                      : "press rounded-md px-2 py-1 text-xs text-muted hover:bg-raised hover:text-fg"
+                  }
                 >
-                  Site ↗
+                  {modo === "favoritos" ? "Ver no site ↗" : "Site ↗"}
                 </a>
               </div>
             </div>
           </div>
         </article>
+        {children && <div className="border-t border-line p-3">{children}</div>}
+        </div>
       </div>
     </li>
   );
