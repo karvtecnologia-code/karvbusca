@@ -41,7 +41,10 @@ describe("Sold", () => {
     expect(lotes.length).toBeGreaterThan(0);
     for (const l of lotes) {
       expect(l.idExterno).toMatch(/^\d+$/);
-      expect(l.url).toMatch(/^https:\/\/www\.sold\.com\.br\/oferta\/.+-\d+$/);
+      // lojas da Sold abrem em sold.com.br; as outras lojas do Superbid, em superbid.net
+      const loja = (l.raw as { store?: { id?: number } }).store?.id;
+      const dominio = loja === 1161 || loja === 1741 ? "sold\\.com\\.br" : "superbid\\.net";
+      expect(l.url).toMatch(new RegExp(`^https://www\\.${dominio}/oferta/.+-${l.idExterno}$`));
       expect(l.fimEm).toMatch(ISO);
       expect(l.fotos.length).toBeGreaterThan(0);
     }

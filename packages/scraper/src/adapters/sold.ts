@@ -3,6 +3,8 @@ import { abrir, campo, linhas, pausa, textoVisivel, type Adapter } from "../base
 
 const LISTA = "https://www.sold.com.br/categorias/carros-motos";
 const POR_PAGINA = 50;
+/** Lojas da própria Sold dentro do Superbid. */
+const LOJAS_SOLD = [1161, 1741];
 
 function urlOfertas(pagina: number) {
   const p = new URLSearchParams({
@@ -30,7 +32,8 @@ interface SoldOferta {
   price?: number;
   linkURL?: string;
   offerStatus?: { closed?: boolean; sold?: boolean };
-  offerDetail?: { initialBidValue?: number; currentMaxBid?: number };
+  offerDetail?: { initialBidValue?: number; currentMaxBid?: number; reservedPrice?: number };
+  store?: { id?: number; name?: string };
   offerDescription?: { offerDescription?: string };
   seller?: { name?: string };
   product?: {
@@ -86,7 +89,8 @@ export function parseSold(json: { offers?: SoldOferta[] }): LoteColetado[] {
     return {
       site: "sold" as const,
       idExterno: String(o.id),
-      url: o.linkURL ?? `https://www.sold.com.br/oferta/${slug(desc)}-${o.id}`,
+      // a Sold só abre ofertas das próprias lojas; as de outras lojas abrem no Superbid
+      url: o.linkURL ?? `${LOJAS_SOLD.includes(o.store?.id ?? 0) ? "https://www.sold.com.br" : "https://www.superbid.net"}/oferta/${slug(desc)}-${o.id}`,
       titulo,
       // subcategorias: Sedans, Hatches, Picapes, SUVs… = carro; Motocicletas = moto
       tipo: /moto/.test(sub) ? ("moto" as const) : sub ? ("carro" as const) : undefined,
@@ -97,13 +101,15 @@ export function parseSold(json: { offers?: SoldOferta[] }): LoteColetado[] {
       anoMod: inteiro(prop(o, "anomodelo")) ?? anoMod,
       // estado/cidade do bem; quando falta o estado, o detalhe completa
       uf: ufPorNome(o.product?.location?.state),
-      cidade: o.product?.location?.city,
+      cidade: o.product?.location?.city?.replace(/\s*-\s*[A-Z]{2}\s*$/, ""), // "Porto Feliz - SP" → "Porto Feliz"
       condicaoTexto: obs,
       observacoes: obs,
       fipeSite: dinheiro(fipe),
       procedenciaTexto: o.seller?.name,
       lanceAtual: o.offerDetail?.currentMaxBid ?? o.price,
       lanceInicial: o.offerDetail?.initialBidValue,
+      // preço de reserva: abaixo dele o vendedor não vende (999.999.999 = sem reserva)
+      avaliacao: (o.offerDetail?.reservedPrice ?? 0) > 0 && (o.offerDetail?.reservedPrice ?? 0) < 900_000_000 ? o.offerDetail!.reservedPrice : undefined,
       fimEm: dataBR(o.endDate),
       status: o.offerStatus?.closed ? "encerrado" : "aberto",
       fotos: fotos.length ? fotos : o.product?.thumbnailUrl ? [o.product.thumbnailUrl] : [],

@@ -5,10 +5,23 @@ import { calcularLote, type PadroesCusto } from "@karv/core";
 import { salvarCustos } from "../../lotes-actions";
 import { reais, type LotePainel } from "@/lib/lotes";
 
-const n = (s: string) => (s.trim() === "" ? null : Number(s.replace(/\./g, "").replace(",", ".")));
+/**
+ * Lê valores digitados em reais: "24.334,80", "24334,8", "24334.8" e "24334" são o mesmo número.
+ * Ponto só é separador de milhar quando vem em grupos de 3 dígitos ("24.334").
+ */
+const n = (s: string): number | null => {
+  const t = s.replace(/[R$\s]/g, "").trim();
+  if (!t) return null;
+  if (t.includes(",")) return Number(t.replace(/\./g, "").replace(",", ".")) || 0;
+  if (/^\d{1,3}(\.\d{3})+$/.test(t)) return Number(t.replace(/\./g, ""));
+  return Number(t) || 0;
+};
+/** Valor inicial do campo no formato brasileiro, sem centavos quando inteiro. */
+const campoBR = (v: number | null) =>
+  v == null ? "" : v.toLocaleString("pt-BR", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 
 export function Calculadora({ lote: l, padroes }: { lote: LotePainel; padroes: PadroesCusto }) {
-  const [lance, setLance] = useState(String(l.lance_atual ?? ""));
+  const [lance, setLance] = useState(campoBR(l.lance_atual != null ? Number(l.lance_atual) : null));
   const [patio, setPatio] = useState(l.custo_patio != null ? String(l.custo_patio) : "");
   const [doc, setDoc] = useState(l.custo_doc != null ? String(l.custo_doc) : "");
   const [frete, setFrete] = useState(l.custo_frete != null ? String(l.custo_frete) : "");

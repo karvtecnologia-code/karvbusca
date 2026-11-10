@@ -34,6 +34,7 @@ export interface LotePainel {
   combustivel: string | null;
   lance_atual: number | null;
   lance_inicial: number | null;
+  avaliacao: number | null;
   fim_em: string | null;
   status: string | null;
   fotos: string[];

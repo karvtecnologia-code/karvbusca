@@ -43,6 +43,7 @@ export default async function LotePage({ params }: { params: Promise<{ id: strin
     ["Financiável", l.financiavel == null ? "—" : l.financiavel ? "Sim" : "Não"],
     ["IPVA pago", l.ipva_pago == null ? "—" : l.ipva_pago ? "Sim" : "Não"],
     ["Lance inicial", reais(l.lance_inicial)],
+    ["Reserva / avaliação", l.avaliacao ? reais(l.avaliacao) : "—"],
   ];
 
   return (
