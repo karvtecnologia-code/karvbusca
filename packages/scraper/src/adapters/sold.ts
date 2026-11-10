@@ -3,8 +3,6 @@ import { abrir, campo, linhas, pausa, textoVisivel, type Adapter } from "../base
 
 const LISTA = "https://www.sold.com.br/categorias/carros-motos";
 const POR_PAGINA = 50;
-/** Lojas da própria Sold dentro do Superbid. */
-const LOJAS_SOLD = [1161, 1741];
 
 function urlOfertas(pagina: number) {
   const p = new URLSearchParams({
@@ -89,8 +87,8 @@ export function parseSold(json: { offers?: SoldOferta[] }): LoteColetado[] {
     return {
       site: "sold" as const,
       idExterno: String(o.id),
-      // a Sold só abre ofertas das próprias lojas; as de outras lojas abrem no Superbid
-      url: o.linkURL ?? `${LOJAS_SOLD.includes(o.store?.id ?? 0) ? "https://www.sold.com.br" : "https://www.superbid.net"}/oferta/${slug(desc)}-${o.id}`,
+      // superbid.net abre ofertas de qualquer loja (a Sold só abre as dela)
+      url: o.linkURL ?? `https://www.superbid.net/oferta/${slug(desc)}-${o.id}`,
       titulo,
       // subcategorias: Sedans, Hatches, Picapes, SUVs… = carro; Motocicletas = moto
       tipo: /moto/.test(sub) ? ("moto" as const) : sub ? ("carro" as const) : undefined,

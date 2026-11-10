@@ -14,7 +14,8 @@ for (const url of [
   const r = await p.goto(url, { waitUntil: "domcontentloaded" }).catch(() => null);
   await p.waitForLoadState("networkidle", { timeout: 15000 }).catch(() => {});
   const texto = (await p.evaluate(() => document.body.innerText).catch(() => "")).replace(/\s+/g, " ");
-  const achou = /ASX/i.test(texto) && new RegExp(id).test(texto + p.url());
+  const chave = (process.argv[4] ?? "ASX").toUpperCase();
+  const achou = texto.toUpperCase().includes(chave) && !/não foram encontrados resultados/i.test(texto);
   const erro = /não encontrad|not found|página não existe|404/i.test(texto);
   console.log(r?.status(), achou ? "ABRE O LOTE" : erro ? "NÃO ENCONTRADO" : "?", "|", p.url(), "|", texto.slice(0, 90));
   await p.waitForTimeout(2000);
