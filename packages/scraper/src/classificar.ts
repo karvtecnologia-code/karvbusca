@@ -57,15 +57,14 @@ export function classificar(l: LoteColetado) {
 export type LinhaLote = ReturnType<typeof classificar>;
 
 /**
- * Regra do alerta de lote novo: apto a rodar e
- *  - sem monta ou pequena monta, ou
- *  - monta não informada, mas o site afirma que está em circulação (caso da Sold, que nunca informa monta).
+ * Regra do alerta de lote novo: todo lote apto a rodar (o mesmo que aparece na aba Lotes),
+ * com o motor não marcado como parado. A monta vai como selo na mensagem.
  * Estoque sem leilão marcado ("Em breve") não gera alerta: só quando entrar em leilão.
  */
 export function mereceAlertaNovo(
   l: Pick<LinhaLote, "apto_rodar" | "condicao_monta" | "roda" | "circulacao" | "status">,
 ): boolean {
-  if (!l.apto_rodar || l.roda === "nao" || l.status === "estoque") return false;
-  if (l.condicao_monta === "sem_monta" || l.condicao_monta === "pequena") return true;
-  return l.condicao_monta === "nao_informado" && l.circulacao === "liberada";
+  // todo lote que aparece na aba Lotes (apto a rodar) é avisado; o selo de monta vai na mensagem
+  void l.circulacao;
+  return l.apto_rodar && l.roda !== "nao" && l.status !== "estoque";
 }

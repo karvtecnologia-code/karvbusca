@@ -15,7 +15,7 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
   let q = supabase
     .from("lotes_painel")
     .select(CAMPOS_CARD)
-    .or("decisao.is.null,decisao.eq.gostei") // descartados nunca aparecem aqui
+    .is("decisao", null) // só os ainda não decididos: favoritos vão para /favoritos, descartados somem
     .in("uf", ["SP", "MG"])
     .or(`fim_em.is.null,fim_em.gte.${new Date(Date.now() - 3600_000).toISOString()}`) // só abertos
     .limit(400);
@@ -32,7 +32,6 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
   if (sp.km) q = q.lte("km", Number(sp.km));
   if (sp.lance) q = q.lte("lance_atual", Number(sp.lance));
   if (sp.h24) q = q.lte("fim_em", new Date(Date.now() + 86_400_000).toISOString());
-  if (sp.fav) q = q.is("decisao", null);
   if (sp.breve) q = q.or("status.is.null,status.neq.estoque"); // esconder estoque "Em breve"
   // busca livre: "hr-v 2017" → título/modelo contém "hr-v" e ano-modelo 2017
   for (const tok of (sp.q ?? "").trim().split(/\s+/).filter(Boolean).slice(0, 4)) {

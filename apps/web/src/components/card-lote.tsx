@@ -30,7 +30,8 @@ export function CardLote({
 
   const marcar = (d: "gostei" | "descartado") => {
     const nova = decisao === d ? null : d;
-    if (nova === "descartado") setSaindo(true); // sai da lista com animação
+    // a aba Lotes só mostra os não decididos: favoritar ou descartar tira o card da lista
+    if (nova) setSaindo(true);
     setDecisao(nova);
     start(() => decidir(l.id, nova));
   };

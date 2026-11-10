@@ -137,9 +137,6 @@ export function Filtros({ sites, termos, total }: { sites: Opcao[]; termos: Opca
         <button onClick={() => set("fipe", val("fipe") ? null : "1")} className={chip(!!val("fipe"))}>
           Abaixo de 70% FIPE
         </button>
-        <button onClick={() => set("fav", val("fav") ? null : "1")} className={chip(!!val("fav"))}>
-          Esconder favoritos
-        </button>
         <button onClick={() => set("breve", val("breve") ? null : "1")} className={chip(!!val("breve"))}>
           Esconder “Em breve”
         </button>

@@ -4,16 +4,34 @@ import { Etiqueta } from "@/components/etiqueta";
 import { GraficoLances } from "@/components/grafico-lances";
 import { anosFmt, kmFmt, MONTA, quando, reais, valoresLote, type Config, type LotePainel } from "@/lib/lotes";
 import { supabaseServer } from "@/lib/supabase/server";
+import { Suspense } from "react";
+import { FiltrosFav } from "./filtros-fav";
 import { NotaFavorito } from "./nota";
 
-export default async function FavoritosPage() {
+export default async function FavoritosPage({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
+  const sp = await searchParams;
   const supabase = await supabaseServer();
-  const [{ data }, { data: cfg }] = await Promise.all([
-    supabase.from("lotes_painel").select("*").eq("decisao", "gostei").order("fim_em", { ascending: true, nullsFirst: false }),
+  let q = supabase.from("lotes_painel").select("*").eq("decisao", "gostei");
+  if (sp.site) q = q.eq("site_slug", sp.site);
+  if (sp.h24) q = q.lte("fim_em", new Date(Date.now() + 86_400_000).toISOString());
+  for (const tok of (sp.q ?? "").trim().split(/\s+/).filter(Boolean).slice(0, 4)) {
+    const t = tok.replace(/[%_,()]/g, "");
+    if (t) q = q.or(`titulo.ilike.%${t}%,modelo.ilike.%${t}%`);
+  }
+  if (sp.ordem === "lance") q = q.order("lance_atual", { ascending: true, nullsFirst: false });
+  else q = q.order("fim_em", { ascending: sp.ordem !== "fim_desc", nullsFirst: false });
+
+  const [{ data }, { data: cfg }, { data: sites }] = await Promise.all([
+    q,
     supabase.from("config").select("custo_doc_padrao, custo_patio_padrao, frete_padrao, chat_id_telegram, origem").single(),
+    supabase.from("sites").select("slug, nome").order("id"),
   ]);
   const lotes = (data ?? []) as LotePainel[];
   const padroes = cfg as Config;
+  if (sp.ordem === "fipe") {
+    const pct = (l: LotePainel) => valoresLote(l, padroes).pct ?? 9;
+    lotes.sort((a, b) => pct(a) - pct(b));
+  }
   const { data: hist } = lotes.length
     ? await supabase
         .from("lotes_historico")
@@ -84,9 +102,12 @@ export default async function FavoritosPage() {
       <header className="enter space-y-1">
         <h1 className="text-xl font-semibold tracking-tight">Favoritos</h1>
         <p className="text-sm text-muted">
-          Ordenados pelo encerramento. Você recebe no Telegram as mudanças de lance e os lembretes de 24h e 2h.
+          Você recebe no Telegram as mudanças de lance e os lembretes de 24h e 2h.
         </p>
       </header>
+      <Suspense>
+        <FiltrosFav total={abertos.length} sites={(sites ?? []).map((s) => ({ valor: s.slug, rotulo: s.nome }))} />
+      </Suspense>
       {abertos.length === 0 && (
         <p className="rounded-lg border border-dashed border-line px-6 py-12 text-center text-sm text-muted">
           Nenhum favorito aberto. Toque em 👍 Gostei num lote ou no Telegram.
