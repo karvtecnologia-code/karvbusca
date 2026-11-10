@@ -84,7 +84,7 @@ export default async function ConfiguracoesPage() {
         </div>
 
         <div className="space-y-3">
-          <Titulo id="regiao" sub="Estados onde o robô procura (lotes de outros estados são ignorados) e a sua cidade, para a distância e o frete.">
+          <Titulo id="regiao" sub="O robô coleta todos os estados. Os marcados aqui são os preferidos: recebem alerta no Telegram, entram no modo descoberta e aparecem por padrão na aba Lotes. A cidade é usada na distância e no frete.">
             Estados e origem
           </Titulo>
           <SecaoEstados ufs={cfg?.ufs ?? ["SP", "MG"]} />

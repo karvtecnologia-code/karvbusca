@@ -1,11 +1,17 @@
 import { UFS_ALVO } from "@karv/core";
 
-/** Estados monitorados nesta execução (config.ufs no banco; padrão SP e MG). */
+/**
+ * Estados "preferidos" (config.ufs; padrão SP e MG).
+ * A COLETA traz todos os estados (o painel filtra); os preferidos valem para os alertas
+ * do Telegram, para o modo descoberta e para a visão padrão do painel.
+ */
 let ufs: string[] = [...UFS_ALVO];
 
 export function definirUfs(lista: string[] | null | undefined) {
   if (lista?.length) ufs = lista.map((u) => u.toUpperCase());
 }
 export const ufsAtivas = () => ufs;
-/** UF desconhecida passa (o detalhe completa); UF conhecida tem que estar na lista. */
-export const ufOk = (uf?: string | null) => !uf || ufs.includes(uf);
+/** Coleta: aceita qualquer estado. */
+export const ufOk = (_uf?: string | null) => true;
+/** Alerta/descoberta: só estados preferidos (UF desconhecida passa; o detalhe completa). */
+export const ufPreferida = (uf?: string | null) => !uf || ufs.includes(uf);

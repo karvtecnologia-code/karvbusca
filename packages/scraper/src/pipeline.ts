@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import type { Browser } from "playwright";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { casarTermos, classificarMonta, normalizar, type LoteColetado, type TermoBusca } from "@karv/core";
-import { ufOk } from "./ufs";
+import { ufOk, ufPreferida } from "./ufs";
 import { novoContexto, pausa, type Adapter } from "./base";
 import { classificar, mereceAlertaNovo } from "./classificar";
 import type { SiteRow } from "./db";
@@ -67,7 +67,7 @@ async function achar(
       (l) =>
         !jaPorTermo.has(l.idExterno) &&
         !descartados.has(l.idExterno) &&
-        ufOk(l.uf) &&
+        ufPreferida(l.uf) &&
         l.status !== "estoque" &&
         (l.lanceAtual ?? 0) > 0 &&
         (l.anoMod ?? l.anoFab ?? 0) >= o.anoMin &&
@@ -213,6 +213,8 @@ export async function rodarSite(opts: {
       if (!casados.length && !ehDescoberta) continue;
 
       const linha = { ...classificar(l), chave_veiculo: chaveVeiculo(l) };
+      // coleta todos os estados, mas o Telegram só avisa dos preferidos (Configurações)
+      const alertavel = ufPreferida(linha.uf);
       // descoberta só interessa se, com o detalhe, continuar apto a rodar
       if (ehDescoberta && !casados.length && !linha.apto_rodar) continue;
       const prev = anteriores.get(l.idExterno);
@@ -260,7 +262,7 @@ export async function rodarSite(opts: {
             descoberta: ehDescoberta && !casados.length,
             relistado_de: anterior?.id ?? null,
             lance_anterior_relist: anterior?.lance_atual ?? null,
-            alerta_pendente: mereceAlertaNovo(linha) ? (anterior ? "relistado" : "novo") : null,
+            alerta_pendente: alertavel && mereceAlertaNovo(linha) ? (anterior ? "relistado" : "novo") : null,
           })
           .select("id")
           .single();
@@ -279,9 +281,9 @@ export async function rodarSite(opts: {
         const extra =
           lanceMudou && favoritos.has(l.idExterno)
             ? { alerta_pendente: "lance", lance_anterior: prev.lance_atual }
-            : segundaPraca && linha.apto_rodar
+            : segundaPraca && linha.apto_rodar && alertavel
               ? { alerta_pendente: "segunda_praca", lance_inicial_anterior: prev.lance_inicial }
-              : mereceAlertaNovo(linha) && !favoritos.has(l.idExterno)
+              : alertavel && mereceAlertaNovo(linha) && !favoritos.has(l.idExterno)
                 ? { alerta_pendente: "novo" }
                 : {};
         const { error } = await db

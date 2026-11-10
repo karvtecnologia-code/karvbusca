@@ -19,17 +19,19 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
     .from("lotes_painel")
     .select(CAMPOS_CARD)
     .is("decisao", null) // só os ainda não decididos: favoritos vão para /favoritos, descartados somem
-    .in("uf", ufs)
     .or(`fim_em.is.null,fim_em.gte.${new Date(Date.now() - 3600_000).toISOString()}`) // só abertos
     .limit(400);
 
+  // menus de múltipla escolha: "a,b,c" na URL
+  const lista = (v?: string) => (v ?? "").split(",").filter(Boolean);
+  // UF: sem escolha = estados preferidos (Configurações); "todas" = qualquer estado
+  if (sp.uf !== "todas") q = q.in("uf", sp.uf ? lista(sp.uf) : ufs);
   if (sp.apto !== "0") q = q.eq("apto_rodar", true);
-  if (sp.site) q = q.eq("site_slug", sp.site);
-  if (sp.termo) q = q.contains("termos", [sp.termo]);
-  if (sp.uf) q = q.eq("uf", sp.uf);
-  if (sp.roda) q = q.eq("roda", sp.roda);
-  if (sp.chave) q = q.eq("chave", sp.chave);
-  if (sp.tipo) q = q.eq("tipo", sp.tipo);
+  if (sp.site) q = q.in("site_slug", lista(sp.site));
+  if (sp.termo) q = q.overlaps("termos", lista(sp.termo));
+  if (sp.roda) q = q.in("roda", lista(sp.roda));
+  if (sp.chave) q = q.in("chave", lista(sp.chave));
+  if (sp.tipo) q = q.in("tipo", lista(sp.tipo));
   if (sp.monta) q = q.in("condicao_monta", sp.monta.split(","));
   if (sp.ano) q = q.gte("ano_mod", Number(sp.ano));
   if (sp.km) q = q.lte("km", Number(sp.km));

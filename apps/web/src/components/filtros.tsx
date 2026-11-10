@@ -2,11 +2,8 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
-
-interface Opcao {
-  valor: string;
-  rotulo: string;
-}
+import { UFS_BR } from "@/lib/lotes";
+import { MultiSel, type Opcao } from "./multi-sel";
 
 const MONTAS: Opcao[] = [
   { valor: "sem_monta", rotulo: "Sem monta" },
@@ -41,6 +38,7 @@ export function Filtros({
     start(() => router.replace(`${path}?${p}`, { scroll: false }));
   };
   const val = (k: string) => sp.get(k) ?? "";
+  const lista = (k: string) => (sp.get(k) ?? "").split(",").filter(Boolean);
   const montas = (sp.get("monta") ?? "").split(",").filter(Boolean);
   const alternarMonta = (m: string) => {
     const nova = montas.includes(m) ? montas.filter((x) => x !== m) : [...montas, m];
@@ -78,44 +76,47 @@ export function Filtros({
       </label>
 
       <div className="grid grid-cols-2 gap-2">
-        <Sel rotulo="Site" valor={val("site")} onChange={(v) => set("site", v)} opcoes={sites} classe={campo} />
-        <Sel rotulo="Termo" valor={val("termo")} onChange={(v) => set("termo", v)} opcoes={termos} classe={campo} />
-        <Sel
+        <MultiSel rotulo="Site" opcoes={sites} selecionados={lista("site")} onChange={(v) => set("site", v.join(","))} classe={campo} />
+        <MultiSel rotulo="Termo" opcoes={termos} selecionados={lista("termo")} onChange={(v) => set("termo", v.join(","))} classe={campo} />
+        <MultiSel
           rotulo="UF"
-          valor={val("uf")}
-          onChange={(v) => set("uf", v)}
-          opcoes={ufs.map((u) => ({ valor: u, rotulo: u }))}
+          colunas={3}
+          opcoes={UFS_BR.map((u) => ({ valor: u, rotulo: u }))}
+          // sem escolha na URL = estados preferidos (Configurações); "Todos" = todos os estados
+          selecionados={val("uf") === "todas" ? [] : val("uf") ? lista("uf") : ufs}
+          onChange={(v) => set("uf", v.length ? v.join(",") : "todas")}
           classe={campo}
         />
-        <Sel
+        <MultiSel
           rotulo="Motor"
-          valor={val("roda")}
-          onChange={(v) => set("roda", v)}
           opcoes={[
             { valor: "sim", rotulo: "Funciona" },
             { valor: "nao_informado", rotulo: "Não informado" },
             { valor: "nao", rotulo: "Não funciona" },
           ]}
+          selecionados={lista("roda")}
+          onChange={(v) => set("roda", v.join(","))}
           classe={campo}
         />
-        <Sel
+        <MultiSel
           rotulo="Chave"
-          valor={val("chave")}
-          onChange={(v) => set("chave", v)}
           opcoes={[
             { valor: "sim", rotulo: "Com chave" },
             { valor: "nao", rotulo: "Sem chave" },
+            { valor: "nao_informado", rotulo: "Não informado" },
           ]}
+          selecionados={lista("chave")}
+          onChange={(v) => set("chave", v.join(","))}
           classe={campo}
         />
-        <Sel
+        <MultiSel
           rotulo="Tipo"
-          valor={val("tipo")}
-          onChange={(v) => set("tipo", v)}
           opcoes={[
             { valor: "carro", rotulo: "Carros" },
             { valor: "moto", rotulo: "Motos" },
           ]}
+          selecionados={lista("tipo")}
+          onChange={(v) => set("tipo", v.join(","))}
           classe={campo}
         />
       </div>

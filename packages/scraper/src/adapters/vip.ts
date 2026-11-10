@@ -94,7 +94,7 @@ export const vip: Adapter = {
       const chave = normalizar(texto);
       if (jaBuscado.has(chave)) continue;
       jaBuscado.add(chave);
-      for (const uf of ufsAtivas()) {
+      for (const uf of [""]) { // "" = todos os estados (o painel filtra)
         for (let pagina = 1; pagina <= MAX_PAGINAS; pagina++) {
           const html = await page.evaluate(
             async ({ texto, uf, pagina }) => {
