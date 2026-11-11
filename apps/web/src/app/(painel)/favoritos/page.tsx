@@ -18,6 +18,7 @@ export default async function FavoritosPage({ searchParams }: { searchParams: Pr
   }
   if (sp.ordem === "lance") q = q.order("lance_atual", { ascending: true, nullsFirst: false });
   else q = q.order("fim_em", { ascending: sp.ordem !== "fim_desc", nullsFirst: false });
+  q = q.limit(300);
 
   const [{ data }, { data: cfg }, { data: sites }] = await Promise.all([
     q,
@@ -79,12 +80,12 @@ export default async function FavoritosPage({ searchParams }: { searchParams: Pr
       )}
       <ul>{abertos.map(card)}</ul>
       {encerrados.length > 0 && (
-        <details className="group">
-          <summary className="cursor-pointer text-sm text-muted select-none hover:text-fg">
-            Encerrados ({encerrados.length})
-          </summary>
-          <ul className="mt-3 opacity-70">{encerrados.map(card)}</ul>
-        </details>
+        <div>
+          <h2 className="text-sm font-medium text-muted">
+            🏁 Encerrados ({encerrados.length}) · <span className="font-normal">por quanto foram (último lance visto)</span>
+          </h2>
+          <ul className="mt-3">{encerrados.map(card)}</ul>
+        </div>
       )}
     </section>
   );

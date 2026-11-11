@@ -36,6 +36,7 @@ export function CardLote({
   const v = valoresLote(l, padroes);
   const monta = MONTA[l.condicao_monta] ?? MONTA.nao_informado!;
   const roda = RODA[l.roda] ?? RODA.nao_informado!;
+  const encerrado = !!l.fim_em && new Date(l.fim_em).getTime() <= Date.now();
   const local = [l.cidade, l.uf].filter(Boolean).join("-");
   const linha = [anosFmt(l.ano_fab, l.ano_mod), kmFmt(l.km), local, l.distancia_km != null ? `${l.distancia_km} km de você` : null]
     .filter(Boolean)
@@ -95,7 +96,7 @@ export function CardLote({
               <div className="flex shrink-0 items-start gap-3">
                 <div className="hidden text-right sm:block">
                   <div className="num text-base font-medium">{reais(l.lance_atual)}</div>
-                  <div className="text-[11px] text-faint">lance atual</div>
+                  <div className="text-[11px] text-faint">{encerrado ? "último lance visto" : "lance atual"}</div>
                 </div>
                 {l.nota != null && (
                   <div
@@ -110,6 +111,11 @@ export function CardLote({
             </div>
 
             <div className="flex flex-wrap gap-1">
+              {encerrado && (
+                <Etiqueta tom="bad" title="Leilão encerrado. O valor é o último lance que o robô viu antes do fim.">
+                  🏁 Encerrado · {reais(l.lance_atual)}
+                </Etiqueta>
+              )}
               {l.status === "estoque" && (
                 <Etiqueta tom="warn" title="Estoque da Loop ainda sem leilão marcado: sem data e sem lance">
                   Em breve
@@ -135,7 +141,7 @@ export function CardLote({
 
             <dl className="num mt-auto grid grid-cols-3 gap-2 pt-1 text-xs sm:max-w-md">
               <div className="sm:hidden">
-                <dt className="text-faint">Lance</dt>
+                <dt className="text-faint">{encerrado ? "Último lance" : "Lance"}</dt>
                 <dd className="text-fg">{reais(l.lance_atual)}</dd>
               </div>
               <div>

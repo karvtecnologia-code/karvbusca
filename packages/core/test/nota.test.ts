@@ -31,6 +31,13 @@ describe("nota de oportunidade", () => {
   it("dano estrutural limita a 20", () => {
     expect(notaOportunidade({ ...base, danoEstrutural: true }).nota).toBeLessThanOrEqual(20);
   });
+  it("lance baixo no começo não engana: usa o preço provável de fechamento do modelo", () => {
+    const r = notaOportunidade({ ...base, pctFipe: 0.4, pctProvavel: 0.85 });
+    expect(r.nota).toBeLessThan(notaOportunidade({ ...base, pctFipe: 0.4 }).nota - 25);
+    expect(r.motivos).toContain("deve fechar ~85%");
+    // se o modelo costuma fechar mais barato que o lance atual, vale o lance atual
+    expect(notaOportunidade({ ...base, pctProvavel: 0.5 }).nota).toBe(notaOportunidade(base).nota);
+  });
   it("sem FIPE fica neutro, sem quebrar", () => {
     const r = notaOportunidade({ ...base, pctFipe: null, distanciaKm: null, km: null });
     expect(r.nota).toBeGreaterThan(40);

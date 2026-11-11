@@ -4,6 +4,12 @@
  */
 export interface EntradaNota {
   pctFipe: number | null; // custo real ÷ FIPE (0,62 = 62%)
+  /**
+   * Quanto este modelo costuma FECHAR em relação à FIPE (mediana dos encerrados, já com o
+   * acréscimo de taxas do lote). Um lance baixo no começo do leilão engana: a nota usa o
+   * maior entre o custo de agora e o custo provável no fechamento.
+   */
+  pctProvavel?: number | null;
   monta: string;
   roda: string;
   circulacao: string;
@@ -39,9 +45,15 @@ export function notaOportunidade(e: EntradaNota): { nota: number; motivos: strin
 
   // preço: 45 pontos, linear entre 95% (0) e 50% (45) da FIPE
   if (e.pctFipe != null && e.pctFipe > 0) {
-    n += Math.max(0, Math.min(1, (0.95 - e.pctFipe) / 0.45)) * 45;
+    const provavel = e.pctProvavel != null && e.pctProvavel > e.pctFipe ? e.pctProvavel : null;
+    const pct = provavel ?? e.pctFipe;
+    n += Math.max(0, Math.min(1, (0.95 - pct) / 0.45)) * 45;
     motivos.push(`${Math.round(e.pctFipe * 100)}% FIPE`);
-  } else n += 15; // sem FIPE: neutro
+    if (provavel) motivos.push(`deve fechar ~${Math.round(provavel * 100)}%`);
+  } else {
+    n += 15; // sem FIPE: neutro
+    motivos.push("sem FIPE");
+  }
 
   const [pm, mm] = MONTA[e.monta] ?? [0, null];
   n += pm;
