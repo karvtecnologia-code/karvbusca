@@ -80,7 +80,8 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
 
   return (
     <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
-      <div className="space-y-4 lg:sticky lg:top-20 lg:self-start">
+      {/* filtros: no PC ficam presos na tela com rolagem própria; no celular, numa gaveta */}
+      <div className="space-y-4 lg:sticky lg:top-20 lg:-mr-2 lg:max-h-[calc(100dvh-6rem)] lg:self-start lg:overflow-y-auto lg:overscroll-contain lg:pr-2 lg:pb-4">
         <h1 className="enter text-xl font-semibold tracking-tight">Lotes</h1>
         <Suspense>
           <Filtros

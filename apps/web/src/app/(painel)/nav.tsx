@@ -14,7 +14,7 @@ const LINKS = [
 export function Nav() {
   const path = usePathname();
   return (
-    <nav className="-mx-1 flex gap-1 overflow-x-auto">
+    <nav className="-mx-1 flex gap-1 overflow-x-auto [scrollbar-width:none]">
       {LINKS.map((l) => {
         const ativo = l.href === "/" ? path === "/" : path.startsWith(l.href);
         return (

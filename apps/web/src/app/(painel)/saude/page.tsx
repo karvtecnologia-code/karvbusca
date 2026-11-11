@@ -102,7 +102,7 @@ export default async function SaudePage() {
               </div>
 
               {ultima && (
-                <dl className="mt-4 grid grid-cols-4 gap-2 border-t border-line pt-3">
+                <dl className="mt-4 grid grid-cols-2 gap-2 border-t sm:grid-cols-4 border-line pt-3">
                   {[
                     ["Encontrados", ultima.encontrados],
                     ["Novos", ultima.novos],
