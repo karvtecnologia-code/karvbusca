@@ -1,6 +1,6 @@
 import { CardLote } from "@/components/card-lote";
 import { GraficoLances } from "@/components/grafico-lances";
-import { valoresLote, type Config, type LotePainel } from "@/lib/lotes";
+import { chaveArremate, valoresLote, type Config, type LotePainel } from "@/lib/lotes";
 import { supabaseServer } from "@/lib/supabase/server";
 import { Suspense } from "react";
 import { FiltrosFav } from "./filtros-fav";
@@ -20,11 +20,13 @@ export default async function FavoritosPage({ searchParams }: { searchParams: Pr
   else q = q.order("fim_em", { ascending: sp.ordem !== "fim_desc", nullsFirst: false });
   q = q.limit(300);
 
-  const [{ data }, { data: cfg }, { data: sites }] = await Promise.all([
+  const [{ data }, { data: cfg }, { data: sites }, { data: arremates }] = await Promise.all([
     q,
-    supabase.from("config").select("custo_doc_padrao, custo_patio_padrao, frete_padrao, chat_id_telegram, origem").single(),
+    supabase.from("config").select("custo_doc_padrao, custo_patio_padrao, frete_padrao, frete_por_km, chat_id_telegram, origem, nota_alerta_quente").single(),
     supabase.from("sites").select("slug, nome").order("id"),
+    supabase.from("arremates_modelo").select("modelo_base, pct_fipe_mediana"),
   ]);
+  const pctArremate = new Map((arremates ?? []).map((a) => [a.modelo_base as string, Number(a.pct_fipe_mediana)]));
   const lotes = (data ?? []) as LotePainel[];
   const padroes = cfg as Config;
   if (sp.ordem === "fipe") {
@@ -53,7 +55,7 @@ export default async function FavoritosPage({ searchParams }: { searchParams: Pr
     const pontos = porLote.get(l.id) ?? [];
     const v = valoresLote(l, padroes);
     return (
-      <CardLote key={l.id} lote={l} padroes={padroes} indice={i} modo="favoritos">
+      <CardLote key={l.id} notaQuente={cfg?.nota_alerta_quente ?? 75} lote={l} padroes={padroes} indice={i} modo="favoritos" pctArremate={pctArremate.get(chaveArremate(l)) ?? null}>
         <div className={`grid gap-3 ${pontos.length > 1 ? "sm:grid-cols-[1fr_280px] sm:items-end" : ""}`}>
           {pontos.length > 1 && <GraficoLances pontos={pontos} fipe={v.fipe} compacto />}
           <NotaFavorito loteId={l.id} nota={l.nota_pessoal} />

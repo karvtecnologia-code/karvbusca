@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useState, useTransition } from "react";
-import type { PadroesCusto } from "@karv/core";
+import { notaOportunidade, type PadroesCusto } from "@karv/core";
 import { decidir } from "@/app/(painel)/lotes-actions";
-import { anosFmt, corNota, kmFmt, MONTA, quando, reais, RODA, valoresLote, type LotePainel } from "@/lib/lotes";
+import { anosFmt, kmFmt, MONTA, quando, reais, RODA, valoresLote, type LotePainel } from "@/lib/lotes";
 import { Contagem } from "./contagem";
 import { Etiqueta } from "./etiqueta";
+import { NotaDetalhe } from "./nota-detalhe";
 
 export function CardLote({
   lote: l,
@@ -36,6 +37,22 @@ export function CardLote({
   const v = valoresLote(l, padroes);
   const monta = MONTA[l.condicao_monta] ?? MONTA.nao_informado!;
   const roda = RODA[l.roda] ?? RODA.nao_informado!;
+  // nota ao vivo: recalculada com o lance que está na tela (o banco guarda a da última busca, para ordenar e alertar)
+  const fipeV = v.fipe;
+  const provavel = pctArremate != null && fipeV ? valoresLote({ ...l, lance_atual: pctArremate * fipeV }, padroes).pct : null;
+  const nota = notaOportunidade({
+    pctFipe: l.lance_atual ? v.pct : null,
+    pctProvavel: provavel,
+    monta: l.condicao_monta,
+    roda: l.roda,
+    circulacao: l.circulacao,
+    procedencia: l.procedencia,
+    chave: l.chave,
+    danoEstrutural: l.dano_estrutural,
+    km: l.km,
+    anoMod: l.ano_mod,
+    distanciaKm: l.distancia_km,
+  });
   const encerrado = !!l.fim_em && new Date(l.fim_em).getTime() <= Date.now();
   const local = [l.cidade, l.uf].filter(Boolean).join("-");
   const linha = [anosFmt(l.ano_fab, l.ano_mod), kmFmt(l.km), local, l.distancia_km != null ? `${l.distancia_km} km de você` : null]
@@ -98,15 +115,7 @@ export function CardLote({
                   <div className="num text-base font-medium">{reais(l.lance_atual)}</div>
                   <div className="text-[11px] text-faint">{encerrado ? "último lance visto" : "lance atual"}</div>
                 </div>
-                {l.nota != null && (
-                  <div
-                    title={`Nota de oportunidade: ${l.nota_motivos.join(" · ") || "—"}`}
-                    className={`num grid size-11 shrink-0 place-items-center rounded-lg border text-center leading-none ${corNota(l.nota)}`}
-                  >
-                    <span className="text-base font-semibold">{l.nota}</span>
-                    <span className="text-[9px] opacity-70">{l.nota >= notaQuente ? "🔥 nota" : "nota"}</span>
-                  </div>
-                )}
+                <NotaDetalhe nota={nota.nota} itens={nota.itens} teto={nota.teto} quente={nota.nota >= notaQuente} />
               </div>
             </div>
 
