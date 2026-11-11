@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { ItemNota } from "@karv/core";
 import { corNota } from "@/lib/lotes";
 
@@ -17,9 +18,10 @@ export function NotaDetalhe({
   quente: boolean;
 }) {
   // posição fixa na tela: o card corta o que passa da borda (overflow), então a tabela flutua por cima de tudo
-  const [pos, setPos] = useState<{ top: number; left: number; maxH: number } | null>(null);
+  const [pos, setPos] = useState<{ top: number; left: number; maxH: number; cima: boolean } | null>(null);
   const [fixo, setFixo] = useState(false);
   const botao = useRef<HTMLButtonElement>(null);
+  const tip = useRef<HTMLDivElement>(null);
   const abrir = () => {
     const r = botao.current?.getBoundingClientRect();
     if (!r) return;
@@ -28,8 +30,8 @@ export function NotaDetalhe({
     const abaixo = window.innerHeight - r.bottom - 12;
     const acima = r.top - 12;
     // abre para baixo; se não couber e houver mais espaço em cima, abre para cima
-    if (abaixo >= 380 || abaixo >= acima) setPos({ top: r.bottom + 6, left, maxH: abaixo });
-    else setPos({ top: Math.max(8, r.top - 6 - Math.min(460, acima)), left, maxH: Math.min(460, acima) });
+    if (abaixo >= 380 || abaixo >= acima) setPos({ top: r.bottom + 6, left, maxH: abaixo, cima: false });
+    else setPos({ top: Math.max(8, r.top - 6 - Math.min(460, acima)), left, maxH: Math.min(460, acima), cima: true });
   };
   const fechar = () => {
     setPos(null);
@@ -37,18 +39,23 @@ export function NotaDetalhe({
   };
   useEffect(() => {
     if (!pos) return;
-    const f = () => fechar();
+    // fecha ao rolar a página ou tocar fora (rolar dentro da própria tabela não fecha)
+    const dentro = (e: Event) => tip.current?.contains(e.target as Node) || botao.current?.contains(e.target as Node);
+    const f = (e: Event) => !dentro(e) && fechar();
     window.addEventListener("scroll", f, true);
     window.addEventListener("resize", f);
+    window.addEventListener("pointerdown", f);
     return () => {
       window.removeEventListener("scroll", f, true);
       window.removeEventListener("resize", f);
+      window.removeEventListener("pointerdown", f);
     };
   }, [pos]);
   const aberto = pos != null;
   const soma = itens.reduce((s, i) => s + i.pontos, 0);
   return (
-    <div className="relative" onMouseEnter={() => !fixo && abrir()} onMouseLeave={() => !fixo && fechar()}>
+    // o card tem animação (transform), que prenderia um position:fixed dentro dele: a tabela vai direto no <body>
+    <div className="relative" onMouseEnter={(e) => !fixo && e.nativeEvent instanceof MouseEvent && matchMedia("(hover: hover)").matches && abrir()} onMouseLeave={() => !fixo && fechar()}>
       <button
         type="button"
         ref={botao}
@@ -58,17 +65,18 @@ export function NotaDetalhe({
           setFixo(true); // no celular (toque) fica aberta até tocar de novo ou rolar
         }}
         aria-expanded={aberto}
-        className={`num grid size-11 shrink-0 place-items-center rounded-lg border text-center leading-none ${corNota(nota)}`}
+        className={`press num grid size-11 shrink-0 place-items-center rounded-lg border text-center leading-none ${corNota(nota)}`}
       >
         <span className="text-base font-semibold">{nota}</span>
         <span className="text-[9px] opacity-70">{quente ? "🔥 nota" : "nota"}</span>
       </button>
+      {aberto &&
+        createPortal(
       <div
+        ref={tip}
         role="tooltip"
         style={pos ? { top: pos.top, left: pos.left, maxHeight: pos.maxH } : undefined}
-        className={`fixed z-50 w-[min(20rem,calc(100vw-1rem))] overflow-y-auto overscroll-contain rounded-lg border border-line-strong bg-raised p-3 text-left text-xs shadow-xl ${
-          aberto ? "block" : "hidden"
-        }`}
+        className={`fixed z-50 w-[min(20rem,calc(100vw-1rem))] overflow-y-auto overscroll-contain rounded-lg border border-line-strong bg-raised p-3 text-left text-xs shadow-xl nota-pop ${pos?.cima ? "origin-bottom-right" : "origin-top-right"}`}
       >
         <p className="mb-2 font-medium text-fg">Nota de oportunidade</p>
         <table className="num w-full">
@@ -105,7 +113,9 @@ export function NotaDetalhe({
           <p className="mt-2 text-[#e0938f]">Dano estrutural: nota limitada a {teto} (soma seria {Math.round(soma)}).</p>
         )}
         <p className="mt-2 text-[10px] text-faint">Recalculada com o lance atual: muda conforme o preço sobe.</p>
-      </div>
+      </div>,
+          document.body,
+        )}
     </div>
   );
 }

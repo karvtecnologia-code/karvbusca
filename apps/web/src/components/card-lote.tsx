@@ -187,7 +187,7 @@ export function CardLote({
                 <button
                   onClick={() => marcar("gostei")}
                   aria-pressed={decisao === "gostei"}
-                  className={`press rounded-md px-2 py-1 text-xs ${
+                  className={`press inline-flex h-9 items-center rounded-md px-2.5 text-xs sm:h-7 sm:px-2 ${
                     decisao === "gostei" ? "bg-amber/15 text-amber" : "text-muted hover:bg-raised hover:text-fg"
                   }`}
                 >
@@ -195,7 +195,7 @@ export function CardLote({
                 </button>
                 <button
                   onClick={() => marcar("descartado")}
-                  className="press rounded-md px-2 py-1 text-xs text-muted hover:bg-bad/15 hover:text-[#e0938f]"
+                  className="press inline-flex h-9 items-center rounded-md px-2.5 text-xs sm:h-7 sm:px-2 text-muted hover:bg-bad/15 hover:text-[#e0938f]"
                 >
                   Descartar
                 </button>
@@ -205,8 +205,8 @@ export function CardLote({
                   rel="noreferrer"
                   className={
                     modo === "favoritos"
-                      ? "press rounded-md bg-fg px-3 py-1 text-xs font-medium text-bg hover:bg-white"
-                      : "press rounded-md px-2 py-1 text-xs text-muted hover:bg-raised hover:text-fg"
+                      ? "press inline-flex h-9 items-center rounded-md bg-fg px-3 text-xs sm:h-7 font-medium text-bg hover:bg-white"
+                      : "press inline-flex h-9 items-center rounded-md px-2.5 text-xs sm:h-7 sm:px-2 text-muted hover:bg-raised hover:text-fg"
                   }
                 >
                   {modo === "favoritos" ? "Ver no site ↗" : "Site ↗"}

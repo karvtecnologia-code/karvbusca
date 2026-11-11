@@ -230,7 +230,7 @@ export function Filtros({
         <div
           role="dialog"
           aria-label="Filtros"
-          className={`absolute inset-x-0 bottom-0 max-h-[85dvh] overflow-y-auto rounded-t-xl border-t border-line bg-surface p-4 pb-8 transition-transform duration-[250ms] ease-[var(--ease-out)] ${
+          className={`absolute inset-x-0 bottom-0 max-h-[85dvh] overflow-y-auto rounded-t-xl border-t border-line bg-surface p-4 pb-[calc(2rem+env(safe-area-inset-bottom))] transition-transform duration-[250ms] ease-[var(--ease-out)] ${
             aberto ? "translate-y-0" : "translate-y-full"
           }`}
         >

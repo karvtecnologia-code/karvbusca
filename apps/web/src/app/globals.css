@@ -75,3 +75,36 @@ body {
     transform: none;
   }
 }
+
+/* tabela da nota: sai do gatilho, rápido (popover pequeno: 140ms) */
+.nota-pop {
+  animation: nota-pop 140ms var(--ease-out) both;
+}
+@keyframes nota-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+/* celular: campos com 16px para o iPhone não dar zoom ao tocar; sem flash azul ao tocar */
+@media (max-width: 639px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+html {
+  -webkit-tap-highlight-color: transparent;
+  text-size-adjust: 100%;
+}
+/* espaço da barra de abas do celular + área do gesto do iPhone */
+.pb-abas {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+}
+@media (min-width: 640px) {
+  .pb-abas {
+    padding-bottom: 2rem;
+  }
+}
