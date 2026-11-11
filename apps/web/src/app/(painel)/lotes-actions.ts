@@ -63,3 +63,18 @@ export async function corrigirFipe(loteId: string, form: FormData): Promise<{ er
   revalidatePath(`/lote/${loteId}`);
   return { ok: `${r.modelo} · ${r.ano}` };
 }
+
+/** Mesma decisão para vários lotes de uma vez (seleção múltipla). */
+export async function decidirVarios(loteIds: string[], decisao: "gostei" | "descartado" | null) {
+  if (!loteIds.length) return;
+  const supabase = await supabaseServer();
+  const { data } = await supabase.from("lotes").select("site_id, id_externo").in("id", loteIds.slice(0, 500));
+  const chaves = data ?? [];
+  if (decisao) {
+    const agora = new Date().toISOString();
+    await supabase.from("decisoes").upsert(chaves.map((c) => ({ ...c, decisao, decidido_em: agora })));
+  } else {
+    for (const c of chaves) await supabase.from("decisoes").delete().match(c);
+  }
+  revalidatePath("/", "layout");
+}

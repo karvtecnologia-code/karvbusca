@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { MarcarVisita } from "@/components/marcar-visita";
 import { CardLote } from "@/components/card-lote";
+import { Selecao } from "@/components/selecao";
 import { Filtros } from "@/components/filtros";
 import { CAMPOS_CARD, chaveArremate, valoresLote, type Config, type LotePainel } from "@/lib/lotes";
 import { supabaseServer } from "@/lib/supabase/server";
@@ -105,6 +106,7 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
             </p>
           </div>
         )}
+        <Selecao ids={lotes.map((l) => l.id)} modo="lotes">
         <ul>
           {lotes.map((l, i) => (
             <CardLote
@@ -118,6 +120,7 @@ export default async function LotesPage({ searchParams }: { searchParams: Promis
             />
           ))}
         </ul>
+        </Selecao>
         <MarcarVisita />
       </section>
     </div>

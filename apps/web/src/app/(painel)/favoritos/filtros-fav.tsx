@@ -24,20 +24,21 @@ export function FiltrosFav({ sites, total }: { sites: { valor: string; rotulo: s
   }, [busca]);
 
   const campo =
-    "press h-9 rounded-md border border-line bg-surface px-2.5 text-sm outline-none hover:border-line-strong focus:border-amber/70";
+    "press h-10 rounded-md border border-line bg-surface sm:h-9 px-2.5 text-sm outline-none hover:border-line-strong focus:border-amber/70";
   const chip = (on: boolean) =>
-    `press h-9 rounded-md border px-3 text-sm ${on ? "border-amber/50 bg-amber/12 text-amber" : "border-line text-muted hover:text-fg"}`;
+    `press h-10 justify-self-start rounded-md border px-3 sm:h-9 text-sm ${on ? "border-amber/50 bg-amber/12 text-amber" : "border-line text-muted hover:text-fg"}`;
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    // celular: busca na linha toda, site e ordem lado a lado, depois 24h e o total; PC: tudo numa linha
+    <div className="grid grid-cols-2 items-center gap-2 sm:flex sm:flex-wrap">
       <input
         type="search"
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
         placeholder="Buscar nos favoritos…"
-        className={`${campo} w-full sm:w-56`}
+        className={`${campo} col-span-2 w-full sm:w-56`}
       />
-      <select aria-label="Site" value={sp.get("site") ?? ""} onChange={(e) => set("site", e.target.value)} className={campo}>
+      <select aria-label="Site" value={sp.get("site") ?? ""} onChange={(e) => set("site", e.target.value)} className={`${campo} w-full min-w-0 sm:w-auto`}>
         <option value="">Todos os sites</option>
         {sites.map((s) => (
           <option key={s.valor} value={s.valor}>
@@ -45,7 +46,7 @@ export function FiltrosFav({ sites, total }: { sites: { valor: string; rotulo: s
           </option>
         ))}
       </select>
-      <select aria-label="Ordenar" value={sp.get("ordem") ?? "fim"} onChange={(e) => set("ordem", e.target.value === "fim" ? null : e.target.value)} className={campo}>
+      <select aria-label="Ordenar" value={sp.get("ordem") ?? "fim"} onChange={(e) => set("ordem", e.target.value === "fim" ? null : e.target.value)} className={`${campo} w-full min-w-0 sm:w-auto`}>
         <option value="fim">Encerra antes ↑</option>
         <option value="fim_desc">Encerra depois ↓</option>
         <option value="fipe">Menor % FIPE</option>
@@ -54,7 +55,7 @@ export function FiltrosFav({ sites, total }: { sites: { valor: string; rotulo: s
       <button onClick={() => set("h24", sp.get("h24") ? null : "1")} className={chip(!!sp.get("h24"))}>
         Encerra em 24h
       </button>
-      <span className={`num ml-auto text-sm text-muted transition-opacity ${pendente ? "opacity-50" : ""}`}>
+      <span className={`num justify-self-end text-sm sm:ml-auto text-muted transition-opacity ${pendente ? "opacity-50" : ""}`}>
         <span className="text-fg">{total}</span> favoritos
       </span>
     </div>

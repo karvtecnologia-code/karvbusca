@@ -1,4 +1,5 @@
 import { CardLote } from "@/components/card-lote";
+import { Selecao } from "@/components/selecao";
 import { GraficoLances } from "@/components/grafico-lances";
 import { chaveArremate, valoresLote, type Config, type LotePainel } from "@/lib/lotes";
 import { supabaseServer } from "@/lib/supabase/server";
@@ -65,7 +66,7 @@ export default async function FavoritosPage({ searchParams }: { searchParams: Pr
   };
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-5 sm:space-y-6">
       <header className="enter space-y-1">
         <h1 className="text-xl font-semibold tracking-tight">Favoritos</h1>
         <p className="text-sm text-muted">
@@ -80,6 +81,7 @@ export default async function FavoritosPage({ searchParams }: { searchParams: Pr
           Nenhum favorito aberto. Toque em 👍 Gostei num lote ou no Telegram.
         </p>
       )}
+      <Selecao ids={lotes.map((l) => l.id)} modo="favoritos">
       <ul>{abertos.map(card)}</ul>
       {encerrados.length > 0 && (
         <div>
@@ -89,6 +91,7 @@ export default async function FavoritosPage({ searchParams }: { searchParams: Pr
           <ul className="mt-3">{encerrados.map(card)}</ul>
         </div>
       )}
+      </Selecao>
     </section>
   );
 }

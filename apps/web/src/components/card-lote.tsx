@@ -8,6 +8,7 @@ import { anosFmt, kmFmt, MONTA, quando, reais, RODA, valoresLote, type LotePaine
 import { Contagem } from "./contagem";
 import { Etiqueta } from "./etiqueta";
 import { NotaDetalhe } from "./nota-detalhe";
+import { useSelecao } from "./selecao";
 
 export function CardLote({
   lote: l,
@@ -34,6 +35,9 @@ export function CardLote({
   const [decisao, setDecisao] = useState(l.decisao);
   const [saindo, setSaindo] = useState(false);
   const [, start] = useTransition();
+  const selecao = useSelecao();
+  const selecionando = !!selecao?.ativo;
+  const marcado = !!selecao?.marcado(l.id);
   const v = valoresLote(l, padroes);
   const monta = MONTA[l.condicao_monta] ?? MONTA.nao_informado!;
   const roda = RODA[l.roda] ?? RODA.nao_informado!;
@@ -76,7 +80,29 @@ export function CardLote({
       style={{ animationDelay: `${Math.min(indice, 10) * 25}ms` }}
     >
       <div className="min-h-0 overflow-hidden">
-        <div className="group mb-3 rounded-lg border border-line bg-surface transition-colors duration-150 hover:border-line-strong">
+        <div
+          className={`group relative mb-3 rounded-lg border bg-surface transition-colors duration-150 ${
+            marcado ? "border-amber/70 bg-amber/[0.04]" : "border-line hover:border-line-strong"
+          }`}
+        >
+        {/* no modo seleção, o card inteiro vira o alvo do toque */}
+        {selecionando && (
+          <button
+            type="button"
+            onClick={() => selecao!.alternar(l.id)}
+            aria-pressed={marcado}
+            aria-label={`Selecionar ${l.titulo}`}
+            className="absolute inset-0 z-10 cursor-pointer rounded-lg"
+          >
+            <span
+              className={`absolute top-2 right-2 grid size-6 place-items-center rounded-md border text-sm ${
+                marcado ? "border-amber bg-amber text-bg" : "border-line-strong bg-bg/80 text-transparent"
+              }`}
+            >
+              ✓
+            </span>
+          </button>
+        )}
         <article className="flex gap-3 p-2.5 sm:gap-4 sm:p-3">
           <Link href={`/lote/${l.id}`} className="relative block w-28 shrink-0 overflow-hidden rounded-md bg-raised sm:w-44">
             {l.fotos[0] ? (
