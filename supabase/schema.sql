@@ -463,7 +463,7 @@ alter table config
   add column if not exists descoberta_ano_min smallint not null default 2012,
   add column if not exists raio_max_km integer,                                      -- filtro padrão (null = sem limite)
   add column if not exists nota_alerta_quente smallint not null default 75,           -- 🔥 a partir desta nota
-  add column if not exists ia_auto_max_dia smallint not null default 5;               -- análises automáticas/dia
+  add column if not exists ia_auto_max_dia smallint not null default 0;               -- análises automáticas/dia (0 = só quando você clica)
 
 -- preço provável de arremate: último lance visto de lotes encerrados, em relação à FIPE
 create or replace view arremates_modelo with (security_invoker = true) as

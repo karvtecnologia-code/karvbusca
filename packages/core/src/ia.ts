@@ -66,8 +66,9 @@ export async function completarIA(cfg: ConfigIA, mensagens: MensagemIA[], json: 
       const j = JSON.parse(corpo);
       return { texto: String(j.choices?.[0]?.message?.content ?? ""), modelo: m };
     }
-    // 503 (sobrecarga) e 429 (limite por minuto) são passageiros: tenta de novo
-    if (status !== 503 && status !== 429) break;
+    // só 503 (servidor sobrecarregado) é passageiro e não gasta cota: tenta de novo / modelo reserva.
+    // 429 = cota do plano grátis acabou: repetir só desperdiça; para na hora.
+    if (status !== 503) break;
   }
   if (status === 503) throw new ErroIA("A IA está sobrecarregada agora (plano grátis). Tente de novo em 1 minuto.", 503);
   if (status === 429) throw new ErroIA("Limite gratuito da IA atingido. Tente de novo mais tarde.", 429);

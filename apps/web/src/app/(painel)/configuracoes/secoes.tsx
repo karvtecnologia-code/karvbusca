@@ -277,7 +277,7 @@ export function SecaoOportunidades(p: {
         <Campo nome="pct" rotulo="Descoberta: lance até (% FIPE)" valor={Math.round(p.pct * 100)} dica="ex.: 65 = até 65% da FIPE" />
         <Campo nome="ano" rotulo="Descoberta: ano mínimo" valor={p.ano} dica="mais novos que isso" />
         <Campo nome="quente" rotulo="Nota para 🔥" valor={p.quente} dica="alerta destacado e IA automática" />
-        <Campo nome="ia" rotulo="IA automática por dia" valor={p.ia} dica="plano grátis: deixe 5 ou menos" />
+        <Campo nome="ia" rotulo="IA automática por dia" valor={p.ia} dica="0 = só quando você clica (recomendado no plano grátis)" />
         <Campo nome="porkm" rotulo="Frete (R$ por km)" valor={p.porKm ?? ""} dica="vazio = frete padrão" />
       </div>
       <div className="flex items-center justify-end gap-3">
