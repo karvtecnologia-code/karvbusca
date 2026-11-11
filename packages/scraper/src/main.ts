@@ -13,6 +13,7 @@ import { atualizarFipe, FipeCache } from "./fipe";
 import { atualizarDistancias } from "./geo";
 import { iaAutomatica } from "./ia-auto";
 import { recalcularNotas } from "./notas";
+import { limparAntigos } from "./limpeza";
 import { definirUfs, ufsAtivas } from "./ufs";
 import { carregarSites, carregarTermos, supabaseAdmin } from "./db";
 import { rodarSite, type Modo, type Resultado } from "./pipeline";
@@ -79,6 +80,7 @@ if (args.seco !== "true") {
   await atualizarDistancias(db).catch(avisa("geo"));
   await recalcularNotas(db).catch(avisa("nota"));
   if (modo === "completo") await iaAutomatica(db).catch(avisa("ia"));
+  if (modo === "completo") await limparAntigos(db).catch(avisa("limpeza"));
   // resumo da manhã: na busca das 07:00 (antes das 10h de Brasília), uma vez por dia
   const horaBR = Number(new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo", hour: "numeric", hour12: false }));
   if (modo === "completo" && horaBR < 10) {

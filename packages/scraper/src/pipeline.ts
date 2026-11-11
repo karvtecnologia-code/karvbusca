@@ -109,26 +109,11 @@ export interface Resultado {
 }
 
 
-async function copiarFotos(db: SupabaseClient, l: LoteColetado): Promise<string[]> {
-  const out: string[] = [];
-  for (const [i, url] of l.fotos.slice(0, MAX_FOTOS).entries()) {
-    try {
-      const r = await fetch(url, { headers: { referer: new URL(l.url).origin + "/" } });
-      if (!r.ok) throw new Error(String(r.status));
-      const tipo = r.headers.get("content-type") ?? "image/jpeg";
-      const ext = tipo.includes("png") ? "png" : tipo.includes("webp") ? "webp" : "jpg";
-      const caminho = `${l.site}/${l.idExterno}/${i}.${ext}`;
-      const { error } = await db.storage
-        .from("fotos")
-        .upload(caminho, Buffer.from(await r.arrayBuffer()), { contentType: tipo, upsert: true });
-      if (error) throw error;
-      out.push(db.storage.from("fotos").getPublicUrl(caminho).data.publicUrl);
-    } catch {
-      out.push(url); // mantém o link original se a cópia falhar
-    }
-  }
-  return out;
-}
+/**
+ * Fotos: guardamos só os ENDEREÇOS no site do leilão (texto), nunca a imagem.
+ * Copiar para o Storage estourava o limite grátis (1 GB) em poucos dias.
+ */
+const fotosDoSite = (l: LoteColetado) => l.fotos.slice(0, MAX_FOTOS);
 
 export async function rodarSite(opts: {
   browser: Browser;
@@ -239,7 +224,7 @@ export async function rodarSite(opts: {
         (prev.fim_em && linha.fim_em ? new Date(prev.fim_em).getTime() !== new Date(linha.fim_em).getTime() : prev.fim_em !== linha.fim_em);
 
       if (!prev) {
-        const fotos = await copiarFotos(db, l);
+        const fotos = fotosDoSite(l);
         // relistado: o mesmo carro (marca, modelo, ano e km) já esteve num leilão encerrado
         const anterior = linha.chave_veiculo
           ? (
@@ -288,7 +273,8 @@ export async function rodarSite(opts: {
                 : {};
         const { error } = await db
           .from("lotes")
-          .update({ ...linha, ...extra, visto_ultimo_em: agora })
+          // endereços das fotos sempre atualizados (o site pode trocar); vazio = mantém os que já existem
+          .update({ ...linha, ...extra, ...(l.fotos.length ? { fotos: fotosDoSite(l) } : {}), visto_ultimo_em: agora })
           .eq("id", prev.id);
         if (error) throw error;
         loteId = prev.id;
