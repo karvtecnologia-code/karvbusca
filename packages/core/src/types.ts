@@ -60,5 +60,7 @@ export interface TermoBusca {
   anoMin: number | null;
   anoMax: number | null;
   lanceMax: number | null;
+  /** filtros extras (cor, procedência, km, FIPE…) */
+  filtros?: import("./filtros").FiltrosBusca | null;
   ativo: boolean;
 }

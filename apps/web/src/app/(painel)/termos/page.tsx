@@ -5,7 +5,7 @@ export default async function TermosPage() {
   const supabase = await supabaseServer();
   const { data, error } = await supabase
     .from("termos_busca")
-    .select("id, termo, apelidos, tipo, ano_min, ano_max, lance_max, ativo")
+    .select("id, termo, apelidos, tipo, ano_min, ano_max, lance_max, filtros, ativo")
     .order("termo");
 
   return (

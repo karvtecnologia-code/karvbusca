@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { normalizar } from "@karv/core";
+import { lerFiltros } from "@/lib/filtros";
 import { supabaseServer } from "@/lib/supabase/server";
 
 function numero(v: FormDataEntryValue | null): number | null {
@@ -28,7 +29,7 @@ export async function salvarTermo(_prev: Resultado, form: FormData): Promise<Res
   const ano_max = numero(form.get("ano_max"));
   if (ano_min && ano_max && ano_min > ano_max) return { erro: "Ano mínimo maior que o máximo." };
 
-  const linha = { termo, apelidos, tipo, ano_min, ano_max, lance_max: numero(form.get("lance_max")) };
+  const linha = { termo, apelidos, tipo, ano_min, ano_max, lance_max: numero(form.get("lance_max")), filtros: lerFiltros(form.get("filtros")) };
   const supabase = await supabaseServer();
   const { error } = id
     ? await supabase.from("termos_busca").update(linha).eq("id", id)

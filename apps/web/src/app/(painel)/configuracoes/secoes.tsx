@@ -1,5 +1,7 @@
 "use client";
 
+import { MaisFiltros } from "@/components/mais-filtros";
+import type { FiltrosBusca } from "@karv/core";
 import { useActionState, useState, useTransition } from "react";
 import {
   removerCredencial,
@@ -253,6 +255,7 @@ export function SecaoOportunidades(p: {
   quente: number;
   ia: number;
   porKm: number | null;
+  filtros: FiltrosBusca | null;
 }) {
   const [r, acao, pendente] = useActionState(salvarOportunidades, null);
   const Campo = ({ nome, rotulo, valor, dica }: { nome: string; rotulo: string; valor: string | number; dica: string }) => (
@@ -280,6 +283,8 @@ export function SecaoOportunidades(p: {
         <Campo nome="ia" rotulo="IA automática por dia" valor={p.ia} dica="0 = só quando você clica (recomendado no plano grátis)" />
         <Campo nome="porkm" rotulo="Frete (R$ por km)" valor={p.porKm ?? ""} dica="vazio = frete padrão" />
       </div>
+      {/* filtros extras só da descoberta: ano máx., FIPE, cor, procedência… */}
+      <MaisFiltros name="descoberta_filtros" inicial={p.filtros} />
       <div className="flex items-center justify-end gap-3">
         <Status r={r} pendente={pendente} />
         <button disabled={pendente} className={botao}>

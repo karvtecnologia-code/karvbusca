@@ -25,7 +25,7 @@ export default async function ConfiguracoesPage() {
       supabase
         .from("config")
         .select(
-          "custo_doc_padrao, custo_patio_padrao, frete_padrao, frete_por_km, ia_base_url, ia_modelo, ia_secret_id, descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min, nota_alerta_quente, ia_auto_max_dia, ufs, origem, codigo_vinculo, telegram_secret_id",
+          "custo_doc_padrao, custo_patio_padrao, frete_padrao, frete_por_km, ia_base_url, ia_modelo, ia_secret_id, descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min, descoberta_filtros, nota_alerta_quente, ia_auto_max_dia, ufs, origem, codigo_vinculo, telegram_secret_id",
         )
         .single(),
       supabase.from("sites").select("id, slug, nome, comissao_pct, taxa_adm, ativo").order("id"),
@@ -106,6 +106,7 @@ export default async function ConfiguracoesPage() {
             descoberta={cfg?.descoberta_ativa ?? true}
             pct={Number(cfg?.descoberta_pct_fipe ?? 0.65)}
             ano={cfg?.descoberta_ano_min ?? 2012}
+            filtros={cfg?.descoberta_filtros ?? null}
             quente={cfg?.nota_alerta_quente ?? 75}
             ia={cfg?.ia_auto_max_dia ?? 5}
             porKm={cfg?.frete_por_km ?? null}

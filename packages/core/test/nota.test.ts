@@ -44,3 +44,22 @@ describe("nota de oportunidade", () => {
     expect(r.nota).toBeLessThan(80);
   });
 });
+
+import { extrairCor, passaFiltros } from "../src";
+describe("filtros de busca", () => {
+  it("acha a cor no texto", () => {
+    expect(extrairCor("FIAT TORO", "Cor: Branca, flex")).toBe("branco");
+    expect(extrairCor("Onix LT prata 2020")).toBe("prata");
+    expect(extrairCor("Onix LT 2020")).toBeNull();
+  });
+  it("barra o que está fora e deixa passar o que não foi informado", () => {
+    const f = { anoMin: 2018, lanceMax: 40000, cores: ["branco", "prata"], procedencias: ["financiamento"], fipeMax: 90000 };
+    expect(passaFiltros({ ano: 2020, lance: 30000, cor: "prata", procedencia: "financiamento", fipe: 80000 }, f)).toBe(true);
+    expect(passaFiltros({ ano: 2016, lance: 30000, procedencia: "financiamento" }, f)).toBe(false);
+    expect(passaFiltros({ ano: 2020, lance: 30000, cor: "preto", procedencia: "financiamento" }, f)).toBe(false);
+    expect(passaFiltros({ ano: 2020, lance: 30000, procedencia: "judicial" }, f)).toBe(false);
+    expect(passaFiltros({ ano: 2020, lance: 30000, procedencia: "financiamento", fipe: 120000 }, f)).toBe(false);
+    // sem cor e sem FIPE informadas: passa
+    expect(passaFiltros({ ano: 2020, lance: 30000, procedencia: "financiamento" }, f)).toBe(true);
+  });
+});

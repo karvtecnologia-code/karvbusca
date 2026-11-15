@@ -1,5 +1,7 @@
 import { normalizar } from "./normalize";
 import type { LoteColetado, TermoBusca } from "./types";
+import { dadosDoColetado, extrairCor, passaFiltros } from "./filtros";
+import { classificarMonta, classificarProcedencia } from "./classify";
 
 function escapeRe(s: string) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -41,6 +43,16 @@ export function casarTermos(lote: LoteColetado, termos: TermoBusca[]): TermoBusc
     if (ano != null && t.anoMin != null && ano < t.anoMin) return false;
     if (ano != null && t.anoMax != null && ano > t.anoMax) return false;
     if (lote.lanceAtual != null && t.lanceMax != null && lote.lanceAtual > t.lanceMax) return false;
+    if (t.filtros && !passaFiltros(dadosFiltroLote(lote), t.filtros)) return false;
     return true;
+  });
+}
+
+/** Dados do lote coletado usados pelos filtros extras (cor, procedência e monta vêm do texto). */
+export function dadosFiltroLote(l: LoteColetado) {
+  return dadosDoColetado(l, {
+    cor: extrairCor(l.titulo, l.descricao, l.observacoes),
+    procedencia: classificarProcedencia(l.procedenciaTexto, l.condicaoTexto),
+    monta: classificarMonta(l.condicaoTexto, l.titulo, l.observacoes),
   });
 }

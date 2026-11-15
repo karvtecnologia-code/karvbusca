@@ -39,7 +39,7 @@ const db = supabaseAdmin();
 const [termos, sites, { data: cfg }] = await Promise.all([
   carregarTermos(db),
   carregarSites(db),
-  db.from("config").select("descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min, ufs").single(),
+  db.from("config").select("descoberta_ativa, descoberta_pct_fipe, descoberta_ano_min, descoberta_filtros, ufs").single(),
 ]);
 definirUfs(cfg?.ufs);
 console.log(`modo=${modo} ufs=${ufsAtivas().join(",")} termos=${termos.map((t) => t.termo).join(",")}`);
@@ -54,6 +54,7 @@ const descoberta =
         anoMin: Number(cfg.descoberta_ano_min),
         maxPorSite: 10,
         maxAvaliados: 40,
+        filtros: cfg.descoberta_filtros ?? null,
       }
     : null;
 

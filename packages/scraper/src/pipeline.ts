@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import type { Browser } from "playwright";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { casarTermos, classificarMonta, normalizar, type LoteColetado, type TermoBusca } from "@karv/core";
+import { casarTermos, dadosFiltroLote, passaFiltros, type FiltrosBusca, classificarMonta, normalizar, type LoteColetado, type TermoBusca } from "@karv/core";
 import { ufAlerta, ufOk, ufPreferida } from "./ufs";
 import { novoContexto, pausa, type Adapter } from "./base";
 import { classificar, mereceAlertaNovo } from "./classificar";
@@ -28,6 +28,7 @@ export interface OpcoesDescoberta {
   anoMin: number;
   maxPorSite: number; // quantos achados viram candidatos por site/execução
   maxAvaliados: number; // quantos passam pela checagem de FIPE por site/execução
+  filtros?: FiltrosBusca | null; // filtros extras (Configurações → Oportunidades)
 }
 
 /** Identifica o mesmo carro em leilões diferentes (relistado). Sem km não dá para afirmar. */
@@ -72,7 +73,8 @@ async function achar(
         (l.lanceAtual ?? 0) > 0 &&
         (l.anoMod ?? l.anoFab ?? 0) >= o.anoMin &&
         casarTermos(l, termos).length === 0 &&
-        !["sucata", "grande"].includes(classificarMonta(l.condicaoTexto, l.titulo, l.observacoes)),
+        !["sucata", "grande"].includes(classificarMonta(l.condicaoTexto, l.titulo, l.observacoes)) &&
+        passaFiltros(dadosFiltroLote(l), o.filtros), // sem FIPE ainda: os filtros de FIPE ficam para depois
     )
     .sort((a, b) => (b.anoMod ?? b.anoFab ?? 0) - (a.anoMod ?? a.anoFab ?? 0)); // mais novos primeiro
 
@@ -89,6 +91,7 @@ async function achar(
       l.fipeSite ??
       (await o.fipe.buscar({ tipo: l.tipo, marca: l.marca, modelo: l.modelo, versao: l.versao, titulo: l.titulo, anoMod: l.anoMod ?? l.anoFab, combustivel: l.combustivel }))?.valor;
     if (!fipe) continue;
+    if (!passaFiltros({ ...dadosFiltroLote(l), fipe }, o.filtros)) continue;
     const pct = (l.lanceAtual ?? 0) / fipe;
     if (pct <= o.pctMax) achados.push({ l, pct });
   }

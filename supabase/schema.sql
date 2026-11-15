@@ -574,3 +574,29 @@ grant execute on function telegram_salvar_token(text) to authenticated;
 grant execute on function telegram_token() to service_role;
 grant execute on function telegram_salvar_webhook_secret(text) to service_role;
 grant execute on function telegram_webhook_secret() to service_role;
+
+-- ---------------------------------------------------------------- filtros de busca
+-- Filtros extras por termo e no modo descoberta (ano, lance, km, FIPE, cor, procedência, monta…)
+alter table lotes add column if not exists cor text;
+alter table termos_busca add column if not exists filtros jsonb not null default '{}';
+alter table config add column if not exists descoberta_filtros jsonb not null default '{}';
+create index if not exists lotes_cor_idx on lotes (cor);
+
+-- a view precisa ser recriada para enxergar a coluna nova "cor"
+drop view if exists lotes_painel;
+create view lotes_painel with (security_invoker = true) as
+select
+  l.*,
+  s.slug as site_slug,
+  s.nome as site_nome,
+  s.comissao_pct,
+  s.taxa_adm,
+  d.decisao,
+  d.nota as nota_pessoal,
+  d.decidido_em,
+  coalesce((select array_agg(lt.termo_id) from lote_termos lt where lt.lote_id = l.id), '{}') as termos
+from lotes l
+join sites s on s.id = l.site_id
+left join decisoes d on d.site_id = l.site_id and d.id_externo = l.id_externo;
+
+grant select on lotes_painel to authenticated;

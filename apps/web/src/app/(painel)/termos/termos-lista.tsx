@@ -1,6 +1,8 @@
 "use client";
 
 import { useActionState, useEffect, useOptimistic, useRef, useState, useTransition } from "react";
+import { contarFiltros, type FiltrosBusca } from "@karv/core";
+import { MaisFiltros } from "@/components/mais-filtros";
 import { alternarTermo, removerTermo, salvarTermo } from "./actions";
 
 export interface TermoRow {
@@ -11,6 +13,7 @@ export interface TermoRow {
   ano_min: number | null;
   ano_max: number | null;
   lance_max: number | null;
+  filtros: FiltrosBusca | null;
   ativo: boolean;
 }
 
@@ -49,6 +52,7 @@ function Linha({ termo: t, onEditar }: { termo: TermoRow; onEditar: () => void }
     t.tipo,
     t.ano_min || t.ano_max ? `${t.ano_min ?? "…"}–${t.ano_max ?? "…"}` : null,
     t.lance_max ? `até ${brl.format(t.lance_max)}` : null,
+    contarFiltros(t.filtros) ? `+${contarFiltros(t.filtros)} filtro${contarFiltros(t.filtros) > 1 ? "s" : ""}` : null,
   ].filter(Boolean);
 
   return (
@@ -108,11 +112,15 @@ function Linha({ termo: t, onEditar }: { termo: TermoRow; onEditar: () => void }
 function FormTermo({ termo, onFim }: { termo?: TermoRow; onFim?: () => void }) {
   const [estado, acao, pendente] = useActionState(salvarTermo, null);
   const ref = useRef<HTMLFormElement>(null);
+  const [rodada, setRodada] = useState(0); // zera os "mais filtros" depois de adicionar
 
   useEffect(() => {
     if (estado?.ok) {
       if (termo) onFim?.();
-      else ref.current?.reset();
+      else {
+        ref.current?.reset();
+        setRodada((n) => n + 1);
+      }
     }
   }, [estado, termo, onFim]);
 
@@ -123,7 +131,7 @@ function FormTermo({ termo, onFim }: { termo?: TermoRow; onFim?: () => void }) {
     <form
       ref={ref}
       action={acao}
-      className={`grid gap-2 sm:grid-cols-[1.2fr_1.5fr_0.8fr_0.7fr_0.7fr_1fr_auto] ${
+      className={`grid grid-cols-2 gap-2 sm:grid-cols-[1.2fr_1.5fr_0.8fr_0.7fr_0.7fr_1fr_auto] [&>input[name=termo]]:col-span-2 [&>input[name=apelidos]]:col-span-2 sm:[&>input]:col-span-1 ${
         termo ? "" : "rounded-lg border border-line bg-surface p-3"
       }`}
     >
@@ -151,6 +159,7 @@ function FormTermo({ termo, onFim }: { termo?: TermoRow; onFim?: () => void }) {
           {pendente ? "Salvando…" : termo ? "Salvar" : "Adicionar"}
         </button>
       </div>
+      <MaisFiltros key={termo?.id ?? rodada} inicial={termo?.filtros} semAno />
       {estado?.erro && <p className="enter text-sm text-bad sm:col-span-full">{estado.erro}</p>}
     </form>
   );

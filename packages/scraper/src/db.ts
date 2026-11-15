@@ -13,7 +13,7 @@ export function supabaseAdmin(): SupabaseClient {
 export async function carregarTermos(db: SupabaseClient): Promise<TermoBusca[]> {
   const { data, error } = await db
     .from("termos_busca")
-    .select("id, termo, apelidos, tipo, ano_min, ano_max, lance_max, ativo")
+    .select("id, termo, apelidos, tipo, ano_min, ano_max, lance_max, filtros, ativo")
     .eq("ativo", true);
   if (error) throw error;
   return (data ?? []).map((t) => ({
@@ -24,6 +24,7 @@ export async function carregarTermos(db: SupabaseClient): Promise<TermoBusca[]> 
     anoMin: t.ano_min,
     anoMax: t.ano_max,
     lanceMax: t.lance_max,
+    filtros: t.filtros ?? null,
     ativo: t.ativo,
   }));
 }

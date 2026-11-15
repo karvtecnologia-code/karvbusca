@@ -1,5 +1,6 @@
 "use server";
 
+import { lerFiltros } from "@/lib/filtros";
 import { revalidatePath } from "next/cache";
 import { supabaseServer } from "@/lib/supabase/server";
 
@@ -38,6 +39,7 @@ export async function salvarOportunidades(_: unknown, form: FormData): Promise<R
       descoberta_ativa: form.get("descoberta") === "on",
       descoberta_pct_fipe: pct / 100,
       descoberta_ano_min: ano ?? 2012,
+      descoberta_filtros: lerFiltros(form.get("descoberta_filtros")),
       nota_alerta_quente: quente ?? 75,
       ia_auto_max_dia: ia,
       frete_por_km: n(form.get("porkm")),

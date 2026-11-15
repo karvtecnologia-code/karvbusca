@@ -5,6 +5,7 @@ import {
   classificarProcedencia,
   classificarRoda,
   danosEstruturais,
+  extrairCor,
   type LoteColetado,
 } from "@karv/core";
 
@@ -44,6 +45,7 @@ export function classificar(l: LoteColetado) {
     observacoes: l.observacoes ?? null,
     apto_rodar: aptoRodar({ monta, roda, circulacao, danoEstrutural: danos.length > 0 }),
     combustivel: l.combustivel ?? null,
+    cor: extrairCor(l.titulo, l.descricao, l.observacoes),
     lance_atual: l.lanceAtual ?? null,
     lance_inicial: l.lanceInicial ?? null,
     avaliacao: l.avaliacao ?? null,
