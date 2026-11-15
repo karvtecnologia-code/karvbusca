@@ -12,6 +12,8 @@ import { Galeria } from "./galeria";
 import { LoteIA } from "./lote-ia";
 import type { AnaliseIA } from "@/lib/ia";
 
+export const maxDuration = 90; // análise da IA: modelo principal + reserva
+
 export default async function LotePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const supabase = await supabaseServer();

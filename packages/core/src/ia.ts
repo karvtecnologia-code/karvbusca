@@ -44,30 +44,36 @@ const RESERVA: Record<string, string> = {
 
 export async function completarIA(cfg: ConfigIA, mensagens: MensagemIA[], json: boolean) {
   const base = cfg.base.replace(/\/?$/, "/");
-  const tentativas = [cfg.modelo, cfg.modelo, RESERVA[cfg.modelo]].filter(Boolean) as string[];
+  // modelo escolhido e depois o reserva (mais leve). Cada tentativa tem prazo curto: quando o Google
+  // está sobrecarregado ele às vezes nem responde, e esperar 90s parecia que a IA tinha travado.
+  const tentativas = [...new Set([cfg.modelo, RESERVA[cfg.modelo]].filter(Boolean) as string[])];
   let status = 0;
   let corpo = "";
   for (const [i, m] of tentativas.entries()) {
-    if (i > 0) await new Promise((r) => setTimeout(r, 2000 * i));
-    const r = await fetch(`${base}chat/completions`, {
-      method: "POST",
-      headers: { "content-type": "application/json", authorization: `Bearer ${cfg.chave}` },
-      body: JSON.stringify({
-        model: m,
-        messages: mensagens,
-        temperature: 0.3,
-        ...(json ? { response_format: { type: "json_object" } } : {}),
-      }),
-      signal: AbortSignal.timeout(90_000),
-    });
-    corpo = await r.text();
-    status = r.status;
-    if (r.ok) {
-      const j = JSON.parse(corpo);
-      return { texto: String(j.choices?.[0]?.message?.content ?? ""), modelo: m };
+    const ultima = i === tentativas.length - 1;
+    try {
+      const r = await fetch(`${base}chat/completions`, {
+        method: "POST",
+        headers: { "content-type": "application/json", authorization: `Bearer ${cfg.chave}` },
+        body: JSON.stringify({
+          model: m,
+          messages: mensagens,
+          temperature: 0.3,
+          ...(json ? { response_format: { type: "json_object" } } : {}),
+        }),
+        signal: AbortSignal.timeout(ultima ? 50_000 : 25_000),
+      });
+      corpo = await r.text();
+      status = r.status;
+      if (r.ok) {
+        const j = JSON.parse(corpo);
+        return { texto: String(j.choices?.[0]?.message?.content ?? ""), modelo: m };
+      }
+    } catch {
+      status = 503; // sem resposta no prazo = sobrecarregado
+      corpo = "sem resposta no prazo";
     }
-    // só 503 (servidor sobrecarregado) é passageiro e não gasta cota: tenta de novo / modelo reserva.
-    // 429 = cota do plano grátis acabou: repetir só desperdiça; para na hora.
+    // só 503 (sobrecarga) passa para o reserva; 429 = cota acabou: repetir só desperdiça
     if (status !== 503) break;
   }
   if (status === 503) throw new ErroIA("A IA está sobrecarregada agora (plano grátis). Tente de novo em 1 minuto.", 503);
